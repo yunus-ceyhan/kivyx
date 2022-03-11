@@ -9,8 +9,9 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='kivyx',
     packages=find_packages(
-            include=["kivyx", "data","editor","kivyx.*"]
+            include=["kivyx","kivyx.*"]
         ),
+    include_package_data=True,
     version='0.0.1',
     description='A UI library for personal projects',
     long_description=long_description,
