@@ -1,2 +1,2 @@
 # kivyx
-It's for personal projects. Issues and PR's wiil be ignored.
+It's for personal projects. Issues and PR are gonna be ignored.
