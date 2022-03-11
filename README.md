@@ -1,2 +1,2 @@
 # kivyx
-It's a UI library for personal project.
+It's for personal projects. Issues and PR's wiil be ignored.
