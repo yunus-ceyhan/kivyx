@@ -11,9 +11,17 @@ setup(
     packages=find_packages(
             include=["kivyx","kivyx.*"]
         ),
+    package_data={
+        'kivyx': [
+            'data/*.png',
+            'data/*.jpg',
+            'data/*.ttf',
+            'editor/*.py',
+        ]
+    },
     include_package_data=True,
     version='0.0.1',
-    description='A UI library for personal projects',
+    description='An UI library for personal projects',
     long_description=long_description,
     long_description_content_type='text/markdown',
     author='Yunus Ceyhan',
