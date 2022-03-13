@@ -67,3 +67,5 @@ register("XProgress", module="kivyx.progress")
 
 register("XRcBoxList", module="kivyx.rclist")
 register("XRcGridList", module="kivyx.rclist")
+
+register("XChip", module="kivyx.chip")
