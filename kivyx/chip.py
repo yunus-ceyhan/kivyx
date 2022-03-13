@@ -25,9 +25,9 @@ Builder.load_string("""
 <XChip>:
     size_hint: None, None
     height: dp(32)
-    padding: [dp(16),0,dp(16),0] if not root.right_icon and not root.left_icon else [dp(8),0,dp(16),0]\
-        if not root.right_icon else [dp(16),0,dp(8),0]\
-        if not root.left_icon else [dp(8),0,dp(8), 0]
+    padding: [dp(16),0,dp(16),0] if not root.right_icon and not root.left_icon else [dp(4),0,dp(16),0]\
+        if not root.right_icon else [dp(16),0,dp(4),0]\
+        if not root.left_icon else [dp(4),0,dp(4), 0]
     width: max(dp(24) + ic.width + icr.width + lb.texture_size[0], dp(32))
     #spacing: dp(8) if root.icon else 0
     bg_color: self.bg_color if root.type == "filled" else [0,0,0,0]
@@ -42,23 +42,24 @@ Builder.load_string("""
     XIcon:
         id: ic
         icon: root.left_icon
-        font_size: "18dp"
+        font_size: "17dp"
         size_hint: None,None
         size: dp(32) if root.left_icon else 0, dp(32)
-        color: root.text_color
+        color: root.icon_color
     XLabel:
         id: lb
         text: root.text
         aligned: False
         pos_hint: {"center_y":.5}
         color: root.text_color
+        font_size: "13sp"
     XIcon:
         id: icr
         icon: root.right_icon
-        font_size: "18dp"
+        font_size: "17dp"
         size_hint: None,None
         size: dp(32) if root.right_icon else 0, dp(32)
-        color: root.text_color
+        color: root.icon_color
 """)
 
 
@@ -68,7 +69,9 @@ class XChip(Theming, XBoxLayout):
     right_icon = StringProperty()
     text = StringProperty()
     text_color = ColorProperty()
+    icon_color = ColorProperty()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text_color = self.txt_color
+        self.icon_color = self.txt_color
