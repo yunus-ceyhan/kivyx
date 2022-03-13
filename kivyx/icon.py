@@ -4,9 +4,10 @@ from kivy.properties import StringProperty, ColorProperty
 
 Builder.load_string("""
 #:import x_icons kivyx.icon_def.x_icons
+#:import os os
 <XIcon>:
     text: x_icons[root.icon] if root.icon and root.icon in x_icons.keys() else ""
-    font_name: "./kivyx/data/icon.ttf"
+    font_name: "./kivyx/data/icon.ttf" if os.path.isfile("./kivyx/data/icon.ttf") else "./data/icon.ttf"
     font_size: "24dp"
     size_hint: None, None
     size: self.font_size , self.font_size
