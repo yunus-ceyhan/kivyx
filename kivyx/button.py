@@ -61,7 +61,7 @@ Builder.load_string("""
     XLabel:
         id: lb
         aligned: True if root.button_width > self.texture_size[0] else False
-        halign: "left"
+        halign: root.halign
         text: root.text
         bold: root.bold
         color: root.text_color
@@ -191,6 +191,7 @@ class XFlatButton(RectangularBehavior, XBoxLayout):
     bold = BooleanProperty(False)
     text_color = ColorProperty()
     button_width = NumericProperty(0)
+    halign = StringProperty("left")
     font_size = NumericProperty("16sp")
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

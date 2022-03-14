@@ -24,7 +24,10 @@ from kivyx.screen import XScreen
 from kivy.properties import StringProperty,ColorProperty
 from kivy.clock import Clock
 from kivy.core.window import Window
-
+from kivyx.card import XCard
+from kivyx.label import XLabel
+from kivyx.line import XLiney
+from kivy.uix.widget import Widget
 
 
 Builder.load_string("""
@@ -34,17 +37,25 @@ Builder.load_string("""
 
 <MainApp>:
     bg_color: root.bgr_color
-    XChip:
-        right_icon: "check"
-        left_icon: "android"
-        text: "hello"
-        pos_hint: {"center_x":.5,"center_y":.5}
-        type: "outlined"
-        bg_color: root.red_color
-        #text_color: root.opposite_color
+    XSegmentControl:
+        pos_hint: {"center_x": .5, "center_y":.5}
+        item_width:  dp(120)
+        radius: [dp(16),]
+        XSegmentItem:
+            text: "Global"
+        XSegmentItem:
+            text: "China"
+        XSegmentItem:
+            text: "Downloads"
+        XSegmentItem:
+            text: "Global"
+        XSegmentItem:
+            text: "China"
+        XSegmentItem:
+            text: "Downloads"
+
 
 """)
-
 
 
 class MainApp(Theming,XScreen):

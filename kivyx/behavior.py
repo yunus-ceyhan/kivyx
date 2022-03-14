@@ -13,12 +13,12 @@ class CommonRipple(Theming):
 	ripple_rad_default = NumericProperty(1)
 	ripple_post = ListProperty()
 	ripple_color = ListProperty()
-	ripple_alpha = NumericProperty(.2)
+	ripple_alpha = NumericProperty(.1)
 	ripple_scale = NumericProperty(None)
-	ripple_duration_in_fast = NumericProperty(.3)
+	ripple_duration_in_fast = NumericProperty(.1)
 	# FIXME: These speeds should be calculated based on widget size in dp
-	ripple_duration_in_slow = NumericProperty(2)
-	ripple_duration_out = NumericProperty(.3)
+	ripple_duration_in_slow = NumericProperty(1)
+	ripple_duration_out = NumericProperty(.1)
 	ripple_func_in = StringProperty('out_quad')
 	ripple_func_out = StringProperty('out_quad')
 

@@ -69,3 +69,6 @@ register("XRcBoxList", module="kivyx.rclist")
 register("XRcGridList", module="kivyx.rclist")
 
 register("XChip", module="kivyx.chip")
+
+register("XSegmentControl", module="kivyx.segmentcontrol")
+register("XSegmentItem", module="kivyx.segmentcontrol")
