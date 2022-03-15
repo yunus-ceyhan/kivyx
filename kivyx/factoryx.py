@@ -43,8 +43,9 @@ register("XSwitch", module="kivyx.selection")
 register("XTabPanel", module="kivyx.tab")
 register("XTabItem", module="kivyx.tab")
 
-register("XSwitchPanel", module="kivyx.switchtab")
-register("XSwitchItem", module="kivyx.switchtab")
+register("XSegmentTab", module="kivyx.segmenttab")
+register("XSegmentItem", module="kivyx.segmenttab")
+
 
 register("ETabPanel", module="kivyx.editor.etab")
 register("ETabItem", module="kivyx.editor.etab")
@@ -71,4 +72,5 @@ register("XRcGridList", module="kivyx.rclist")
 register("XChip", module="kivyx.chip")
 
 register("XSegmentControl", module="kivyx.segmentcontrol")
-register("XSegmentItem", module="kivyx.segmentcontrol")
+register("XSegmentTextItem", module="kivyx.segmentcontrol")
+register("XSegmentIconItem", module="kivyx.segmentcontrol")
