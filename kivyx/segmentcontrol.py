@@ -21,7 +21,7 @@ from kivyx.floatlayout import XFloatLayout
 from kivyx.boxlayout import XBoxLayout
 from kivy.animation import Animation
 from kivy.metrics import dp
-from kivyx.button import XFlatButton, XIconButton
+from kivyx.button import XFlatButton
 from kivy.clock import Clock
 from kivyx.line import XLiney
 from kivy.uix.widget import Widget

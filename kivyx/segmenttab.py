@@ -25,9 +25,8 @@ from kivy.lang import Builder
 from kivyx.boxlayout import XBoxLayout
 from kivyx.theming import Theming
 from kivyx.screen import XScreen
-from kivy.properties import StringProperty,ColorProperty, OptionProperty, NumericProperty
+from kivy.properties import StringProperty, NumericProperty
 from kivy.clock import Clock
-from kivyx.behavior import RectangularBehavior
 from kivyx.segmentcontrol import XSegmentTextItem
 
 
@@ -95,8 +94,6 @@ class XSegmentTab(Theming,XBoxLayout):
             super(XSegmentTab, self).add_widget(widget)
 
     def update(self,*args):
-        print(self.ids.bx)
-        print(self.ids.bx.children)
         l = len(self.ids.sm.screens) - 1
         screens = []
         for i in self.ids.bx.ids.s.children:
