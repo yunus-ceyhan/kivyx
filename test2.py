@@ -41,18 +41,14 @@ Builder.load_string("""
         pos_hint: {"center_x": .5, "center_y":.5}
         item_width:  dp(120)
         radius: [dp(16),]
-        XSegmentItem:
+        style: "m3"
+        XSegmentTextItem:
             text: "Global"
-        XSegmentItem:
+        XSegmentTextItem:
             text: "China"
-        XSegmentItem:
-            text: "Downloads"
-        XSegmentItem:
-            text: "Global"
-        XSegmentItem:
-            text: "China"
-        XSegmentItem:
-            text: "Downloads"
+        XSegmentIconItem:
+            icon: "apple"
+
 
 
 """)
