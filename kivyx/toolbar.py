@@ -88,6 +88,7 @@ Builder.load_string("""
     padding: [dp(2),dp(8),dp(2),dp(8)]
     XIconButton:
         icon: root.left_icon
+        width: dp(48) if root.left_icon else dp(16)
         on_press: root.dispatch('on_left_icon_press', *args)
         on_release: root.dispatch('on_left_icon_release', *args)
 
@@ -96,7 +97,7 @@ Builder.load_string("""
         bold: False
         font_size: "20sp"
         opacity: .9
-        aligned: False if root.right_icon else True
+        aligned: False if root.right_icon and root.left_icon else True 
         halign: "left"
         shorten: True
         shorten_from: "right"
