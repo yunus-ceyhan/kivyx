@@ -25,6 +25,7 @@ Builder.load_string("""
         top: True
         padding: [dp(8),0,dp(8),0]
         spacing: dp(8)
+        bg_color: root.bar_color
 
 
 
@@ -81,9 +82,11 @@ class XBotnav(Theming,XBoxLayout):
     active_item_color = ColorProperty([0,0,0,0])
     text_color = ColorProperty([0,0,0,0])
     active_text_color = ColorProperty([0,0,0,0])
+    bar_color = ColorProperty([0,0,0,0])
     current_tab = StringProperty()
     def __init__(self, **kwargs):
         super(XBotnav, self).__init__(**kwargs)
+        self.bar_color = self.card_color
         self.register_event_type('on_tab_press')
         self.register_event_type('on_tab_release')
         Clock.schedule_once(self.update)
