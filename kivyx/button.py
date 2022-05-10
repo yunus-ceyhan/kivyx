@@ -36,7 +36,7 @@ from kivyx.behavior import RectangularBehavior, CircularBehavior
 from kivyx.boxlayout import XBoxLayout
 from kivy.properties import StringProperty, BooleanProperty, ColorProperty, NumericProperty, OptionProperty
 from kivyx.theming import Theming
-from kivy.metrics import dp
+from kivy.metrics import dp, sp
 from kivy.clock import Clock
 
 Builder.load_string("""
@@ -113,12 +113,13 @@ Builder.load_string("""
 <XIconButton>:
     size_hint: None, None
     size: dp(48),dp(48)
-    padding: [dp(12),]
+    padding: [(self.size[1]-root.font_size)/2,]
     XIcon:
         icon: root.icon
         aligned: True
         halign: "center"
         valign: "middle"
+        font_size: root.font_size
 
 <XLIconButton>:
     size_hint: None, None
@@ -223,6 +224,7 @@ class XFlatRIconButton(RectangularBehavior, XBoxLayout):
 
 class XIconButton(CircularBehavior, XBoxLayout):
     icon = StringProperty()
+    font_size = NumericProperty(sp(22))
 
 class XLIconButton(RectangularBehavior, XCard):
     text = StringProperty()
