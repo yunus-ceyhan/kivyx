@@ -65,6 +65,8 @@ Builder.load_string("""
         icon_color: root.icon_color
         on_press: root.dispatch('on_press',*args)
         on_release: root.dispatch('on_release',*args)
+        bg_color: root.button_bg_color
+        elevation: root.elevation
 
 <XFabBase>:
     size_hint: None,None
@@ -139,9 +141,12 @@ class XFab(Theming, XBoxLayout):
     icon =  StringProperty()
     text =  StringProperty()
     icon_color = ColorProperty()
+    button_bg_color = ColorProperty()
+    elevation = NumericProperty(0.01)
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.icon_color = self.txt_color
+        self.button_bg_color = self.card_color
         self.register_event_type('on_press')
         self.register_event_type('on_release')
         
