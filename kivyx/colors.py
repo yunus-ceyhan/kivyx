@@ -3,7 +3,7 @@ x_colors = {
         "bg" :   "#F4F4F8",
         "card":  "#FFFFFF",
         "txt" :  "#44484B",
-        "primary": "#00668C",
+        "primary": "#CBE6F8",
         "accent" : "#EFF4F8",
         "opposite": "#EEEEEE"
     },
