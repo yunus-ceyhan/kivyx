@@ -120,6 +120,7 @@ Builder.load_string("""
         halign: "center"
         valign: "middle"
         font_size: root.font_size
+        color: root.icon_color
 
 <XLIconButton>:
     size_hint: None, None
@@ -225,6 +226,10 @@ class XFlatRIconButton(RectangularBehavior, XBoxLayout):
 class XIconButton(CircularBehavior, XBoxLayout):
     icon = StringProperty()
     font_size = NumericProperty(sp(22))
+    icon_color = ColorProperty()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.icon_color = self.txt_color
 
 class XLIconButton(RectangularBehavior, XCard):
     text = StringProperty()
