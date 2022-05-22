@@ -27,7 +27,7 @@
 
 from kivy.lang import Builder
 from kivyx.theming import Theming
-from kivy.properties import  ListProperty, DictProperty, NumericProperty, BooleanProperty, StringProperty
+from kivy.properties import  ColorProperty, ListProperty, DictProperty, NumericProperty, BooleanProperty, StringProperty
 from kivyx.floatlayout import XFloatLayout
 from kivy.animation import Animation
 from kivy.metrics import dp
@@ -51,6 +51,7 @@ Builder.load_string("""
             size_hint_y: None
             height: root.scroll_height
             radius: root.radius
+            bg_color: root.back_color
             ScrollView:
                 id: sc
                 bar_width: 0
@@ -78,9 +79,11 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
     expandable = BooleanProperty(False)
     radius = ListProperty([dp(10),dp(10),0,0])
     status = StringProperty('closed')
+    back_color = ColorProperty()
 
     def __init__(self, **kwargs):
         super(XBottomSheet, self).__init__(**kwargs)
+        self.back_color = self.card_color
 
     def add_widget(self,widget,*args):
         if isinstance(widget, XBottomSheetContent):
