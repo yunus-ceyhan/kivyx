@@ -17,6 +17,7 @@ setup(
             'data/*.jpg',
             'data/*.ttf',
             'editor/*.py',
+            'fonts/*.ttf',
         ]
     },
     include_package_data=True,
