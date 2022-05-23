@@ -4,29 +4,29 @@ from kivyx import fonts_path
 
 fonts = [
     {
-        "name": "Roboto",
+        "name": "regular",
         "fn_regular": fonts_path + "Roboto-Regular.ttf",
         "fn_bold": fonts_path + "Roboto-Bold.ttf",
         "fn_italic": fonts_path + "Roboto-Italic.ttf",
         "fn_bolditalic": fonts_path + "Roboto-BoldItalic.ttf",
     },
     {
-        "name": "RobotoThin",
+        "name": "thin",
         "fn_regular": fonts_path + "Roboto-Thin.ttf",
         "fn_italic": fonts_path + "Roboto-ThinItalic.ttf",
     },
     {
-        "name": "RobotoLight",
+        "name": "light",
         "fn_regular": fonts_path + "Roboto-Light.ttf",
         "fn_italic": fonts_path + "Roboto-LightItalic.ttf",
     },
     {
-        "name": "RobotoMedium",
+        "name": "medium",
         "fn_regular": fonts_path + "Roboto-Medium.ttf",
         "fn_italic": fonts_path + "Roboto-MediumItalic.ttf",
     },
     {
-        "name": "RobotoBlack",
+        "name": "black",
         "fn_regular": fonts_path + "Roboto-Black.ttf",
         "fn_italic": fonts_path + "Roboto-BlackItalic.ttf",
     },
