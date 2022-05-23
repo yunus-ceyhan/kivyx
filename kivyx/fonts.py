@@ -30,10 +30,7 @@ fonts = [
         "fn_regular": fonts_path + "Roboto-Black.ttf",
         "fn_italic": fonts_path + "Roboto-BlackItalic.ttf",
     },
-    {
-        "name": "Icons",
-        "fn_regular": fonts_path + "materialdesignicons-webfont.ttf",
-    },
+
 ]
 
 for font in fonts:
