@@ -42,7 +42,7 @@ from kivy.clock import Clock
 Builder.load_string("""
 <XButton>:
     size_hint: None,None
-    height: dp(42)
+    height: dp(48) if  self.style == "m2" else dp(42)
     width: root.button_width if root.button_width > 0 else max((self.padding[0]*2)+lb.texture_size[0],dp(64))
     padding: [dp(16),0,dp(16),0] if root.style == "m2" else [dp(24),0,dp(24),0]
     radius: [dp(5),] if root.style == "m2" else [dp(20),]
@@ -55,7 +55,7 @@ Builder.load_string("""
 
 <XFlatButton>:
     size_hint: None,None
-    height: dp(42)
+    height: dp(48)
     padding: [dp(16),0,dp(16),0]
     width: root.button_width if root.button_width else max((self.padding[0]*2)+lb.texture_size[0],dp(34))
     XLabel:
@@ -69,9 +69,9 @@ Builder.load_string("""
 
 <XFlatIconButton>:
     size_hint: None, None
-    height: dp(42)
+    height: dp(48)
     width: root.button_width if root.button_width > 0 else max(lb.texture_size[0]+ ic.width + dp(32),dp(64))
-    padding: [dp(10),0,dp(16),0]
+    padding: [dp(12),0,dp(16),0]
     radius: [dp(5),]
     spacing: dp(8)
     XIcon:
@@ -90,7 +90,7 @@ Builder.load_string("""
 
 <XFlatRIconButton>:
     size_hint: None, None
-    height: dp(42) 
+    height: dp(48) 
     width: root.button_width if root.button_width > 0 else max(lb.texture_size[0]+ ic.width + dp(32),dp(64))
     padding: [dp(16),0,dp(16),0]
     radius: [dp(5),]
@@ -124,10 +124,10 @@ Builder.load_string("""
 
 <XLIconButton>:
     size_hint: None, None
-    height: dp(42) 
+    height: dp(48) if self.style == "m2" else dp(42)
     width: root.button_width if root.button_width > 0 else max(lb.texture_size[0]+ ic.width + dp(32),dp(64)) \
         if self.style == "m2" else max(lb.texture_size[0]+ ic.width + dp(50),dp(64))
-    padding: [dp(10),0,dp(16),0] if root.style == "m2" else [dp(20),0,dp(24),0] 
+    padding: [dp(12),0,dp(16),0] if root.style == "m2" else [dp(20),0,dp(24),0] 
     radius: [dp(5),] if root.style == "m2" else [dp(20),]
     spacing: dp(8)
     XIcon:
@@ -147,7 +147,7 @@ Builder.load_string("""
 
 <XRIconButton>:
     size_hint: None, None
-    height: dp(42) 
+    height: dp(48) if self.style == "m2" else dp(42)
     width: root.button_width if root.button_width > 0 else max(lb.texture_size[0]+ ic.width + dp(38),dp(64)) \
         if self.style == "m2" else max(lb.texture_size[0]+ ic.width + dp(52),dp(64))
     padding: [dp(16),0,dp(16),0] if root.style == "m2" else [dp(24),0,dp(22),0] 
