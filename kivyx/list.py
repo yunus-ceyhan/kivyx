@@ -120,6 +120,10 @@ Builder.load_string("""
         on_release: root.dispatch('on_release', *args)
         font_size: root.font_size
         front_name: root.font_name
+        size_hint_y: None
+        height: dp(48)
+        bg_color: [0,0,0,0]
+        elevation: 0
     XIconButton:
         icon: root.right_icon
         aligned: True
