@@ -1,4 +1,3 @@
-
 from kivy.lang import Builder
 from kivy.properties import ColorProperty, StringProperty, NumericProperty
 from kivyx.behavior import RectangularBehavior
@@ -8,13 +7,11 @@ from kivyx.boxlayout import XBoxLayout
 from kivyx.card import XCard
 
 Builder.load_string("""
-
 <XListItem>:
     size_hint_y: None
     height: dp(48)
     padding: [dp(24),0,0,0]
     spacing: dp(12)
-
     XLabel:
         id: lb
         text: root.text
@@ -24,11 +21,10 @@ Builder.load_string("""
         font_size: root.font_size
         front_name: root.font_name
         text_color: root.text_color
-
 <XIconListItem>:
     size_hint_y: None
     height: dp(56)
-    padding: [dp(10),0,0,0]
+    padding: [dp(12),dp(4),dp(16),dp(4)]
     spacing: dp(12)
     bg_color: root.card_color
     XIcon:
@@ -46,6 +42,8 @@ Builder.load_string("""
         font_size: root.font_size
         front_name: root.font_name
         text_color: root.text_color
+        size_hint_y: None
+        height: dp(48)
         
 <XImageListItem>:
     size_hint_y: None
@@ -53,7 +51,6 @@ Builder.load_string("""
     padding: [dp(6),dp(6),dp(6),dp(6)]
     spacing: dp(12)
     bg_color: root.card_color
-
     Image:
         id: li
         source: root.source
@@ -106,13 +103,10 @@ Builder.load_string("""
             text_color: root.text_color
             shorten: True
             
-
-
 <XTwoIconListItem>:
     size_hint_y: None
     height: dp(56)
-    padding: [dp(4),]
-    spacing: dp(12)
+    #padding: [0,0,dp(4),0]
     XIconListItem:
         icon: root.left_icon
         text: root.text
@@ -120,8 +114,6 @@ Builder.load_string("""
         on_release: root.dispatch('on_release', *args)
         font_size: root.font_size
         front_name: root.font_name
-        size_hint_y: None
-        height: dp(48)
         bg_color: [0,0,0,0]
         elevation: 0
     XIconButton:
@@ -131,6 +123,8 @@ Builder.load_string("""
         color: root.icon_color
         on_press: root.dispatch('on_right_icon_press', *args)
         on_release: root.dispatch('on_right_icon_release', *args)
+        size_hint: None, None
+        size: dp(56),dp(56)
         
         
 <XCustomListItem>:
@@ -155,8 +149,6 @@ Builder.load_string("""
         color: root.icon_color
         on_press: root.dispatch('on_right_icon_press', *args)
         on_release: root.dispatch('on_right_icon_release', *args)
-
-
 """)
 
 class XListItem(RectangularBehavior,BoxLayout):
@@ -263,4 +255,3 @@ class XImageTwoLineListItem(RectangularBehavior,XCard):
         super().__init__(**kwargs)
         self.text_color = self.txt_color
         self.icon_color = self.txt_color
-
