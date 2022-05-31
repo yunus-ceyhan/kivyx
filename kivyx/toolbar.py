@@ -22,7 +22,7 @@ Builder.load_string("""
     top: False
     XBoxLayout:
         id: sbx
-        bg_color: root.bgr_color
+        bg_color: root.bar_color
         radius: [dp(7),]
         size_hint_y: None
         height: dp(48)
@@ -148,8 +148,10 @@ class XAppSearchbar(XToolbar):
     right_icon = StringProperty()
     left_icon = StringProperty()
     font_name = StringProperty("Roboto")
+    bar_color = ColorProperty()
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.bar_color = self.bgr_color
         self.register_event_type('on_bar_press')
         self.register_event_type('on_bar_release')
         self.register_event_type('on_left_icon_press')
