@@ -245,7 +245,6 @@ class XLIconButton(RectangularBehavior, XCard):
 
     def set_radius(self,*args):
         self.ripple_radius = self.radius
-        print(self.width)
 
 
 class XRIconButton(RectangularBehavior, XCard):
