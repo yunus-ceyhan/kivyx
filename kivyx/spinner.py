@@ -6,6 +6,9 @@ from kivyx.theming import Theming
 
 Builder.load_string('''
 <XSpinner>:
+	opacity: 1 if root.active else 0
+	pos_hint: {"center_x": .5, "center_y": .5}
+	disabled: False if root.active else True
 	canvas.before:
 		PushMatrix
 		Rotate:
