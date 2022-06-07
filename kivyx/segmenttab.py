@@ -25,9 +25,9 @@ from kivy.lang import Builder
 from kivyx.boxlayout import XBoxLayout
 from kivyx.theming import Theming
 from kivyx.screen import XScreen
-from kivy.properties import StringProperty, NumericProperty
+from kivy.properties import StringProperty, NumericProperty, ColorProperty
 from kivy.clock import Clock
-from kivyx.segmentcontrol import XSegmentTextItem
+from kivyx.segmentcontrol import XSegmentTextItem, XSegmentIconItem
 
 
 
@@ -42,12 +42,17 @@ Builder.load_string("""
         size_hint_y: None
         height: dp(56)
         padding: [(Window.width - bx.width)/2,0,0,0]
+        bg_color: root.tab_color
+        elevation: root.elevation
         XSegmentControl:
             id: bx
             pos_hint: {"center_x": .5,"center_y": .5}
             style: root.tab_style
             item_width: root.item_width
             radius:[root.tab_radius,]
+            bg_color: root.tab_color
+            bar_color: root.bar_color
+            item_color: root.item_color
             
     ScreenManager:
         id: sm
@@ -58,6 +63,7 @@ Builder.load_string("""
 
 class XSegmentItem(Theming,XScreen):
     text = StringProperty()
+    icon = StringProperty()
     def __init__(self, **kwargs):
         super(XSegmentItem,self).__init__(**kwargs)
         self.bg_color = self.bgr_color
@@ -68,10 +74,18 @@ class XSegmentItem(Theming,XScreen):
 class XSegmentTab(Theming,XBoxLayout):
     item_width = NumericProperty()
     tab_style = StringProperty('m2')
-    tab_radius = NumericProperty(0)    
+    tab_radius = NumericProperty(0)
+    tab_color = ColorProperty()
+    bar_color = ColorProperty()
+    item_mode = StringProperty("text")
+    elevation = NumericProperty(0.05)
+    item_color = ColorProperty()
 
     def __init__(self, **kwargs):
         super(XSegmentTab,self).__init__(**kwargs)
+        self.tab_color =  self.card_color
+        self.bar_color = self.bgr_color
+        self.item_color = self.card_color
         self.register_event_type('on_tab_press')
         self.register_event_type('on_tab_release')
         Clock.schedule_once(self.update)
@@ -84,7 +98,7 @@ class XSegmentTab(Theming,XBoxLayout):
 
     def add_widget(self,widget,*args):
         if isinstance(widget, XSegmentItem):
-            button = XSegmentTextItem()
+            button = XSegmentTextItem() if self.item_mode == "text" else XSegmentIconItem()
             button.bind(on_press = lambda x:self.change_screen(widget,button))
             button.bind(on_press = lambda x:self.dispatch('on_tab_press', button))
             button.bind(on_release = lambda x:self.dispatch('on_tab_release', button))
@@ -97,10 +111,14 @@ class XSegmentTab(Theming,XBoxLayout):
         l = len(self.ids.sm.screens) - 1
         screens = []
         for i in self.ids.bx.ids.s.children:
-            if isinstance(i,XSegmentTextItem):
+            if isinstance(i,XSegmentTextItem) or isinstance(i,XSegmentIconItem):
                 screens.append(i)            
         for i in range(len(self.ids.sm.screens)):
-            screens[l-i].text = self.ids.sm.screens[i].text
+            if self.item_mode == "text":
+                screens[l-i].text = self.ids.sm.screens[i].text
+            else:
+                screens[l-i].icon = self.ids.sm.screens[i].icon
+                
 
     def change_screen(self,widget,button,*args):
         self.ids.sm.current = widget.name
