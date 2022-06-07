@@ -37,7 +37,7 @@ Builder.load_string("""
     bg_color: root.card_color
     canvas.before:
         Color:
-            rgba: root.bgr_color
+            rgba: root.bar_color
         RoundedRectangle:
             size: self.size[0] - dp(30), (self.size[1] - dp(16)) if root.style == 'm3' else (self.size[1] - dp(18))
             pos: self.pos[0] + dp(15), (self.pos[1] + dp(8))  if root.style == 'm3' else (self.pos[1] + dp(9))
@@ -63,7 +63,8 @@ Builder.load_string("""
         size_hint: None,None
         height: dp(36)
         width: s.children[0].width if len(s.children) > 0 else 0
-        pos: s.children[0].pos if len(s.children) > 0 else [0,0]
+        pos: [root.current_pos, xsc.pos[1] + (xsc.height -self.height)/2 ]# if s.children else [0,0] #[xsc.pos[0],xsc.pos[1] + (xsc.height -self.height)/2]
+        bg_color: root.item_color
 
     XBoxLayout:
         id: s
@@ -91,6 +92,7 @@ Builder.load_string("""
         icon: root.icon
         pos_hint: {"center_x": .5, "center_y":.5}
         halign: 'center'
+        text_color: root.text_color
     
     
 
@@ -102,17 +104,26 @@ class XSegmentTextItem(XFlatButton):
 
 class XSegmentIconItem(RectangularBehavior,XBoxLayout):
     icon = StringProperty()
+    text_color = ColorProperty()
     button_width = NumericProperty()
+    def __init__(self, **kwargs):
+        super(XSegmentIconItem, self).__init__(**kwargs)
+        self.text_color = self.txt_color
 
 
 class XSegmentControl(XFloatLayout, Theming):
     item_width = NumericProperty()
     radius = ListProperty([0, ])
     line_color = ColorProperty()
+    bar_color = ColorProperty()
     style = OptionProperty('m2', options = ['m2','m3'])
+    item_color = ColorProperty()
+    current_pos = NumericProperty(0)
 
     def __init__(self, **kwargs):
         super(XSegmentControl, self).__init__(**kwargs)
+        self.bar_color = self.bgr_color
+        self.item_color = self.card_color
         self.ind = 0
         self.register_event_type('on_tab_press')
         self.register_event_type('on_tab_release')
@@ -151,6 +162,7 @@ class XSegmentControl(XFloatLayout, Theming):
         self.ind = len(self.ids.fake.children) - 1
         if self.style == 'm3':
             self.fade_out()
+        self.current_pos = self.ids.s.children[-1].pos[0]
 
     def add_widget(self, button, *args):
         if isinstance(button, XSegmentTextItem) or isinstance(button,  XSegmentIconItem):
@@ -167,6 +179,7 @@ class XSegmentControl(XFloatLayout, Theming):
             super(XSegmentControl, self).add_widget(button)
 
     def change_segment(self, button):
+        self.current_pos = button.pos[0]
         if button == self.ids.s.children[-1]:
             self.ids.b.radius = [self.radius[0],0,0,self.radius[0]] if self.style == 'm2' else [self.radius[0],]
         elif button == self.ids.s.children[0]:
