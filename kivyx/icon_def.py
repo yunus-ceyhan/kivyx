@@ -1,4 +1,4 @@
-{'500px-b': '\U0000f26e',
+x_icons = {'500px-b': '\U0000f26e',
  'abacus-d': '\U0000f640',
  'abacus-l': '\U0000f640',
  'abacus-r': '\U0000f640',
