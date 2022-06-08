@@ -13,7 +13,7 @@ Builder.load_string("""
 #:import os os
 <XIcon>:
     text: x_icons[root.icon] if root.icon and root.icon in x_icons.keys() else ""
-    font_name: root.s_font if self.text.startswith("s-") else root.b_font if self.text.startswith("s-") else root.r_font self.text.startswith("r-") else m_font
+    font_name: root.s_font if self.text.startswith("s-") else root.b_font if self.text.startswith("s-") else root.r_font if self.text.startswith("r-") else m_font
     font_size: "24dp"
     size_hint: None, None
     size: self.font_size , self.font_size
