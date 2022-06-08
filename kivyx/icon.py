@@ -25,7 +25,7 @@ Builder.load_string("""
 class XIcon(XLabel):
     icon = StringProperty()
     color = ColorProperty([0,0,0,1])
-    m_fonnt = material
+    m_font = material
     s_font = solid
     b_font = brand
     r_font = regular
