@@ -1,6 +1,7 @@
 from kivy.lang import Builder
 from kivyx.label import XLabel
 from kivy.properties import StringProperty, ColorProperty
+from kivy.clock import Clock
 import os
 dirname = os.path.dirname(__file__)
 material = os.path.join(dirname, 'data/icon.ttf')
@@ -13,7 +14,7 @@ Builder.load_string("""
 #:import os os
 <XIcon>:
     text: x_icons[root.icon] if root.icon and root.icon in x_icons.keys() else ""
-    font_name: root.s_font if self.text.startswith("s-") else root.b_font if self.text.startswith("s-") else root.r_font if self.text.startswith("r-") else root.m_font
+    font_name: root.m_font
     font_size: "24dp"
     size_hint: None, None
     size: self.font_size , self.font_size
@@ -32,3 +33,7 @@ class XIcon(XLabel):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.color = self.txt_color
+        Clock.schedule_once(self.update_font)
+        
+    def update_font(self,*args):
+        self.font_name = self.s_font if self.icon.startswith("s-") else self.b_font if self.icon.startswith("s-") else self.r_font if self.icon.startswith("r-") else self.m_font
