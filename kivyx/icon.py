@@ -3,19 +3,22 @@ from kivyx.label import XLabel
 from kivy.properties import StringProperty, ColorProperty
 from kivy.clock import Clock
 import os
+
 dirname = os.path.dirname(__file__)
-material = os.path.join(dirname, 'data/icon.ttf')
-solid = os.path.join(dirname, 'data/Free-Solid-900.otf')
-brand = os.path.join(dirname, 'data/Brands-Regular-400.otf')
-regular = os.path.join(dirname, 'data/Free-Regular-400.otf')
+
+solid = os.path.join(dirname, 'data/solid.otf')
+brand = os.path.join(dirname, 'data/brands.otf')
+regular = os.path.join(dirname, 'data/regular.otf')
+duotone = os.path.join(dirname, 'data/duotone.otf')
+light = os.path.join(dirname, 'data/light.otf')
 
 Builder.load_string("""
 #:import x_icons kivyx.icon_def.x_icons
 #:import os os
 <XIcon>:
     text: x_icons[root.icon] if root.icon and root.icon in x_icons.keys() else ""
-    font_name: root.m_font
-    font_size: "24dp"
+    font_name: root.fonts[root.icon.split("-")[-1]] if root.icon and root.icon in x_icons.keys() else "roboto"
+    font_size: "18dp"
     size_hint: None, None
     size: self.font_size , self.font_size
     pos_hint: {"center_x": .5 , "center_y": .5}
@@ -26,14 +29,11 @@ Builder.load_string("""
 class XIcon(XLabel):
     icon = StringProperty()
     color = ColorProperty([0,0,0,1])
-    m_font = material
-    s_font = solid
-    b_font = brand
-    r_font = regular
+    fonts = {"s": solid,
+            "b": brand,
+            "r": regular,
+            "d": duotone,
+            "l": light}
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.color = self.txt_color
-        Clock.schedule_once(self.update_font)
-        
-    def update_font(self,*args):
-        self.font_name = self.s_font if self.icon.startswith("s-") else self.b_font if self.icon.startswith("s-") else self.r_font if self.icon.startswith("r-") else self.m_font
