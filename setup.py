@@ -18,7 +18,6 @@ setup(
             'data/*.ttf',
             'editor/*.py',
             'fonts/*.ttf',
-            'data/*.otf',
         ]
     },
     include_package_data=True,
