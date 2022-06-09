@@ -1,7 +1,6 @@
 from kivy.lang import Builder
 from kivyx.label import XLabel
 from kivy.properties import StringProperty, ColorProperty
-from kivy.clock import Clock
 import os
 
 dirname = os.path.dirname(__file__)
@@ -14,7 +13,7 @@ Builder.load_string("""
 <XIcon>:
     text: x_icons[root.icon] if root.icon and root.icon in x_icons.keys() else ""
     font_name: root.fontname
-    font_size: "18dp"
+    font_size: "24dp"
     size_hint: None, None
     size: self.font_size , self.font_size
     pos_hint: {"center_x": .5 , "center_y": .5}
