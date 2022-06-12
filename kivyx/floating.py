@@ -37,10 +37,10 @@ Builder.load_string("""
 <XFabTextBase>:
     id: fab
     size_hint: None,None
-    size: (max((self.padding[0]*2)+ic.width+lb.texture_size[0]+self.spacing+dp(10),dp(56))\
+    size: (max((self.padding[0]+self.padding[2])+ic.width+lb.texture_size[0]+self.spacing,dp(56))\
         if root.text else dp(56) ,dp(56))
-    padding: [dp(15),]
-    spacing: dp(10)
+    padding: [dp(16),dp(16),dp(20),dp(16)] if root.text else [dp(16),]
+    spacing: dp(8)
     radius: [dp(16),]
     XIcon:
         id: ic
@@ -71,8 +71,8 @@ Builder.load_string("""
 <XFabBase>:
     size_hint: None,None
     size:  dp(56) ,dp(56)
-    padding: [dp(15),]
-    spacing: dp(10)
+    padding: [dp(16),]
+    spacing: dp(8)
     radius: [dp(16),]
     XIcon:
         icon: root.icon
@@ -227,4 +227,3 @@ class XActionFab(Theming,XBoxLayout):
 
     def on_release(self, *args):
         self.set_action()
-
