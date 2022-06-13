@@ -166,7 +166,6 @@ class XFab(Theming, XBoxLayout):
 
 
     def extend_button(self,status,*args):
-        print(status,self.status)
         if status == "shrink" and self.text:
             self.current_width = self.ids.fb.width
             self.current_text = self.text

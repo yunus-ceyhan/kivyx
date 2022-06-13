@@ -5,7 +5,8 @@ x_colors = {
         "txt" :  "#44484B",
         "primary": "#CBE6F8",
         "accent" : "#EFF4F8",
-        "opposite": "#EEEEEE"
+        "opposite": "#EEEEEE",
+        "disabled": "#9B9B9B"
     },
 
     "Dark": {
@@ -14,7 +15,8 @@ x_colors = {
         "txt" :  "#C6C7CB",
         "primary": "#76D1FE",
         "accent" : "#374955",
-        "opposite": "#222831"
+        "opposite": "#222831",
+        "disabled": "#9B9B9B"
     },
     "Palet": {
         "red" :   "#E36036",
@@ -42,8 +44,7 @@ x_colors = {
         "asphalt": "#34495e",
         "midnight": "#2c3e50",
         "clouds": "#ecf0f1",
-        "trans": "#ffffff00",
-        "disabled": "#9B9B9B"
+        "trans": "#ffffff00"
     }
 
 }

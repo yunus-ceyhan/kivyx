@@ -9,6 +9,7 @@ class Theming(EventDispatcher):
     theme = StringProperty("Light")
     colorx = DictProperty()
     paletx = DictProperty()
+    colors = DictProperty()
     bgr_color = ColorProperty()
     card_color = ColorProperty()
     primary_color = ColorProperty()
@@ -17,17 +18,13 @@ class Theming(EventDispatcher):
     opposite_color = ColorProperty()
     white_color = ColorProperty()
     black_color = ColorProperty()
-
-    red_color= ColorProperty()
-    green_color = ColorProperty()
-    blue_color = ColorProperty()
-    yellow_color = ColorProperty()
-    disabled_color = ColorProperty()
-    trans_color = ColorProperty()
     shadow_color = ColorProperty([0.5,0.5,0.5,0.05])
+    trans_color = ColorProperty([0.0,0.0,0.0,0.0])
+    disabled_color = ColorProperty()
 
     def __init__(self, **kwargs):
         super(Theming, self).__init__(**kwargs)
+        self.colors =  x_colors["Palet"]
         self.theme = App.get_running_app().theme_style
         self.paletx = x_colors["Palet"]
         if self.theme == "Dark":
@@ -40,17 +37,8 @@ class Theming(EventDispatcher):
         self.accent_color = self.colorx["accent"]
         self.txt_color = self.colorx["txt"]
         self.opposite_color = self.colorx["opposite"]
+        self.disabled_color = self.colorx["disabled"]
 
-        self.white_color = self.paletx["white"]
-        self.black_color = self.paletx["black"]
-        self.red_color = self.paletx["red"]
-        self.green_color = self.paletx["green"]
-        self.blue_color = self.paletx["blue"]
-        self.yellow_color = self.paletx["yellow"]
-        self.trans_color = self.paletx["trans"]
-        self.disabled_color = self.paletx["disabled"]
-
-        #Window.clearcolor = self.bgr_color
 
 
 
