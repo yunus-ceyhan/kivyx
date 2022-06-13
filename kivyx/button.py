@@ -178,6 +178,7 @@ class XButton(RectangularBehavior, XCard):
     def __init__(self, **kwargs):
         super(XButton, self).__init__(**kwargs)
         self.text_color = self.txt_color
+        self.type = "button"
         Clock.schedule_once(self.set_radius)
 
     def set_radius(self,*args):
@@ -240,6 +241,7 @@ class XLIconButton(RectangularBehavior, XCard):
     style = OptionProperty("m2", options = ["m2","m3"])
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.type = "button"
         self.text_color = self.txt_color
         Clock.schedule_once(self.set_radius)
 
@@ -256,6 +258,7 @@ class XRIconButton(RectangularBehavior, XCard):
     style = OptionProperty("m2", options = ["m2","m3"])
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.type = "button"
         self.text_color = self.txt_color
         Clock.schedule_once(self.set_radius)
 
