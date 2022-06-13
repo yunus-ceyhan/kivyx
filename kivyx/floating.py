@@ -67,6 +67,7 @@ Builder.load_string("""
         on_release: root.dispatch('on_release',*args)
         bg_color: root.button_bg_color
         elevation: root.elevation
+        distance: root.distance
 
 <XFabBase>:
     size_hint: None,None
@@ -95,6 +96,7 @@ Builder.load_string("""
         icon_color: root.icon_color
         on_press: root.dispatch('on_press',*args)
         on_release: root.dispatch('on_release',*args)
+
 
 <XActionFab>:
     orientation: "vertical"
@@ -131,10 +133,12 @@ class XFabTextBase(RectangularBehavior,XCard):
     icon =  StringProperty()
     text =  StringProperty()
     icon_color = ColorProperty()
+    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.ripple_radius = [dp(15),]
         self.icon_color = self.txt_color
+        
 
 
 class XFab(Theming, XBoxLayout):
@@ -142,29 +146,41 @@ class XFab(Theming, XBoxLayout):
     text =  StringProperty()
     icon_color = ColorProperty()
     button_bg_color = ColorProperty()
-    elevation = NumericProperty(0.01)
+    elevation = NumericProperty(0.05)
+    distance = NumericProperty(dp(14))
+    status = StringProperty()
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.icon_color = self.txt_color
         self.button_bg_color = self.card_color
         self.register_event_type('on_press')
         self.register_event_type('on_release')
+        Clock.schedule_once(self.adjust)
         
+        
+        
+    def adjust(self,*args):
+        self.status = "extended" if self.text else "shrinked"
+        self.current_width = self.ids.fb.width
+        self.current_text = self.text
 
-    def extend_button(self,*args):
-        if self.ids.fb.width > dp(56) and self.text:
+
+    def extend_button(self,status,*args):
+        print(status,self.status)
+        if status == "shrink" and self.text:
             self.current_width = self.ids.fb.width
-            Clock.schedule_once(self.remove_text,0.1)
-            anim = Animation(width = dp(56), duration = 0.3)
+            self.current_text = self.text
+            self.remove_text()
+            anim = Animation(width = dp(56), duration = 0.2)
             anim.start(self.ids.fb)
-        else:
-            if self.text:
-                Clock.schedule_once(self.add_text,0.4)
-                anim = Animation(width = self.current_width, duration = 0.3)
-                anim.start(self.ids.fb)
+            self.status = "shrinked"
+        elif status == "extend":
+            Clock.schedule_once(self.add_text,0.2)
+            anim = Animation(width = self.current_width, duration = 0.1)
+            anim.start(self.ids.fb)
+            self.status = "extended"
 
     def remove_text(self,*args):
-        self.current_text = self.text
         self.text = ""
 
     def add_text(self,*args):

@@ -29,26 +29,45 @@ from kivyx.label import XLabel
 from kivyx.line import XLiney
 from kivy.uix.widget import Widget
 
+from kivyx.boxlayout import XBoxLayout
+from kivy.properties import ListProperty, NumericProperty, ColorProperty,OptionProperty
+from kivy.lang import Builder
+from kivyx.theming import Theming
+from kivy.clock import Clock
 
 Builder.load_string("""
 #:import ScrollEffect kivy.effects.scroll.ScrollEffect
 #:import Transition kivy.uix.screenmanager.NoTransition
 #:import Window kivy.core.window.Window
 
+
+
+
 <MainApp>:
     bg_color: root.bgr_color
-    XSegmentControl:
-        pos_hint: {"center_x": .5, "center_y":.5}
-        item_width:  dp(120)
-        radius: [dp(16),]
-        style: "m3"
-        XSegmentTextItem:
-            text: "Global"
-        XSegmentTextItem:
-            text: "China"
-        XSegmentIconItem:
-            icon: "apple"
+    BoxLayout:
+        padding: dp(50)
+        orientation: "vertical"
+        spacing: dp(50)
+        XSlider:
+            id: sl1
+            max: 1.0
+            value: 0.1
 
+        XSlider:
+            id: sl2
+            max: 100
+            min: 0
+            value: 0
+
+        XCard:
+            radius: [dp(6),]
+            #shadow: sl1.value
+            type: "button"
+            #distance: sl2.value
+            size_hint: None, None
+            size: dp(156), dp(56)
+            elevation: 0.02
 
 
 """)

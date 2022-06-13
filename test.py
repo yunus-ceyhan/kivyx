@@ -56,8 +56,9 @@ Builder.load_string("""
                                     text: "Fonts"
                         XFab:
                             icon: "apple"
-                            on_press: self.extend_button()
-                            on_release: bottom_sheet.open()
+                            text: "apple"
+                            on_press: self.extend_button("extend") if self.status == "shrinked" else self.extend_button("shrink")
+                            #on_release: bottom_sheet.open()
 
 
                     XBotnavItem:
