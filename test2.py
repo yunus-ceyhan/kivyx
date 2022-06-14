@@ -45,29 +45,48 @@ Builder.load_string("""
 
 <MainApp>:
     bg_color: root.bgr_color
-    BoxLayout:
-        padding: dp(50)
-        orientation: "vertical"
-        spacing: dp(50)
-        XSlider:
-            id: sl1
-            max: 1.0
-            value: 0.1
+    XSegmentTab:
+        tab_style: "m3"
+        id: tab_panel
+        XSegmentItem:
+            name: "tab1"
+            text: "Themes"
+            item_type: "left"
+        XSegmentItem:
+            name: "tab2"
+            text: "Walpapers"
+            item_type: "center"
 
-        XSlider:
-            id: sl2
-            max: 100
-            min: 0
-            value: 0
+        XSegmentItem:
+            name: "tab3"
+            text: "Icon pascks"
+            item_type: "right"
+            text: "revennue"
+            BoxLayout:
+                padding: dp(50)
+                orientation: "vertical"
+                spacing: dp(50)
 
-        XCard:
-            radius: [dp(6),]
-            #shadow: sl1.value
-            type: "button"
-            #distance: sl2.value
-            size_hint: None, None
-            size: dp(156), dp(56)
-            elevation: 0.02
+
+                XSlider:
+                    id: sl1
+                    max: 1.0
+                    value: 0.1
+
+                XSlider:
+                    id: sl2
+                    max: 100
+                    min: 0
+                    value: 0
+
+                XCard:
+                    radius: [dp(6),]
+                    #shadow: sl1.value
+                    type: "button"
+                    #distance: sl2.value
+                    size_hint: None, None
+                    size: dp(156), dp(56)
+                    elevation: 0.02
 
 
 """)

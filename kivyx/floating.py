@@ -37,10 +37,9 @@ Builder.load_string("""
 <XFabTextBase>:
     id: fab
     size_hint: None,None
-    size: (max((self.padding[0]+self.padding[2])+ic.width+lb.texture_size[0]+self.spacing,dp(56))\
-        if root.text else dp(56) ,dp(56))
+    size: self.padding[0]+self.padding[2] +ic.width+lb.texture_size[0]+self.spacing,dp(56)
     padding: [dp(16),dp(16),dp(20),dp(16)] if root.text else [dp(16),]
-    spacing: dp(16)
+    spacing: dp(16) if root.text else 0
     radius: [dp(16),]
     XIcon:
         id: ic

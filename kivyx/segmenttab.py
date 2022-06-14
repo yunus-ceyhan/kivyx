@@ -1,6 +1,6 @@
 """
 <MainApp>:
-    XSegmentPanel:
+    XSegmentTab:
         #active_item_color: "#ff3434"
         id: tab_panel
         XSegmentItem:

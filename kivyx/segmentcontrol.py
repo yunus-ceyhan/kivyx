@@ -63,7 +63,7 @@ Builder.load_string("""
         size_hint: None,None
         height: dp(36)
         width: s.children[0].width if len(s.children) > 0 else 0
-        pos: [root.current_pos, xsc.pos[1] + (xsc.height -self.height)/2 ]# if s.children else [0,0] #[xsc.pos[0],xsc.pos[1] + (xsc.height -self.height)/2]
+        pos: [self.pos[0], xsc.pos[1] + (xsc.height -self.height)/2 ]
         bg_color: root.item_color
 
     XBoxLayout:
@@ -192,11 +192,11 @@ class XSegmentControl(XFloatLayout, Theming):
             i.height = dp(24)  if self.style == 'm3' else dp(37)
         self.ids.b.width = button.width
         if self.style == 'm3':
-            anim = Animation(pos=button.pos, duration=0.2)
+            anim = Animation(pos=button.pos, duration= 0.1)
             anim.start(self.ids.b)
             anim.bind(on_complete=self.fade_out)
         else:
-            self.ids.b.pos =button.pos
+            self.ids.b.pos = button.pos
         self.ind = self.ids.s.children.index(button)
 
     def fade_out(self, *args):
