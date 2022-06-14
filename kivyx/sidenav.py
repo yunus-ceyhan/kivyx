@@ -44,8 +44,7 @@ Builder.load_string('''
     _side_panel: sidepanel
     _main_panel: mainpanel
     _join_image: joinimage
-    side_panel_width: Window.width - dp(64) if Window.width < Window.height and Window.width *1.7 <= Window.height else dp(360)\
-    if Window.width - dp(64) > dp(360) else Window.width - dp(64)
+    side_panel_width: dp(320) if dp(320) + dp(64) < Window.width else  Window.width - dp(64)
     BoxLayout:
         id: sidepanel
         y: root.y
