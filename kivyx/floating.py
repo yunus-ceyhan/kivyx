@@ -170,8 +170,6 @@ class XFab(Theming, XBoxLayout):
             self.current_width = self.ids.fb.width
             self.current_text = self.text
             self.remove_text()
-            anim = Animation(width = dp(56), duration = 0.2)
-            anim.start(self.ids.fb)
             self.status = "shrinked"
         elif status == "extend":
             Clock.schedule_once(self.add_text,0.2)
