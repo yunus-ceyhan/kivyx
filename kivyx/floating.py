@@ -41,6 +41,7 @@ Builder.load_string("""
     padding: [dp(16),dp(16),dp(20),dp(16)] if root.text else [dp(16),]
     spacing: dp(16) if root.text else 0
     radius: [dp(16),]
+    soft: True
     XIcon:
         id: ic
         icon: root.icon
@@ -74,6 +75,7 @@ Builder.load_string("""
     padding: [dp(16),]
     spacing: dp(16)
     radius: [dp(16),]
+    soft: True
     XIcon:
         icon: root.icon
         text_color: root.icon_color
