@@ -52,6 +52,14 @@ Builder.load_string("""
             name: "tab1"
             text: "Themes"
             item_type: "left"
+            XChip:
+                right_icon: ""
+                left_icon: ""
+                text: "hello"
+                pos_hint: {"center_x":.5,"center_y":.5}
+                type: "outlined"
+                #bg_color: root.red_color
+                #text_color: root.opposite_color
         XSegmentItem:
             name: "tab2"
             text: "Walpapers"
