@@ -38,12 +38,17 @@ Builder.load_string("""
             on_release: root.dispatch('on_bar_release', *args)
             size_hint: None, None
             height: dp(48)
-            button_width: sbx.width - dp(96)
+            button_width: sbx.width - dp(144)
             halign: "left"
             font_size: "17sp"
             font_name: root.font_name
             opacity: .5
-
+        XIconButton:
+            icon: root.middle_icon
+            on_press: root.dispatch('on_middle_icon_press', *args)
+            on_release: root.dispatch('on_middle_icon_release', *args)
+            disabled: False if self.icon else True
+            opacity: 1 if self.icon else 0
         XIconButton:
             icon: root.right_icon
             on_press: root.dispatch('on_right_icon_press', *args)
@@ -146,6 +151,7 @@ class XAppToolbar(XToolbar):
 class XAppSearchbar(XToolbar):
     text = StringProperty()
     right_icon = StringProperty()
+    middle_icon = StringProperty()
     left_icon = StringProperty()
     font_name = StringProperty("Roboto")
     bar_color = ColorProperty()
@@ -156,6 +162,8 @@ class XAppSearchbar(XToolbar):
         self.register_event_type('on_bar_release')
         self.register_event_type('on_left_icon_press')
         self.register_event_type('on_left_icon_release')
+        self.register_event_type('on_middle_icon_press')
+        self.register_event_type('on_middle_icon_release')
         self.register_event_type('on_right_icon_press')
         self.register_event_type('on_right_icon_release')       
 
@@ -169,6 +177,12 @@ class XAppSearchbar(XToolbar):
         pass
 
     def on_left_icon_release(self, *args):
+        pass
+
+    def on_middle_icon_press(self, *args):
+        pass
+
+    def on_middle_icon_release(self, *args):
         pass
 
     def on_right_icon_press(self, *args):
