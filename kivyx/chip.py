@@ -36,7 +36,7 @@ Builder.load_string("""
         Color:
             rgba: root.txt_color if root.type != "filled" else root.trans_color
         Line:
-            width: dp(0.3)
+            width: dp(0.4)
             rounded_rectangle: (self.x, self.y, self.width, self.height,dp(8)) 
         
     XIcon:

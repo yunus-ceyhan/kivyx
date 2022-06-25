@@ -74,3 +74,5 @@ register("XChip", module="kivyx.chip")
 register("XSegmentControl", module="kivyx.segmentcontrol")
 register("XSegmentTextItem", module="kivyx.segmentcontrol")
 register("XSegmentIconItem", module="kivyx.segmentcontrol")
+
+register("XInput", module="kivyx.input")
