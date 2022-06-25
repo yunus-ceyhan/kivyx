@@ -8,6 +8,8 @@ from kivy.core.window import Window
 
 
 Builder.load_string("""
+<XInput>:
+    id: main
     size_hint_y: None
     height: dp(48)
     pos_hint: {"center_x": .5 , "center_y": .5}
@@ -70,7 +72,6 @@ Builder.load_string("""
             Rectangle:
                 size: self.size[0] + dp(12), self.size[1]
                 pos: self.pos[0]-dp(6), self.pos[1]
-
 
 
 """)
