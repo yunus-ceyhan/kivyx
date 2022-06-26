@@ -27,7 +27,6 @@ from kivy.core.window import Window
 Builder.load_string("""
 #:import Window kivy.core.window.Window
 <XInput>:
-    id: main
     size_hint_y: None
     height: dp(72) if root.helper else dp(48)
     pos_hint: {"center_x": .5 , "center_y": .5}
@@ -65,8 +64,8 @@ Builder.load_string("""
                 hint_text: root.title if not self.focus else ""
             XIconButton:
                 icon: root.icon
-                height: main.height
-                width: main.height if root.icon else 0
+                height: box.height
+                width: box.height if root.icon else 0
                 disabled: False if root.icon else True
                 opacity: 1 if root.icon else 0
                 on_press: root.dispatch('on_icon_press', *args)
