@@ -13,6 +13,9 @@ class Theming(EventDispatcher):
     primary_color = ColorProperty()
     accent_color = ColorProperty()
     txt_color = ColorProperty()
+    txt_light = ColorProperty()
+    txt_medium = ColorProperty()
+    txt_bold = ColorProperty()
     opposite_color = ColorProperty()
     white_color = ColorProperty()
     black_color = ColorProperty()
@@ -60,6 +63,7 @@ class Theming(EventDispatcher):
         self.primary_color = self.colorx["primary"]
         self.accent_color = self.colorx["accent"]
         self.txt_color = self.colorx["txt"]
+        self.txt_light = self.colorx["txt_bold"]
         self.txt_medium = self.colorx["txt_medium"]
         self.txt_light = self.colorx["txt_light"]
         self.opposite_color = self.colorx["opposite"]
