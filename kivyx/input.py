@@ -19,7 +19,6 @@
 from kivy.lang import Builder
 from kivy.properties import ColorProperty, NumericProperty, BooleanProperty,StringProperty
 from kivyx.theming import Theming
-from kivy.clock import Clock
 from kivyx.floatlayout import XFloatLayout
 from kivy.core.window import Window
 
@@ -62,6 +61,7 @@ Builder.load_string("""
                 #use_bubble: False
                 use_handles: False
                 hint_text: root.title if not self.focus else ""
+                font_size: root.font_size
             XIconButton:
                 icon: root.icon
                 height: box.height
@@ -80,7 +80,7 @@ Builder.load_string("""
                 aligned: True
                 halign: "left"
                 valign: "bottom"
-                font_size: "12sp"
+                font_size: root.helper_font_size
                 color: root.helper_color
         
     XLabel:
@@ -118,13 +118,15 @@ class XInput(Theming,XFloatLayout):
     text_color = ColorProperty()
     icon_color = ColorProperty()
     helper_color = ColorProperty()
-    
+    font_size = NumericProperty("16sp")
+    helper_font_size = NumericProperty("12sp")
     icon = StringProperty("")
     helper = StringProperty()
     text = StringProperty()
     title = StringProperty("Label")
     focus = BooleanProperty()
     state = NumericProperty(1)
+    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.back_color = self.bgr_color

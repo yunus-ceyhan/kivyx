@@ -57,6 +57,8 @@ Builder.load_string("""
             height: dp(48)
             back_color: root.card_color
             helper: "merhaaba"
+            font_size: "18sp"
+            helper_font_size: "13sp"
         XInput:
             height: dp(148)
 
