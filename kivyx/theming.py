@@ -60,6 +60,8 @@ class Theming(EventDispatcher):
         self.primary_color = self.colorx["primary"]
         self.accent_color = self.colorx["accent"]
         self.txt_color = self.colorx["txt"]
+        self.txt_medium = self.colorx["txt_medium"]
+        self.txt_light = self.colorx["txt_light"]
         self.opposite_color = self.colorx["opposite"]
         self.disabled_color = self.colorx["disabled"]
 

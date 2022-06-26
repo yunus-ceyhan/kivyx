@@ -45,15 +45,19 @@ Builder.load_string("""
 #:import Window kivy.core.window.Window
 
 <MainApp>:
-    bg_color: root.bgr_color
+    bg_color: root.card_color
     padding: [dp(50),]
     BoxLayout:
         size_hint: None,None
-        size: dp(400), dp(60)
+        size: dp(400), self.minimum_height
         pos_hint: {"center_x": .5 , "center_y": .5}
+        orientation: "vertical"
+        spacing: dp(32)
+        XInput:
+            height: dp(48)
+            back_color: root.card_color
         XInput:
             height: dp(148)
-
 
 
 
