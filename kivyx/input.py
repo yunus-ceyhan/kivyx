@@ -53,6 +53,8 @@ Builder.load_string("""
             on_text_validate: root.dispatch('on_text_validate', *args)
             on_text: root.dispatch('on_text', *args)
             cursor_color: root.line_color
+            #use_bubble: False
+            use_handles: False
         XIconButton:
             icon: root.icon
             height: main.height
