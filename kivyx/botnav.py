@@ -1,4 +1,18 @@
-from kivy.app import App
+"""
+<MainApp>:
+    id: scr_mngr
+    XBotnav:
+        id: botnav
+        bg_color: self.bgr_color
+        on_tab_release: root.tab_changed()
+        active_item_color: root.accent_color
+        XBotnavItem:
+            name: "sets"
+            text: "Settings"
+            icon: "cog-outline"
+            active_icon: "cog"
+
+"""
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.boxlayout import BoxLayout
 from kivy.clock import Clock
