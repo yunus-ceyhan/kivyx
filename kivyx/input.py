@@ -25,50 +25,67 @@ from kivy.core.window import Window
 
 
 Builder.load_string("""
+#:import Window kivy.core.window.Window
 <XInput>:
     id: main
     size_hint_y: None
-    height: dp(48)
+    height: dp(72) if root.helper else dp(48)
     pos_hint: {"center_x": .5 , "center_y": .5}
-    bg_color: root.back_color
-    canvas.before:
-        Color:
-            rgba: root.line_color
-        Line:
-            width: dp(0.6)
-            rounded_rectangle: (self.x, self.y, self.width, self.height,dp(4))
     BoxLayout:
+        orientation: "vertical"
         pos_hint: {"center_x": .5 , "center_y": .5}
-        TextInput:
-            id: input
-            text: root.text
-            pos_hint: {"center_x": .5 , "center_y": .5}
-            padding: [dp(16) ,(root.height /2) - (self.font_size/1.5),dp(12)\
-                if not root.icon else 0,0]\
-                    if not self.multiline else [dp(16) ,dp(12),dp(12)\
-                        if not root.icon else 0,dp(12)]
-            multiline: False if root.height <= dp(56) else True
-            background_color: 0,0,0,0
-            foreground_color: root.text_color
-            on_text_validate: root.dispatch('on_text_validate', *args)
-            on_text: root.dispatch('on_text', *args)
-            cursor_color: root.line_color
-            #use_bubble: False
-            use_handles: False
-            hint_text: root.title if not self.focus else ""
-        XIconButton:
-            icon: root.icon
-            height: main.height
-            width: main.height if root.icon else 0
-            disabled: False if root.icon else True
-            opacity: 1 if root.icon else 0
-            on_press: root.dispatch('on_icon_press', *args)
-            on_release: root.dispatch('on_icon_release', *args)
-            icon_color: root.icon_color
+        XBoxLayout:
+            id: box
+            pos_hint: { "center_y": .5}
+            size_hint_y: None
+            height: root.height - dp(24) if root.helper else root.height
+            bg_color: root.back_color
+            canvas.before:
+                Color:
+                    rgba: root.line_color
+                Line:
+                    width: dp(0.6)
+                    rounded_rectangle: (self.x, self.y, self.width, self.height,dp(4))
+            TextInput:
+                id: input
+                text: root.text
+                pos_hint: {"center_x": .5 , "center_y": .5}
+                padding: [dp(16) ,(root.height /2) - (self.font_size/1.5),dp(12)\
+                    if not root.icon else 0,0]\
+                        if not self.multiline else [dp(16) ,dp(12),dp(12)\
+                            if not root.icon else 0,dp(12)]
+                multiline: False if root.height <= dp(56) else True
+                background_color: 0,0,0,0
+                foreground_color: root.text_color
+                on_text_validate: root.dispatch('on_text_validate', *args)
+                on_text: root.dispatch('on_text', *args)
+                cursor_color: root.line_color
+                #use_bubble: False
+                use_handles: False
+                hint_text: root.title if not self.focus else ""
+            XIconButton:
+                icon: root.icon
+                height: main.height
+                width: main.height if root.icon else 0
+                disabled: False if root.icon else True
+                opacity: 1 if root.icon else 0
+                on_press: root.dispatch('on_icon_press', *args)
+                on_release: root.dispatch('on_icon_release', *args)
+                icon_color: root.icon_color
+        BoxLayout:
+            padding: [dp(12),0,0,0]
+            size_hint_y: None
+            height: dp(24) if root.helper else 0
+            XLabel:
+                text: root.helper
+                aligned: True
+                halign: "left"
+                valign: "bottom"
+                font_size: "12sp"
+                color: root.helper_color
         
     XLabel:
         text: root.title
-        color: 0,0,0,1
         size_hint: None, None
         size: self.texture_size[0], dp(20)
         text_size: None, None
@@ -77,12 +94,12 @@ Builder.load_string("""
         font_size: "12sp"
         opacity: 1 if input.focus else 0 if not input.text else 1
         color: root.title_color if not input.focus else root.line_color
-        pos: [input.pos[0] + dp(16),((input.pos[1] + root.height) - (self.font_size/1.5))\
-            if input.focus else ((input.pos[1] + root.height/2) - (self.height/2))\
-                    if not input.text else ((input.pos[1] + root.height) - (self.font_size/1.5))]\
+        pos: [input.pos[0] + dp(16),((input.pos[1] + box.height) - (self.font_size/1.5))\
+            if input.focus else ((input.pos[1] + box.height/2) - (self.height/2))\
+                    if not input.text else ((input.pos[1] + box.height) - (self.font_size/1.5))]\
                         if not input.multiline else\
-                            [input.pos[0] + dp(16),((input.pos[1] + root.size[1]) - (self.font_size/1.5))\
-                                if input.focus else ((input.pos[1] + root.height) - dp(28))\
+                            [input.pos[0] + dp(16),((input.pos[1] + box.height) - (self.font_size/1.5))\
+                                if input.focus else ((input.pos[1] + box.height) - dp(28))\
                                     if not input.text else (input.pos[1] + input.size[1] - (self.font_size/1.5))]
         canvas.before:
             Color:
@@ -101,8 +118,10 @@ class XInput(Theming,XFloatLayout):
     title_color = ColorProperty()
     text_color = ColorProperty()
     icon_color = ColorProperty()
+    helper_color = ColorProperty()
     
     icon = StringProperty("")
+    helper = StringProperty()
     text = StringProperty()
     title = StringProperty("Label")
     focus = BooleanProperty()
@@ -111,6 +130,7 @@ class XInput(Theming,XFloatLayout):
         super().__init__(**kwargs)
         self.back_color = self.bgr_color
         self.icon_color = self.txt_medium
+        self.helper_color = self.txt_medium
         self.line_color = self.txt_light
         self.title_color = self.txt_medium
         self.text_color = self.txt_color
