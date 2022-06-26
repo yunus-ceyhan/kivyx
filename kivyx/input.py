@@ -55,6 +55,7 @@ Builder.load_string("""
             cursor_color: root.line_color
             #use_bubble: False
             use_handles: False
+            hint_text: root.title if not self.focus else ""
         XIconButton:
             icon: root.icon
             height: main.height
@@ -74,6 +75,7 @@ Builder.load_string("""
         aligned: True
         halign: "left"
         font_size: "12sp"
+        opacity: 1 if input.focus else 0 if not input.text else 1
         color: root.title_color if not input.focus else root.line_color
         pos: [input.pos[0] + dp(16),((input.pos[1] + root.height) - (self.font_size/1.5))\
             if input.focus else ((input.pos[1] + root.height/2) - (self.height/2))\
@@ -102,7 +104,7 @@ class XInput(Theming,XFloatLayout):
     
     icon = StringProperty("")
     text = StringProperty()
-    title = StringProperty("Label aligement")
+    title = StringProperty("Label")
     focus = BooleanProperty()
     state = NumericProperty(1)
     def __init__(self, **kwargs):
