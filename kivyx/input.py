@@ -63,6 +63,7 @@ Builder.load_string("""
             opacity: 1 if root.icon else 0
             on_press: root.dispatch('on_icon_press', *args)
             on_release: root.dispatch('on_icon_release', *args)
+            icon_color: root.icon_color
         
     XLabel:
         text: root.title
@@ -107,7 +108,7 @@ class XInput(Theming,XFloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.back_color = self.bgr_color
-        self.icon_color = self.txt_color
+        self.icon_color = self.txt_medium
         self.line_color = self.txt_light
         self.title_color = self.txt_medium
         self.text_color = self.txt_color
