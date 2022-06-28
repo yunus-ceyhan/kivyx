@@ -180,6 +180,8 @@ class XFab(Theming, XBoxLayout):
 
     def remove_text(self,*args):
         self.text = ""
+        anim = Animation(width = dp(56), duration = 0.1)
+        anim.start(self.ids.fb)
 
     def add_text(self,*args):
         self.text = self.current_text

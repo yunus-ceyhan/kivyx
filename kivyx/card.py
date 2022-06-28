@@ -96,7 +96,7 @@ class XCard(Theming,XBoxLayout):
     bg_color = ColorProperty()
     radius = ListProperty([0,])
     type = OptionProperty('card', options = ['card','button'])
-    elevation = NumericProperty(0.04)
+    elevation = NumericProperty(0.03)
     distance = NumericProperty(dp(6))
     soft = BooleanProperty(False)
     def __init__(self, **kwargs):

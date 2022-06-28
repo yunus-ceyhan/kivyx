@@ -34,6 +34,7 @@ from kivy.animation import Animation
 from kivy.metrics import dp
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.boxlayout import BoxLayout
+from kivy.core.window import Window
 
 
 Builder.load_string("""
@@ -112,6 +113,12 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
 
     def __init__(self, **kwargs):
         super(XDialog, self).__init__(**kwargs)
+        Window.bind(on_keyboard=self.keyboard)
+
+    def keyboard(self, window, key, *largs):
+        if key == 27:
+            if self.status == 'opened':
+                self.close()
 
     def add_widget(self,widget,*args):
         if isinstance(widget, XDialogContent):

@@ -26,6 +26,7 @@ XSidenav:
 
 from kivy.animation import Animation
 from kivy.uix.widget import Widget
+from kivy.core.window import Window
 from kivy.uix.stencilview import StencilView
 from kivy.metrics import dp
 from kivy.clock import Clock
@@ -137,10 +138,10 @@ class XSidenav(StencilView):
     panels. If set to `''`, defaults to a gradient from black to
     transparent in an appropriate direction (left->right if side panel
     above main, right->left if main panel on top).'''
-    separator_image_width = NumericProperty(dp(10))
+    separator_image_width = NumericProperty(0)
     '''The width of the separator image. Defaults to 10dp'''
     
-    separator_image_opacity = NumericProperty(1)
+    separator_image_opacity = NumericProperty(0)
     '''The opacity of the separator image. Defaults to 1'''
 
     # Touch properties
@@ -221,6 +222,12 @@ class XSidenav(StencilView):
     def __init__(self, **kwargs):
         super(XSidenav, self).__init__(**kwargs)
         Clock.schedule_once(self.on__main_above, 0)
+        Window.bind(on_keyboard=self.keyboard)
+
+    def keyboard(self, window, key, *largs):
+        if key == 27:
+            if self.state == "open":
+                self.toggle_state()
 
     def on_anim_type(self, *args):
         anim_type = self.anim_type

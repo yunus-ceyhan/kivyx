@@ -162,6 +162,12 @@ class XDotMenu(Theming,ButtonBehavior,XFloatLayout):
     def __init__(self, **kwargs):
         super(XDotMenu, self).__init__(**kwargs)
         self.color = self.bgr_color
+        Window.bind(on_keyboard=self.keyboard)
+
+    def keyboard(self, window, key, *largs):
+        if key == 27:
+            if self.status == 'opened':
+                self.close()
 
     def add_widget(self,widget,*args):
         if isinstance(widget, XDotItem):
@@ -208,6 +214,11 @@ class XMenu(Theming,ButtonBehavior,XFloatLayout):
     def __init__(self, **kwargs):
         super(XMenu, self).__init__(**kwargs)
         self.color = self.accent_color
+        Window.bind(on_keyboard=self.keyboard)
+
+    def keyboard(self, window, key, *largs):
+        if key == 27:
+            self.close()
 
     def add_widget(self,widget,*args):
         if isinstance(widget, XFlatButton):
