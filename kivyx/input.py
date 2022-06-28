@@ -55,7 +55,7 @@ Builder.load_string("""
                 Line:
                     width: dp(0.6)
                     rounded_rectangle: (self.x, self.y, self.width, self.height,dp(4))
-            TextInput:
+            XTextInput:
                 id: input
                 text: root.text
                 pos_hint: {"center_x": .5 , "center_y": .5}
@@ -196,19 +196,12 @@ class XInput(Theming,XFloatLayout):
     def color_line(self,*args):
         if self.ids.input.focus == False and self.state == 0:
             self.line_color = self.txt_light
-            if platform == "android":
-                self.fix_back_button()
             self.state = 1
 
 
         elif self.ids.input.focus == True and self.state == 1:
             self.line_color = self.xcolors["blue"]
             self.state = 0
-
-    @run_on_ui_thread            
-    def fix_back_button(self,*args):
-        activity.onWindowFocusChanged(False)
-        activity.onWindowFocusChanged(True)
 
 
     def on_text_validate(self, *args):
