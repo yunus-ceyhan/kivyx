@@ -29,6 +29,6 @@ setup(
     author_email='yunus.ceyhn@gmail',
     url='https://github.com/kivyx',
     keywords=['Python', 'Kivy', 'KivyMD'],
-    install_requires=[],
+    install_requires=["kivy","pygments","docutils"],
     classifiers=[],
 )
