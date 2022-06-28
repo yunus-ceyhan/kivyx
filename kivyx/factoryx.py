@@ -76,3 +76,5 @@ register("XSegmentTextItem", module="kivyx.segmentcontrol")
 register("XSegmentIconItem", module="kivyx.segmentcontrol")
 
 register("XInput", module="kivyx.input")
+register("XTextInput", module="kivyx.input")
+register("XCodeInput", module="kivyx.input")
