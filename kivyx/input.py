@@ -21,6 +21,17 @@ from kivy.properties import ColorProperty, NumericProperty, BooleanProperty,Stri
 from kivyx.theming import Theming
 from kivyx.floatlayout import XFloatLayout
 from kivy.core.window import Window
+from kivy.uix.textinput import TextInput
+from kivy.uix.codeinput import CodeInput
+from kivy.utils import platform
+
+if platform == "android":
+    from jnius import autoclass
+    activity = autoclass('org.kivy.android.PythonActivity').mActivity
+    from android.runnable import run_on_ui_thread
+else:
+    def run_on_ui_thread(func):
+        return None
 
 
 Builder.load_string("""
@@ -110,6 +121,47 @@ Builder.load_string("""
 
 """)
 
+class XTextInput(TextInput):
+    state = NumericProperty(1)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Window.bind(on_flip = self.detect_keyboard)
+
+    def detect_keyboard(self,*args):
+        if not self.focus and self.state == 0:
+            if platform == "android":
+                self.fix_back_button()
+            self.state = 1
+
+        elif self.focus and self.state == 1:
+            self.state = 0
+
+    @run_on_ui_thread            
+    def fix_back_button(self,*args):
+        activity.onWindowFocusChanged(False)
+        activity.onWindowFocusChanged(True)
+
+class XCodeInput(CodeInput):
+    state = NumericProperty(1)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Window.bind(on_flip = self.detect_keyboard)
+
+    def detect_keyboard(self,*args):
+        if not self.focus and self.state == 0:
+            if platform == "android":
+                self.fix_back_button()
+            self.state = 1
+
+        elif self.focus and self.state == 1:
+            self.state = 0
+
+    @run_on_ui_thread            
+    def fix_back_button(self,*args):
+        activity.onWindowFocusChanged(False)
+        activity.onWindowFocusChanged(True)
+
+
 
 class XInput(Theming,XFloatLayout):
     back_color = ColorProperty()
@@ -144,11 +196,19 @@ class XInput(Theming,XFloatLayout):
     def color_line(self,*args):
         if self.ids.input.focus == False and self.state == 0:
             self.line_color = self.txt_light
+            if platform == "android":
+                self.fix_back_button()
             self.state = 1
+
 
         elif self.ids.input.focus == True and self.state == 1:
             self.line_color = self.xcolors["blue"]
             self.state = 0
+
+    @run_on_ui_thread            
+    def fix_back_button(self,*args):
+        activity.onWindowFocusChanged(False)
+        activity.onWindowFocusChanged(True)
 
 
     def on_text_validate(self, *args):

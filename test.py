@@ -45,6 +45,7 @@ Builder.load_string("""
                                 XTabItem:
                                     name: "tab1"
                                     text: "Themes"
+                                    XInput:
                                 XTabItem:
                                     name: "tab2"
                                     text: "Walpapers"

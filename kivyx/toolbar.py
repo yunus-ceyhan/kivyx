@@ -1,9 +1,20 @@
-from xmlrpc.client import Boolean
-from kivy.app import App
 from kivy.lang import Builder
 from kivyx.boxlayout import XBoxLayout
 from kivy.properties import ColorProperty, BooleanProperty, NumericProperty, StringProperty
 from kivyx.theming import Theming
+from kivy.core.window import Window
+from kivy.utils import platform
+
+if platform == "android":
+    from jnius import autoclass
+    activity = autoclass('org.kivy.android.PythonActivity').mActivity
+    from android.runnable import run_on_ui_thread
+else:
+    def run_on_ui_thread(func):
+        return None
+
+
+
 Builder.load_string("""
 <XToolbar>:
     bg_color: root.bg_color
@@ -197,6 +208,7 @@ class XSearchbar(XToolbar):
     focus = BooleanProperty(False)
     right_icon = StringProperty("")
     left_icon = StringProperty("chevron-left")
+    state = NumericProperty(1)
     def __init__(self, **kwargs):
         super(XSearchbar, self).__init__(**kwargs)
         self.register_event_type('on_text_validate')
@@ -204,7 +216,22 @@ class XSearchbar(XToolbar):
         self.register_event_type('on_left_icon_press')
         self.register_event_type('on_left_icon_release')
         self.register_event_type('on_right_icon_press')
-        self.register_event_type('on_right_icon_release')       
+        self.register_event_type('on_right_icon_release')
+        Window.bind(on_flip = self.detect_keyboard)
+
+    def detect_keyboard(self,*args):
+        if not self.ids.input.focus and self.state == 0:
+            if platform == "android":
+                self.fix_back_button()
+            self.state = 1
+
+        elif self.ids.input.focus and self.state == 1:
+            self.state = 0
+
+    @run_on_ui_thread            
+    def fix_back_button(self,*args):
+        activity.onWindowFocusChanged(False)
+        activity.onWindowFocusChanged(True)
 
     def on_text_validate(self, *args):
         pass
