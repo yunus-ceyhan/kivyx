@@ -79,7 +79,7 @@ Builder.load_string("""
     size_hint_y: None
     height: dp(36)
     pos_hint: {"center_y":.5}
-    spacing: dp(12) if root.bubble_text else 0
+    spacing: dp(16) if root.bubble_text else 0
     padding: [(self.width/2)-(l1.width +l2.width + self.spacing)/2]
     XLabel:
         id: l1
