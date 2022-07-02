@@ -25,8 +25,9 @@ from kivy.lang import Builder
 from kivyx.boxlayout import XBoxLayout
 from kivyx.theming import Theming
 from kivyx.screen import XScreen
-from kivy.properties import StringProperty, NumericProperty, ColorProperty
+from kivy.properties import StringProperty, NumericProperty, ColorProperty, ListProperty
 from kivy.clock import Clock
+from kivy.metrics import dp
 from kivyx.segmentcontrol import XSegmentTextItem, XSegmentIconItem
 
 
@@ -63,10 +64,14 @@ Builder.load_string("""
 
 class XSegmentItem(Theming,XScreen):
     text = StringProperty()
-    icon = StringProperty()
+    bubble_text = StringProperty()
+    bubble_color = ColorProperty([0,0,0,0])
+    bubble_radius = ListProperty()
     def __init__(self, **kwargs):
         super(XSegmentItem,self).__init__(**kwargs)
         self.bg_color = self.bgr_color
+        self.bubble_color = self.bgr_color
+        self.bubble_radius = (dp(8),dp(8),dp(8),dp(8))
         
 
 
@@ -80,6 +85,7 @@ class XSegmentTab(Theming,XBoxLayout):
     item_mode = StringProperty("text")
     elevation = NumericProperty(0.05)
     item_color = ColorProperty()
+    current_tab = StringProperty()
 
     def __init__(self, **kwargs):
         super(XSegmentTab,self).__init__(**kwargs)
@@ -116,6 +122,9 @@ class XSegmentTab(Theming,XBoxLayout):
         for i in range(len(self.ids.sm.screens)):
             if self.item_mode == "text":
                 screens[l-i].text = self.ids.sm.screens[i].text
+                screens[l-i].bubble_text = self.ids.sm.screens[i].bubble_text
+                screens[l-i].bubble_color = self.ids.sm.screens[i].bubble_color
+                screens[l-i].bubble_radius = self.ids.sm.screens[i].bubble_radius
             else:
                 screens[l-i].icon = self.ids.sm.screens[i].icon
                 

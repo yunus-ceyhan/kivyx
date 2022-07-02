@@ -46,23 +46,31 @@ Builder.load_string("""
 
 <MainApp>:
     bg_color: root.card_color
-    padding: [dp(50),]
-    BoxLayout:
-        size_hint: None,None
-        size: dp(400), self.minimum_height
-        pos_hint: {"center_x": .5 , "center_y": .5}
-        orientation: "vertical"
-        spacing: dp(32)
-        XInput:
-            height: dp(48)
-            back_color: root.card_color
-            helper: "merhaaba"
-            font_size: "18sp"
-            helper_font_size: "13sp"
-        XInput:
-            height: dp(148)
+    
+    XSegmentTab:
+        #active_item_color: "#ff3434"
+        id: tab_panel
+        tab_style: "m3"
+        tab_radius: "16dp"
+        item_width: dp(465)
+        
+        XSegmentItem:
+            name: "tab1"
+            text: "Themes"
+            item_type: "left"
+            bubble_text: "12
+            "
+            #bubble_color: root.xcolors["pumpkin"]
+        XSegmentItem:
+            name: "tab2"
+            text: "Walpapers"
+            item_type: "center"
 
-
+        XSegmentItem:
+            name: "tab3"
+            text: "Icon pascks"
+            item_type: "right"
+            text: "revennue"
 
 
 """)

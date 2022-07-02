@@ -61,5 +61,5 @@ class XSwitch(CircularBehavior,XBoxLayout):
             self.back_color = self.disabled_color
             self.active = True
         else:
-            self.back_color = self.accent_color
+            self.back_color = self.primary_color
             self.active = False

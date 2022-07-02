@@ -21,7 +21,7 @@ from kivyx.floatlayout import XFloatLayout
 from kivyx.boxlayout import XBoxLayout
 from kivy.animation import Animation
 from kivy.metrics import dp
-from kivyx.button import XFlatButton
+from kivyx.behavior import RectangularBehavior
 from kivy.clock import Clock
 from kivyx.line import XLiney
 from kivy.uix.widget import Widget
@@ -76,11 +76,44 @@ Builder.load_string("""
 
 
 <XSegmentTextItem>:
-    pos_hint: {"center_y":.5}
     size_hint_y: None
     height: dp(36)
-    text: root.text
-    
+    pos_hint: {"center_y":.5}
+    spacing: dp(12) if root.bubble_text else 0
+    padding: [(self.width/2)-(l1.width +l2.width + self.spacing)/2]
+    XLabel:
+        id: l1
+        size_hint: None, None
+        height: dp(36)
+        width: self.texture_size[0]
+        text_size: None,None
+        text: root.text
+        pos_hint: {"center_x": .5, "center_y":.5}
+    XLabel:
+        id: l2
+        size_hint: None, None
+        height: dp(36)
+        text: root.bubble_text
+        size_hint: None, None
+        height: dp(36)
+        width: self.texture_size[0]
+        text_size: None,None
+        pos_hint: {"center_x": .5, "center_y":.5}
+        font_size: "10sp"
+        color: root.txt_color if root.bubble_color == root.bgr_color else root.xcolors["white"]
+        canvas.before:
+            Color:
+                rgba: root.bubble_color if root.bubble_text else (0,0,0,0)
+            RoundedRectangle:
+                size: self.size[0] + dp(12), self.size[1] - dp(16)
+                pos: self.pos[0]-dp(6), self.pos[1] + dp(8)
+                radius: root.bubble_radius
+            Color:
+                rgba: (root.card_color if root.bubble_color == root.bgr_color else root.bubble_color) if root.bubble_text else (0,0,0,0)
+            Line:
+                width: dp(1.5)
+                rounded_rectangle: (self.x - dp(7), self.y + dp(7), self.width + dp(14), self.height - dp(14), root.bubble_radius[0])
+        
 <XSegmentIconItem>:
     pos_hint: {"center_y":.5}
     size_hint: None, None
@@ -99,8 +132,11 @@ Builder.load_string("""
 """)
 
 
-class XSegmentTextItem(XFlatButton):
+class XSegmentTextItem(RectangularBehavior,XBoxLayout):
     text = StringProperty()
+    bubble_text = StringProperty()
+    bubble_color = ColorProperty([0,0,0,0])
+    bubble_radius = ListProperty((dp(4),dp(4),dp(4),dp(4)))
 
 class XSegmentIconItem(RectangularBehavior,XBoxLayout):
     icon = StringProperty()
@@ -158,7 +194,7 @@ class XSegmentControl(XFloatLayout, Theming):
         self.ids.b.radius = [self.radius[0],0,0,self.radius[0]] if self.style == 'm2' else [self.radius[0],]
         self.ids.b.width = self.ids.s.children[-1].width
         self.ids.b.pos = [self.ids.s.children[-1].pos[0],
-                          self.ids.s.children[-1].pos[1]]
+                            self.ids.s.children[-1].pos[1]]
         self.ind = len(self.ids.fake.children) - 1
         if self.style == 'm3':
             self.fade_out()
