@@ -102,7 +102,7 @@ Builder.load_string("""
         text_size: None,None
         pos_hint: {"center_x": .5, "center_y":.5}
         font_size: "10sp"
-        color: root.txt_color if root.bubble_color == root.bgr_color else root.xcolors["white"]
+        color: root.bubble_text_color
         canvas.before:
             Color:
                 rgba: root.bubble_color if root.bubble_text else (0,0,0,0)
