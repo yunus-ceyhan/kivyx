@@ -64,14 +64,18 @@ Builder.load_string("""
 
 class XSegmentItem(Theming,XScreen):
     text = StringProperty()
+    text_color = ColorProperty()
+    font_size = NumericProperty("16sp")
     bubble_text = StringProperty()
     bubble_color = ColorProperty([0,0,0,0])
-    bubble_radius = ListProperty()
+    bubble_line_color = ColorProperty([0,0,0,0])
+    bubble_text_color = ColorProperty([0,0,0,0])
+    bubble_radius = ListProperty((dp(4),dp(4),dp(4),dp(4)))
     def __init__(self, **kwargs):
         super(XSegmentItem,self).__init__(**kwargs)
         self.bg_color = self.bgr_color
-        self.bubble_color = self.bgr_color
-        self.bubble_radius = (dp(8),dp(8),dp(8),dp(8))
+
+        
         
 
 
@@ -86,12 +90,23 @@ class XSegmentTab(Theming,XBoxLayout):
     elevation = NumericProperty(0.05)
     item_color = ColorProperty()
     current_tab = StringProperty()
+    text_color = ColorProperty()
+    font_size = NumericProperty("16sp")
+    bubble_color = ColorProperty([0,0,0,0])
+    bubble_line_color = ColorProperty([0,0,0,0])
+    bubble_text_color = ColorProperty([0,0,0,0])
+    bubble_radius = ListProperty((dp(4),dp(4),dp(4),dp(4)))
 
     def __init__(self, **kwargs):
         super(XSegmentTab,self).__init__(**kwargs)
         self.tab_color =  self.card_color
         self.bar_color = self.bgr_color
         self.item_color = self.card_color
+        self.text_color = self.txt_color
+        self.bubble_color = self.bgr_color
+        self.bubble_line_color = self.card_color
+        self.bubble_text_color = self.txt_color
+        self.bubble_radius = (dp(8),dp(8),dp(8),dp(8))
         self.register_event_type('on_tab_press')
         self.register_event_type('on_tab_release')
         Clock.schedule_once(self.update)
@@ -123,8 +138,14 @@ class XSegmentTab(Theming,XBoxLayout):
             if self.item_mode == "text":
                 screens[l-i].text = self.ids.sm.screens[i].text
                 screens[l-i].bubble_text = self.ids.sm.screens[i].bubble_text
-                screens[l-i].bubble_color = self.ids.sm.screens[i].bubble_color
-                screens[l-i].bubble_radius = self.ids.sm.screens[i].bubble_radius
+                screens[l-i].bubble_color = self.bubble_color
+                screens[l-i].bubble_radius = self.bubble_radius
+                screens[l-i].text_color = self.txt_color
+                screens[l-i].font_size = self.font_size
+                screens[l-i].bubble_color = self.bubble_color
+                screens[l-i].bubble_text_color = self.bubble_text_color
+                screens[l-i].bubble_line_color = self.bubble_line_color
+                
             else:
                 screens[l-i].icon = self.ids.sm.screens[i].icon
                 

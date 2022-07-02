@@ -58,9 +58,7 @@ Builder.load_string("""
             name: "tab1"
             text: "Themes"
             item_type: "left"
-            bubble_text: "12
-            "
-            #bubble_color: root.xcolors["pumpkin"]
+            bubble_text: "12"
         XSegmentItem:
             name: "tab2"
             text: "Walpapers"

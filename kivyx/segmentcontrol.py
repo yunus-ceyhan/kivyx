@@ -89,6 +89,8 @@ Builder.load_string("""
         text_size: None,None
         text: root.text
         pos_hint: {"center_x": .5, "center_y":.5}
+        color: root.text_color
+        font_size: root.font_size
     XLabel:
         id: l2
         size_hint: None, None
@@ -109,7 +111,7 @@ Builder.load_string("""
                 pos: self.pos[0]-dp(6), self.pos[1] + dp(8)
                 radius: root.bubble_radius
             Color:
-                rgba: (root.card_color if root.bubble_color == root.bgr_color else root.bubble_color) if root.bubble_text else (0,0,0,0)
+                rgba: root.bubble_line_color if root.bubble_text else (0,0,0,0)
             Line:
                 width: dp(1.5)
                 rounded_rectangle: (self.x - dp(7), self.y + dp(7), self.width + dp(14), self.height - dp(14), root.bubble_radius[0])
@@ -134,8 +136,12 @@ Builder.load_string("""
 
 class XSegmentTextItem(RectangularBehavior,XBoxLayout):
     text = StringProperty()
+    text_color = ColorProperty()
+    font_size = NumericProperty("16sp")
     bubble_text = StringProperty()
     bubble_color = ColorProperty([0,0,0,0])
+    bubble_line_color = ColorProperty([0,0,0,0])
+    bubble_text_color = ColorProperty([0,0,0,0])
     bubble_radius = ListProperty((dp(4),dp(4),dp(4),dp(4)))
 
 class XSegmentIconItem(RectangularBehavior,XBoxLayout):
