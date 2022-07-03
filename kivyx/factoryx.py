@@ -65,6 +65,7 @@ register("XDialogButton", module="kivyx.dialog")
 
 register("XSlider", module="kivyx.slider")
 register("XProgress", module="kivyx.progress")
+register("XCProgress", module="kivyx.progress")
 
 register("XRcBoxList", module="kivyx.rclist")
 register("XRcGridList", module="kivyx.rclist")

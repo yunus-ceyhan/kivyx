@@ -43,36 +43,38 @@ Builder.load_string("""
 #:import ScrollEffect kivy.effects.scroll.ScrollEffect
 #:import Transition kivy.uix.screenmanager.NoTransition
 #:import Window kivy.core.window.Window
+#:import hex kivy.utils.get_color_from_hex
 
 <MainApp>:
     bg_color: root.card_color
-    
-    XSegmentTab:
-        #active_item_color: "#ff3434"
-        id: tab_panel
-        tab_style: "m3"
-        tab_radius: "16dp"
-        item_width: dp(465)
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(30)
+        XCProgress:
+            pos_hint: {"center_x":.5,"center_y": .5}
+            value: 67
+            animation: True
+            style: "m2"
+            max_width: dp(150)
+            cap: "round"
+            text_opacity: 1
+            text_bold: True
+            text: "ACCURACY"
+            cap: "round"
+            #text_font_size: "18sp"
+            #percent_font_size: "40sp"
+            #percent_symbol: False
+            back_color: root.xcolors["black"]
+            line_back_color: root.trans_color
+            text_color: root.xcolors["white"]
+            #cap: "square"
+            line_color: root.xcolors["sun"]
+  
         
-        XSegmentItem:
-            name: "tab1"
-            text: "Themes"
-            item_type: "left"
-            bubble_text: "12"
-        XSegmentItem:
-            name: "tab2"
-            text: "Walpapers"
-            item_type: "center"
-
-        XSegmentItem:
-            name: "tab3"
-            text: "Icon pascks"
-            item_type: "right"
-            text: "revennue"
-
 
 """)
 
+        
 
 
 class MainApp(Theming,XScreen):
