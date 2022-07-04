@@ -20,7 +20,7 @@ class Theming(EventDispatcher):
     shadow_color = ColorProperty([0.5,0.5,0.5,0.05])
     trans_color = ColorProperty([0.0,0.0,0.0,0.0])
     disabled_color = ColorProperty()
-    xcolors = x_colors["Palet"]
+    xcolors = x_colors["Colors"]
 
     def __init__(self, **kwargs):
         super(Theming, self).__init__(**kwargs)
@@ -39,7 +39,10 @@ class Theming(EventDispatcher):
         self.txt_light = self.colorx["txt_light"]
         self.opposite_color = self.colorx["opposite"]
         self.disabled_color = self.colorx["disabled"]
-
-
-
+        
+    def colors(self,name, hue = 6):
+        if name and str(name) in self.xcolors.keys() and hue in range(1,11):
+            return self.xcolors[str(name)][int(hue)-1]
+        else:
+            return self.trans_color
 

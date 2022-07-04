@@ -200,7 +200,7 @@ class XInput(Theming,XFloatLayout):
 
 
         elif self.ids.input.focus == True and self.state == 1:
-            self.line_color = self.xcolors["blue"]
+            self.line_color = self.colors("blue")
             self.state = 0
 
 

@@ -22,11 +22,11 @@
             #text_font_size: "18sp"
             #percent_font_size: "40sp"
             #percent_symbol: False
-            back_color: root.xcolors["black"]
+            back_color: root.colors("gray",1)
             line_back_color: root.trans_color
-            text_color: root.xcolors["white"]
+            text_color: root.colors("gray",9)
             #cap: "square"
-            line_color: root.xcolors["sun"]
+            line_color: root.colors("yellow",4)
 """
 
 from kivy.lang import Builder

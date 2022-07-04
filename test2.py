@@ -64,11 +64,11 @@ Builder.load_string("""
             #text_font_size: "18sp"
             percent_font_size: "40sp"
             percent_symbol: False
-            back_color: root.xcolors["black"]
+            back_color: root.colors("blue")
             #line_back_color: root.trans_color
-            text_color: root.xcolors["white"]
+            text_color: root.colors("gray",9)
             #cap: "square"
-            line_color: root.xcolors["sun"]
+            line_color: root.colors("green")
             animation: True
         
 
@@ -80,6 +80,7 @@ Builder.load_string("""
 class MainApp(Theming,XScreen):
     def __init__(self, **kw):
         super().__init__(**kw)
+        print(self.colors("blue"))
 
 
 class TestApp(App):
