@@ -52,7 +52,7 @@ Builder.load_string("""
         padding: dp(30)
         XCProgress:
             pos_hint: {"center_x":.5,"center_y": .5}
-            value: 67
+            value: 76
             animation: True
             style: "m2"
             max_width: dp(150)
@@ -62,14 +62,14 @@ Builder.load_string("""
             text: "ACCURACY"
             cap: "round"
             #text_font_size: "18sp"
-            #percent_font_size: "40sp"
-            #percent_symbol: False
+            percent_font_size: "40sp"
+            percent_symbol: False
             back_color: root.xcolors["black"]
-            line_back_color: root.trans_color
+            #line_back_color: root.trans_color
             text_color: root.xcolors["white"]
             #cap: "square"
             line_color: root.xcolors["sun"]
-  
+            animation: True
         
 
 """)

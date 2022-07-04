@@ -81,7 +81,7 @@ Builder.load_string("""
                     else (root.max_width / 16)
             circle:
                 (self.center_x, self.center_y, min(self.width, self.height)
-                / 2, 180, -180) if root.style == "m2"\
+                / 2, 360, 0) if root.style == "m2"\
                     else (self.center_x, self.center_y, min(self.width, self.height)
                 / 2, 140, -140) if root.style == "m3"\
                     else (self.center_x, self.center_y- self.height/2, min(self.width, self.height*2)
@@ -94,7 +94,7 @@ Builder.load_string("""
             cap: root.cap
             circle:
                 (self.center_x, self.center_y, min(self.width, self.height)
-                / 2, (-180 + (round(root.value)*3.6)) , - 180) if root.style == "m2"\
+                / 2, ( 0 + (round(root.value)*3.6)) , 0) if root.style == "m2"\
                     else (self.center_x, self.center_y, min(self.width, self.height)
                 / 2, (-140 + (round(root.value)*2.8)) , - 140) if root.style == "m3"\
                     else (self.center_x, self.center_y- self.height/2, min(self.width, self.height*2)
@@ -111,7 +111,7 @@ Builder.load_string("""
         pos: (root.pos[0] + (root.max_width/2)- self.width/2, ((root.pos[1] + root.height/2)\
             if not root.text else (root.pos[1] + root.height/1.7)) - self.height /2) if root.style == "m2"\
             else (root.pos[0] + (root.max_width/2)- self.width/2, (root.pos[1] - root.height/2)+self.font_size/2) if root.style == "m3"\
-                else (root.pos[0] + (root.max_width/2)- self.width/2, ((root.pos[1] - root.height/2)+self.font_size))\
+                else (root.pos[0] + (root.max_width/2)- self.width/2, ((root.pos[1] - root.height/2)+self.font_size/2))\
                     if root.text else (root.pos[0] + (root.max_width/2)- self.width/2, (root.pos[1] - root.height/2))
         opacity: root.text_opacity
         color: root.text_color
@@ -161,6 +161,7 @@ class XCProgress(Theming,Widget):
     max_width = NumericProperty(1)
     percent_font_size = NumericProperty()
     text_font_size = NumericProperty()
+    animation_speed = NumericProperty(0.5)
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -178,10 +179,10 @@ class XCProgress(Theming,Widget):
             
     def update(self,*args):       
         self.temporary = self.value
-        anim = Animation(value = 0, duration = .5)
+        anim = Animation(value = 0, duration = self.animation_speed)
         anim.bind(on_complete = self.update2)
         anim.start(self)
         
     def update2(self,*args):
-        anim = Animation(value = self.temporary, duration = .5)
+        anim = Animation(value = self.temporary, duration = self.animation_speed)
         anim.start(self)

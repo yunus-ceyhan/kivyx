@@ -81,7 +81,7 @@ class BotnavIcon(Theming,ButtonBehavior, BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text_color = self.txt_color
-        self.icon_color = self.black_color 
+        self.icon_color = self.txt_color
 
 class XBotnavItem(XScreen):
     icon = StringProperty()
