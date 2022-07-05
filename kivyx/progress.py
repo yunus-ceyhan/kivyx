@@ -138,11 +138,29 @@ class XProgress(Theming,ProgressBar):
     back_color = ColorProperty()
     track_color = ColorProperty()
     radius = ListProperty([0,])
+    animation = BooleanProperty(False)
+    animation_speed = NumericProperty(0.5)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.back_color = self.disabled_color
         self.track_color = self.primary_color
+        Clock.schedule_once(self.check)
+        
+    def check(self,*args):
+        if self.animation:
+            Clock.schedule_once(self.update)
+            
+            
+    def update(self,*args):       
+        self.temporary = self.value
+        anim = Animation(value = 0, duration = self.animation_speed)
+        anim.bind(on_complete = self.update2)
+        anim.start(self)
+        
+    def update2(self,*args):
+        anim = Animation(value = self.temporary, duration = self.animation_speed)
+        anim.start(self)
         
 class XCProgress(Theming,Widget):
     text = StringProperty()
@@ -156,7 +174,7 @@ class XCProgress(Theming,Widget):
     text_bold = BooleanProperty(True)
     percent_symbol = BooleanProperty(True)
     value = NumericProperty(0)
-    animation = BooleanProperty(True)
+    animation = BooleanProperty(False)
     style = OptionProperty("m2", options = ["m2","m4","m3","m2"])
     max_width = NumericProperty(1)
     percent_font_size = NumericProperty()

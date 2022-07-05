@@ -24,15 +24,18 @@ Builder.load_string("""
 <XIconListItem>:
     size_hint_y: None
     height: dp(56)
-    padding: [dp(12),dp(4),dp(16),dp(4)]
-    spacing: dp(12)
+    padding: [dp(4),dp(4),dp(16),dp(4)]
+    spacing: dp(4)
     bg_color: root.card_color
     XIcon:
         id: li
         icon: root.icon
         aligned: True
-        halign: "left"
+        halign: "center"
+        valign: "middle"
         color: root.icon_color
+        size_hint: None, None
+        size: dp(48), dp(48)
     XLabel:
         id: lb
         text: root.text

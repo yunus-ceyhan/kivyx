@@ -1,6 +1,6 @@
 from kivy.lang import Builder
 from kivyx.label import XLabel
-from kivy.properties import StringProperty, ColorProperty
+from kivy.properties import StringProperty, ColorProperty, ListProperty
 import os
 
 dirname = os.path.dirname(__file__)
@@ -18,12 +18,21 @@ Builder.load_string("""
     size: self.font_size , self.font_size
     pos_hint: {"center_x": .5 , "center_y": .5}
     color: root.color
+    canvas.before:
+        Color:
+            rgba: root.bg_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: root.radius
 
 """)
 
 class XIcon(XLabel):
     icon = StringProperty()
     color = ColorProperty([0,0,0,1])
+    bg_color = ColorProperty([0,0,0,0])
+    radius = ListProperty([0,0,0,0])
     fontname = filename
 
     def __init__(self, **kwargs):
