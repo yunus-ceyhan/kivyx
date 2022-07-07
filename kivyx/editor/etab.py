@@ -38,6 +38,7 @@ Builder.load_string("""
     opacity: .5
     text_color: self.opposite_color
     radius: [0,]
+    style: "text"
     canvas.before:
         Color:
             rgba: root.item_color
@@ -69,7 +70,7 @@ Builder.load_string("""
 
 """)
 
-class ETabButton(XFlatButton):
+class ETabButton(XButton):
     item_color = ColorProperty([0,0,0,0])
     bottom_line  = BooleanProperty(False)
 

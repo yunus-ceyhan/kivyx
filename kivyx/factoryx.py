@@ -4,12 +4,7 @@ from kivy.factory import Factory
 register = Factory.register
 register("XBoxLayout", module="kivyx.boxlayout")
 register("XButton", module="kivyx.button")
-register("XFlatButton", module="kivyx.button")
-register("XFlatIconButton", module="kivyx.button")
-register("XFlatRIconButton", module="kivyx.button")
 register("XIconButton", module="kivyx.button")
-register("XLIconButton", module="kivyx.button")
-register("XRIconButton", module="kivyx.button")
 register("XCard", module="kivyx.card")
 register("XFloatLayout", module="kivyx.floatlaayout")
 register("XGridLayout(", module="kivyx.gridlayout")

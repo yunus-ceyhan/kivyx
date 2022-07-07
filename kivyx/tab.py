@@ -21,7 +21,6 @@
 
 from kivy.lang import Builder
 from kivyx.boxlayout import XBoxLayout
-from kivyx.button import XFlatButton
 from kivyx.theming import Theming
 from kivyx.screen import XScreen
 from kivy.properties import StringProperty,ColorProperty, BooleanProperty

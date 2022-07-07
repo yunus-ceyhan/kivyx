@@ -4,7 +4,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivyx.theming import Theming
 from kivy.properties import ColorProperty, ListProperty, DictProperty, NumericProperty, BooleanProperty, OptionProperty,StringProperty
-from kivyx.button import XFlatRIconButton, XIconButton
+#from kivyx.button import XFlatRIconButton, XIconButton
 from kivyx.floatlayout import XFloatLayout
 from kivy.animation import Animation
 from kivy.metrics import dp
@@ -18,7 +18,7 @@ from kivy.uix.progressbar import ProgressBar
 
 from kivy.lang import Builder
 from kivyx.boxlayout import XBoxLayout
-from kivyx.button import XFlatButton
+#from kivyx.button import XFlatButton
 from kivyx.theming import Theming
 from kivyx.screen import XScreen
 from kivy.properties import StringProperty,ColorProperty
@@ -46,31 +46,23 @@ Builder.load_string("""
 #:import hex kivy.utils.get_color_from_hex
 
 <MainApp>:
-    bg_color: root.card_color
-    BoxLayout:
+    XBoxLayout:
+        spacing: dp(120)
+        padding: [dp(120),]
         orientation: "vertical"
-        padding: dp(30)
-        XCProgress:
-            pos_hint: {"center_x":.5,"center_y": .5}
-            value: 76
-            animation: True
-            style: "m2"
-            max_width: dp(150)
-            cap: "round"
-            text_opacity: 1
-            text_bold: True
-            text: "ACCURACY"
-            cap: "round"
-            #text_font_size: "18sp"
-            percent_font_size: "40sp"
-            percent_symbol: False
-            back_color: root.colors("blue")
-            #line_back_color: root.trans_color
-            text_color: root.colors("gray",9)
-            #cap: "square"
-            line_color: root.colors("green")
-            animation: True
-        
+        bg_color: root.accent_color
+        XButton:
+            bg_color: self.primary_color
+            text: self.style.title()
+            style: "elevated" 
+            #button_width: dp(380)
+            #right_icon: "plus"
+            left_icon: "plus"
+            rounded: True
+            text_color: root.colors("green",1)
+            icon_color: self.text_color
+            
+
 
 """)
 

@@ -32,7 +32,7 @@ Builder.load_string("""
             on_press: root.dispatch('on_left_icon_press', *args)
             on_release: root.dispatch('on_left_icon_release', *args)
 
-        XFlatButton:
+        XButton:
             text: root.text
             on_press: root.dispatch('on_bar_press', *args)
             on_release: root.dispatch('on_bar_release', *args)
@@ -43,6 +43,7 @@ Builder.load_string("""
             font_size: "17sp"
             font_name: root.font_name
             opacity: .5
+            style: "text"
         XIconButton:
             icon: root.middle_icon
             on_press: root.dispatch('on_middle_icon_press', *args)

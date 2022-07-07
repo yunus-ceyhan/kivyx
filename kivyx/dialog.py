@@ -28,7 +28,7 @@
 from kivy.lang import Builder
 from kivyx.theming import Theming
 from kivy.properties import ListProperty, DictProperty, NumericProperty, BooleanProperty,StringProperty
-from kivyx.button import XFlatButton
+from kivyx.button import XButton
 from kivyx.floatlayout import XFloatLayout
 from kivy.animation import Animation
 from kivy.metrics import dp
@@ -92,11 +92,12 @@ Builder.load_string("""
 <XDialogButton>:
     size_hint_y: None
     height: dp(48)
+    style: "text"
                 
 
 """)
 
-class XDialogButton(XFlatButton):
+class XDialogButton(XButton):
     pass
 
 class XDialogContent(BoxLayout):

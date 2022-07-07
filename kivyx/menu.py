@@ -45,7 +45,7 @@
 from kivy.lang import Builder
 from kivyx.theming import Theming
 from kivy.properties import ColorProperty, ListProperty, DictProperty, NumericProperty, BooleanProperty, OptionProperty,StringProperty
-from kivyx.button import XFlatButton
+from kivyx.button import XButton
 from kivyx.floatlayout import XFloatLayout
 from kivy.animation import Animation
 from kivy.metrics import dp
@@ -221,8 +221,8 @@ class XMenu(Theming,ButtonBehavior,XFloatLayout):
             self.close()
 
     def add_widget(self,widget,*args):
-        if isinstance(widget, XFlatButton):
-            self.ids.bx.add_widget(widget)
+        if isinstance(widget, XButton):
+            self.ids.bx.add_widget(widget(style= "text"))
         else:
             super(XMenu, self).add_widget(widget)
 
