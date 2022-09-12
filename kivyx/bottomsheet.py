@@ -47,7 +47,7 @@ Builder.load_string("""
     BoxLayout:
         orientation: "vertical"
         pos_hint: bs.pos_hint
-        XCard:
+        XToolbar:
             id: scr
             size_hint_y: None
             height: root.scroll_height

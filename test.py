@@ -39,7 +39,8 @@ Builder.load_string("""
                                 right_icon: "dots-vertical"
                                 on_left_icon_release: sn.toggle_state()
                                 on_right_icon_release: menu.open()
-                                elevation:0
+                                elevation:1
+                                
                             XTabPanel:
                                 id: tab_panel
                                 XTabItem:
@@ -59,7 +60,7 @@ Builder.load_string("""
                             icon: "apple"
                             text: "apple"
                             on_press: self.extend_button("extend") if self.status == "shrinked" else self.extend_button("shrink")
-                            #on_release: bottom_sheet.open()
+                            on_release: bottom_sheet.open()
 
 
                     XBotnavItem:

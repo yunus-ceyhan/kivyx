@@ -9,17 +9,67 @@ Builder.load_string("""
     bg_color: root.bg_color
     size_hint_y: None
     height: sp(64)
-    pos_hint: {"top": 1}
-    canvas.after:
+    canvas.before:            
         Color:
-            rgba: [0,0,0,root.elevation]
-        Rectangle:
-            size: self.size[0], dp(1)
-            pos: (self.pos[0], self.height-dp(1) if root.top else self.pos[1])
+            rgba: 0,0,0, root.percent(root.elevation,5)
+        RoundedRectangle:
+            size: self.size[0], dp(root.percent(root.distance,100))
+            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,100))\
+                                            if not root.top else self.pos[1] + self.height
+            radius: root.radius   
+        Color:
+            rgba: 0,0,0, root.percent(root.elevation,12)
+        RoundedRectangle:
+            size: self.size[0], dp(root.percent(root.distance,70))
+            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,70))\
+                                            if not root.top else self.pos[1] + self.height
+            radius: root.radius
+        Color:
+            rgba: 0,0,0, root.percent(root.elevation,15)
+        RoundedRectangle:
+            size: self.size[0], dp(root.percent(root.distance,50))
+            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,50))\
+                                            if not root.top else self.pos[1] + self.height
+            radius: root.radius
+            
+        Color:
+            rgba: 0,0,0, root.percent(root.elevation,19)
+        RoundedRectangle:
+            size: self.size[0], dp(root.percent(root.distance,35))
+            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,35))\
+                                            if not root.top else self.pos[1] + self.height
+            radius: root.radius
+        Color:
+            rgba: 0,0,0, root.percent(root.elevation,24)
+        RoundedRectangle:
+            size: self.size[0], dp(root.percent(root.distance,20))
+            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,20))\
+                                            if not root.top else self.pos[1] + self.height
+            radius: root.radius
+        Color:
+            rgba: 0,0,0, root.percent(root.elevation,30)
+        RoundedRectangle:
+            size: self.size[0], dp(root.percent(root.distance,10))
+            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,10))\
+                                            if not root.top else self.pos[1] + self.height
+            radius: root.radius
+        Color:
+            rgba: 0,0,0, root.percent(root.elevation,37)
+        RoundedRectangle:
+            size: self.size[0], dp(root.percent(root.distance,5))
+            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,5))\
+                                            if not root.top else self.pos[1] + self.height
+            radius: root.radius
+        Color:
+            rgba: 0,0,0,root.percent(root.elevation,45)
+        RoundedRectangle:
+            size: self.size[0], dp(root.percent(root.distance,3))
+            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,3))\
+                                            if not root.top else self.pos[1] + self.height
+            radius: root.radius
 
 <XAppSearchbar>:
     padding: [dp(20),0,dp(20),0]
-    top: False
     XBoxLayout:
         id: sbx
         bg_color: root.bar_color
@@ -118,10 +168,14 @@ Builder.load_string("""
 class XToolbar(Theming,XBoxLayout):
     bg_color = ColorProperty()
     top = BooleanProperty(False)
-    elevation = NumericProperty(0.09)
+    elevation = NumericProperty(0.1)
+    distance = NumericProperty("3dp")
     def __init__(self, **kwargs):
         super(XToolbar, self).__init__(**kwargs)
         self.bg_color = self.card_color
+        
+    def percent(self, max, percent):
+        return (max/100)*percent
 
 class XAppToolbar(XToolbar):
     title = StringProperty()
