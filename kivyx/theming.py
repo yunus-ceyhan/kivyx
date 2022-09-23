@@ -1,9 +1,8 @@
 from kivy.app import App
-from kivy.properties import ColorProperty, OptionProperty, DictProperty, ObjectProperty, BooleanProperty,StringProperty
+from kivy.properties import ColorProperty, DictProperty,StringProperty
 from kivyx.colors import x_colors
 from kivy.event import EventDispatcher
-from kivy.clock import Clock
-from kivy.core.window import Window
+
 
 class Theming(EventDispatcher):
     theme = StringProperty("Light")

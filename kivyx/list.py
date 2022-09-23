@@ -2,8 +2,6 @@ from kivy.lang import Builder
 from kivy.properties import ColorProperty, StringProperty, NumericProperty
 from kivyx.behavior import RectangularBehavior
 from kivy.uix.boxlayout import BoxLayout
-from kivyx.theming import Theming
-from kivyx.boxlayout import XBoxLayout
 from kivyx.card import XCard
 
 Builder.load_string("""

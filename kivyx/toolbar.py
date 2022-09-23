@@ -9,7 +9,7 @@ Builder.load_string("""
     bg_color: root.bg_color
     size_hint_y: None
     height: sp(64)
-    canvas.before:            
+    canvas.before:
         Color:
             rgba: 0,0,0, root.percent(root.elevation,5)
         RoundedRectangle:
@@ -66,6 +66,14 @@ Builder.load_string("""
             size: self.size[0], dp(root.percent(root.distance,3))
             pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,3))\
                                             if not root.top else self.pos[1] + self.height
+            radius: root.radius
+            
+    canvas.after:
+        Color:
+            rgba: root.trans_color if root.elevation > 0 else root.line_color
+        RoundedRectangle:
+            size: self.size[0], root.line_width
+            pos: self.pos[0],self.pos[1] if not root.top else self.pos[1] + (self.height - root.line_width)
             radius: root.radius
 
 <XAppSearchbar>:
@@ -170,9 +178,12 @@ class XToolbar(Theming,XBoxLayout):
     top = BooleanProperty(False)
     elevation = NumericProperty(0.1)
     distance = NumericProperty("3dp")
+    line_color = ColorProperty()
+    line_width = NumericProperty("0.5dp")
     def __init__(self, **kwargs):
         super(XToolbar, self).__init__(**kwargs)
         self.bg_color = self.card_color
+        self.line_color = self.txt_color
         
     def percent(self, max, percent):
         return (max/100)*percent

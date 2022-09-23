@@ -23,7 +23,7 @@ from kivy.lang import Builder
 from kivyx.boxlayout import XBoxLayout
 from kivyx.theming import Theming
 from kivyx.screen import XScreen
-from kivy.properties import StringProperty,ColorProperty, BooleanProperty
+from kivy.properties import StringProperty,ColorProperty
 from kivy.clock import Clock
 from kivy.core.window import Window
 from kivyx.behavior import RectangularBehavior

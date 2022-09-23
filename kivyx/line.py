@@ -1,5 +1,4 @@
 from kivyx.boxlayout import XBoxLayout
-from kivy.properties import ColorProperty
 from kivy.lang import Builder
 from kivyx.theming import Theming
 Builder.load_string("""

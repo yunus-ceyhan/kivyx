@@ -5,6 +5,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
 from kivyx.theming import Theming
 from kivy.properties import StringProperty
+from kivy.core.window import Window
+Window.clearcolor = (1, 1, 1, 1)
 
 
 Builder.load_string("""
@@ -24,6 +26,17 @@ Builder.load_string("""
 
             BoxLayout:
                 orientation: "vertical"
+                #spacing: dp(10)
+                XAppSearchbar:
+                    text: "Search for Themes"
+                    left_icon: "menu"
+                    right_icon: "dots-vertical"
+                    on_left_icon_release: sn.toggle_state()
+                    on_right_icon_release: menu.open()
+                    elevation: 0
+                    #distance: dp(3)
+                    #top: True
+                    line_color: 0,0,0,.2
                 XBotnav:
                     id: botnav
                     bg_color: self.bgr_color
@@ -33,29 +46,10 @@ Builder.load_string("""
                         icon: "newspaper"
                         BoxLayout:
                             orientation: "vertical"
-                            XAppSearchbar:
-                                text: "Search for Themes"
-                                left_icon: "menu"
-                                right_icon: "dots-vertical"
-                                on_left_icon_release: sn.toggle_state()
-                                on_right_icon_release: menu.open()
-                                elevation:1
+                            XBoxLayout:
+                                bg_color: root.card_color
                                 
-                            XTabPanel:
-                                id: tab_panel
-                                XTabItem:
-                                    name: "tab1"
-                                    text: "Themes"
-                                    XInput:
-                                XTabItem:
-                                    name: "tab2"
-                                    text: "Walpapers"
-                                XTabItem:
-                                    name: "tab3"
-                                    text: "Icons"
-                                XTabItem:
-                                    name: "tab4"
-                                    text: "Fonts"
+
                         XFab:
                             icon: "apple"
                             text: "apple"
@@ -144,7 +138,7 @@ Builder.load_string("""
 """)
 
 
-class MainApp(ScreenManager):
+class MainApp(ScreenManager,Theming):
     pass
 
 class TestApp(App):
@@ -152,6 +146,7 @@ class TestApp(App):
     def build(self):
         self.theme_style = "Light"
         self.colorx = Theming()
+        Window.clearcolor = (1, 1, 1, 1)
         return MainApp()
 
 
