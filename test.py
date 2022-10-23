@@ -37,6 +37,28 @@ Builder.load_string("""
                     #distance: dp(3)
                     #top: True
                     line_color: 0,0,0,.2
+                XSegmentTab:
+                    #active_item_color: "#ff3434"
+                    id: tab_panel
+                    size_hint_y: None
+                    height: dp(64)
+                    item_width: dp(400)
+                    tab_style: "m3"
+                    tab_radius: dp(16)
+                    XSegmentItem:
+                        name: "tab1"
+                        text: "Themes"
+                        item_type: "left"
+                    XSegmentItem:
+                        name: "tab2"
+                        text: "Walpapers"
+                        item_type: "center"
+
+                    XSegmentItem:
+                        name: "tab3"
+                        text: "Icon pascks"
+                        item_type: "right"
+                        text: "revennue"
                 XBotnav:
                     id: botnav
                     bg_color: self.bgr_color

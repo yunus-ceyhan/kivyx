@@ -176,7 +176,7 @@ Builder.load_string("""
 class XToolbar(Theming,XBoxLayout):
     bg_color = ColorProperty()
     top = BooleanProperty(False)
-    elevation = NumericProperty(0.1)
+    elevation = NumericProperty(0.08)
     distance = NumericProperty("3dp")
     line_color = ColorProperty()
     line_width = NumericProperty("0.5dp")
