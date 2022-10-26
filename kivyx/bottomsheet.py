@@ -106,13 +106,15 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
             anim.start(self)
             self.status = 'opened'
             
+            
     def close(self,*args):
         try:
             self.main_pos = {"center_x": .5, "center_y": -2}
             anim = Animation(scroll_height = 0,bg_color = [0,0,0,0] , duration = 0.2)
             anim.start(self)
-            #anim.bind(on_complete = self.set_pos)
-            self.status = 'closed'
+            anim.bind(on_complete = self.set_status)            
         except:
             pass
             
+    def set_status(self,*args):
+        self.status = 'closed'
