@@ -137,7 +137,7 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
                 if self.expandable else min(dp(300),self.ids.bx.height + dp(110) + self.ids.bt.height) 
             anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.5],opacity = 1, duration = 0.2)
             anim.start(self)
-            self.status = 'opened'
+            anim.bind(on_complete= self.set_status)
             
     def close(self,*args):
         try:
@@ -147,3 +147,6 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
             self.status = 'closed'
         except:
             pass
+        
+    def set_status(self,*args):
+        self.status = "opened"
