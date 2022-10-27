@@ -220,6 +220,7 @@ class XSidenav(StencilView):
     '''
 
     def __init__(self, **kwargs):
+        self.register_event_type('on_anim_stop')
         super(XSidenav, self).__init__(**kwargs)
         Clock.schedule_once(self.on__main_above, 0)
         Window.bind(on_keyboard=self.keyboard)
@@ -362,8 +363,10 @@ class XSidenav(StencilView):
         Animation.cancel_all(self)
         if self.state == 'open':
             self._anim_progress = 1
+            self.dispatch("on_anim_stop")
         else:
             self._anim_progress = 0
+            self.dispatch("on_anim_stop")
 
     def anim_to_state(self, state):
         '''If not already in state `state`, animates smoothly to it, taking
@@ -384,6 +387,10 @@ class XSidenav(StencilView):
         else:
             raise NavigationDrawerException(
                 'Invalid state received, should be one of `open` or `closed`')
+            
+                    
+    def on_anim_stop(self, *args):
+        pass
 
     def toggle_state(self, animate=True):
         '''Toggles from open to closed or vice versa, optionally animating or

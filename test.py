@@ -20,6 +20,7 @@ Builder.load_string("""
             id: sn
             anim_type: ["fade_in","slide_above_anim","slide_above_simple","reveal_below_anim","reveal_below_simple"][1]
             separator_image_width: dp(1)
+            on_anim_stop: root.anim_stop()
             XBoxLayout:
                 orientatiom: "vertical"
                 bg_color: app.colorx.card_color
@@ -32,7 +33,9 @@ Builder.load_string("""
                     left_icon: "menu"
                     right_icon: "dots-vertical"
                     on_left_icon_release: sn.toggle_state()
-                    on_right_icon_release: menu.open()
+                    on_right_icon_release:
+                        menu.open()
+                        print("hello")
                     elevation: 0
                     #distance: dp(3)
                     #top: True
@@ -161,7 +164,9 @@ Builder.load_string("""
 
 
 class MainApp(ScreenManager,Theming):
-    pass
+    
+    def anim_stop(self):
+        print("hellllloooooo")
 
 class TestApp(App):
     theme_style = StringProperty()
