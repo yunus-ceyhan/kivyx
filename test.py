@@ -89,8 +89,9 @@ Builder.load_string("""
                             orientation: "vertical"
                             XAppToolbar:
                                 title: "Demo App"
-                                left_icon: "menu"
-                                right_icon: "dots-vertical"
+                                left_icon: "activity"
+                                middle_icon: "airplane"
+                                right_icon: "alarm"
                                 on_left_icon_release: sn.toggle_state()
                             Widget:
                     XBotnavItem:
