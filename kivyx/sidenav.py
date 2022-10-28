@@ -151,8 +151,8 @@ class XSidenav(StencilView):
     _touch = ObjectProperty(None, allownone=True)  # The currently active touch
 
     # Animation properties
-    state = OptionProperty('closed', options=('open', 'closed'))
-    '''Specifies the state of the widget. Must be one of 'open' or
+    status = OptionProperty('closed', options=('opened', 'closed'))
+    '''Specifies the state of the widget. Must be one of 'opened' or
     'closed'. Setting its value automatically jumps to the relevant state,
     or users may use the anim_to_state() method to animate the
     transition.'''
@@ -227,7 +227,7 @@ class XSidenav(StencilView):
 
     def keyboard(self, window, key, *largs):
         if key == 27:
-            if self.state == "open":
+            if self.status == "open":
                 self.toggle_state()
 
     def on_anim_type(self, *args):
@@ -357,15 +357,15 @@ class XSidenav(StencilView):
             self._anim_progress = 0
             self.dispatch("on_anim_stop")
         if self._anim_progress >= 1:
-            self.state = 'open'
+            self.status = 'opened'
             self.dispatch("on_anim_stop")
         elif self._anim_progress <= 0:
-            self.state = 'closed'
+            self.status = 'closed'
             self.dispatch("on_anim_stop")
 
     def on_state(self, *args):
         Animation.cancel_all(self)
-        if self.state == 'open':
+        if self.status == 'opened':
             self._anim_progress = 1
         else:
             self._anim_progress = 0
@@ -373,11 +373,11 @@ class XSidenav(StencilView):
 
     def anim_to_state(self, state):
         '''If not already in state `state`, animates smoothly to it, taking
-        the time given by self.anim_time. State may be either 'open'
+        the time given by self.anim_time. State may be either 'opened'
         or 'closed'.
 
         '''
-        if state == 'open':
+        if state == 'opened':
             anim = Animation(_anim_progress=1,
                              duration=self.anim_time,
                              t=self.closing_transition)
@@ -398,16 +398,16 @@ class XSidenav(StencilView):
     def toggle_state(self, animate=True):
         '''Toggles from open to closed or vice versa, optionally animating or
         simply jumping.'''
-        if self.state == 'open':
+        if self.status == 'opened':
             if animate:
                 self.anim_to_state('closed')
             else:
-                self.state = 'closed'
-        elif self.state == 'closed':
+                self.status = 'closed'
+        elif self.status == 'closed':
             if animate:
-                self.anim_to_state('open')
+                self.anim_to_state('opened')
             else:
-                self.state = 'open'
+                self.status = 'opened'
 
     def on_touch_down(self, touch):
         col_self = self.collide_point(*touch.pos)
@@ -443,7 +443,7 @@ class XSidenav(StencilView):
         Animation.cancel_all(self)
         self._anim_init_progress = self._anim_progress
         self._touch = touch
-        touch.ud['type'] = self.state
+        touch.ud['type'] = self.status
         touch.ud['panels_jiggled'] = False  # If user moved panels back
                                             # and forth, don't default
                                             # to close on touch release
@@ -467,7 +467,7 @@ class XSidenav(StencilView):
             init_state = touch.ud['type']
             touch.ungrab(self)
             jiggled = touch.ud['panels_jiggled']
-            if init_state == 'open' and not jiggled:
+            if init_state == 'opened' and not jiggled:
                 if self._anim_progress >= 0.975:
                         self.anim_to_state('closed')
                 else:
@@ -484,7 +484,7 @@ class XSidenav(StencilView):
 
         '''
         if self._anim_progress > self.min_dist_to_open:
-            self.anim_to_state('open')
+            self.anim_to_state('opened')
         else:
             self.anim_to_state('closed')
 

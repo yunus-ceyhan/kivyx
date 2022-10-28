@@ -35,7 +35,6 @@ Builder.load_string("""
                     on_left_icon_release: sn.toggle_state()
                     on_right_icon_release:
                         menu.open()
-                        print("hello")
                     elevation: 0
                     #distance: dp(3)
                     #top: True
@@ -111,6 +110,8 @@ Builder.load_string("""
 
         XDotMenu:
             id: menu
+            on_anim_start: print(self.status)
+            on_anim_stop: print(self.status)
             XDotItem:
                 text: "Rate us"
                 icon: "google-play"
@@ -127,6 +128,8 @@ Builder.load_string("""
 
         XBottomSheet:
             id: bottom_sheet
+            on_anim_start: print(self.status)
+            on_anim_stop: print(self.status)
             XBottomSheetContent:
                 orientation: "vertical"
                 XIconListItem:
@@ -145,6 +148,8 @@ Builder.load_string("""
             id: dialog
             title: "Close App"
             expandable: False
+            on_anim_start: print(self.status)
+            on_anim_stop: print(self.status)
             XDialogContent:
                 XLabel:
                     text: "hello there what are you guys doing today"*10

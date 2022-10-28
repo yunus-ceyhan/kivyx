@@ -83,6 +83,8 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
     back_color = ColorProperty()
 
     def __init__(self, **kwargs):
+        self.register_event_type('on_anim_stop')
+        self.register_event_type('on_anim_start')
         super(XBottomSheet, self).__init__(**kwargs)
         self.back_color = self.card_color
         Window.bind(on_keyboard=self.keyboard)
@@ -100,10 +102,12 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
 
     def open(self,*args):
         if self.scroll_height < 1:
+            self.dispatch("on_anim_start")
             self.main_pos = {"center_x": .5, "center_y": .5}
             box_height =  self.ids.bx.height + dp(10) if self.expandable else min(dp(112),self.ids.bx.height) 
             anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.3], duration = 0.1)
             anim.start(self)
+            anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
             self.status = 'opened'
             
             
@@ -112,9 +116,13 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
             self.main_pos = {"center_x": .5, "center_y": -2}
             anim = Animation(scroll_height = 0,bg_color = [0,0,0,0] , duration = 0.2)
             anim.start(self)
-            anim.bind(on_complete = self.set_status)            
+            anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
+            self.status = 'closed'      
         except:
             pass
-            
-    def set_status(self,*args):
-        self.status = 'closed'
+        
+    def on_anim_stop(self,*args):
+        pass
+
+    def on_anim_start(self,*args):
+        pass

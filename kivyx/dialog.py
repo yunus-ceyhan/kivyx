@@ -113,6 +113,8 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
     status = StringProperty('closed')
 
     def __init__(self, **kwargs):
+        self.register_event_type('on_anim_stop')
+        self.register_event_type('on_anim_start')
         super(XDialog, self).__init__(**kwargs)
         Window.bind(on_keyboard=self.keyboard)
 
@@ -132,21 +134,27 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
 
     def open(self,*args):
         if self.scroll_height < 1:
+            self.dispatch("on_anim_start")
             self.main_pos = {"center_x": .5, "center_y": .5}
             box_height =  self.ids.bx.height + dp(110) + self.ids.bt.height\
                 if self.expandable else min(dp(300),self.ids.bx.height + dp(110) + self.ids.bt.height) 
             anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.5],opacity = 1, duration = 0.2)
             anim.start(self)
-            anim.bind(on_complete= self.set_status)
+            anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
+            self.status = "opened"
             
     def close(self,*args):
         try:
             anim = Animation(scroll_height = 0,bg_color = [0,0,0,0] ,opacity = 0,duration = 0.2)
             anim.start(self)
+            anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
             self.main_pos = {"center_x": .5, "center_y": -2}
             self.status = 'closed'
         except:
             pass
-        
-    def set_status(self,*args):
-        self.status = "opened"
+
+    def on_anim_stop(self,*args):
+        pass
+
+    def on_anim_start(self,*args):
+        pass

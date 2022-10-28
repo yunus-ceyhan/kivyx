@@ -160,6 +160,8 @@ class XDotMenu(Theming,ButtonBehavior,XFloatLayout):
     status = StringProperty('closed')
 
     def __init__(self, **kwargs):
+        self.register_event_type('on_anim_stop')
+        self.register_event_type('on_anim_start')
         super(XDotMenu, self).__init__(**kwargs)
         self.color = self.bgr_color
         Window.bind(on_keyboard=self.keyboard)
@@ -178,6 +180,7 @@ class XDotMenu(Theming,ButtonBehavior,XFloatLayout):
     def open(self,*args):
         self.widget_pos = [Window.width,Window.height]
         if self.scroll_height < 1:
+            self.dispatch("on_anim_start")
             self.main_pos = {"center_x": .5, "center_y": .5}
             self.caller_pos = (self.widget_pos[0] - self.scroll_width, self.widget_pos[1] - self.scroll_height)
             box_height =  self.ids.bx.height if self.expandable else min(dp(218),self.ids.bx.height + dp(12)) 
@@ -187,8 +190,8 @@ class XDotMenu(Theming,ButtonBehavior,XFloatLayout):
             anim2.start(self)
             anim = Animation(scroll_height = box_height,scroll_width = box_width,duration = 0.2)
             anim.start(self)
-            self.status = 'opened'
-            
+            anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
+            self.status = "opened"
 
     def close(self,*args):
         try:
@@ -196,10 +199,17 @@ class XDotMenu(Theming,ButtonBehavior,XFloatLayout):
             anim2.start(self)
             anim = Animation(scroll_height = 0,scroll_width = 0, duration = 0.2)
             anim.start(self)
+            anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
             self.main_pos = {"center_x": 2, "center_y": 2}
-            self.status = 'closed'
+            self.status = "closed"
         except:
             pass
+        
+    def on_anim_stop(self,*args):
+        pass
+
+    def on_anim_start(self,*args):
+        pass
 
 class XMenu(Theming,ButtonBehavior,XFloatLayout):
     color = ColorProperty()
@@ -212,6 +222,8 @@ class XMenu(Theming,ButtonBehavior,XFloatLayout):
     status = StringProperty('closed')
 
     def __init__(self, **kwargs):
+        self.register_event_type('on_anim_stop')
+        self.register_event_type('on_anim_start')
         super(XMenu, self).__init__(**kwargs)
         self.color = self.accent_color
         Window.bind(on_keyboard=self.keyboard)
@@ -229,6 +241,7 @@ class XMenu(Theming,ButtonBehavior,XFloatLayout):
     def open(self,widget,*args):
         self.widget_pos = widget.pos
         if self.scroll_height < 1:
+            self.dispatch("on_anim_start")
             self.main_pos = {"center_x": .5, "center_y": .5}
             self.caller_pos = (self.widget_pos[0] - self.scroll_width, self.widget_pos[1] - self.scroll_height)
             box_height =  self.ids.bx.height if self.expandable else min(dp(175),self.ids.bx.height) 
@@ -247,6 +260,7 @@ class XMenu(Theming,ButtonBehavior,XFloatLayout):
             anim2.start(self)
             anim = Animation(scroll_height = box_height,scroll_width = box_width,duration = 0.2)
             anim.start(self)
+            anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
             self.status = 'opened'
 
             
@@ -257,7 +271,14 @@ class XMenu(Theming,ButtonBehavior,XFloatLayout):
             anim2.start(self)
             anim = Animation(scroll_height = 0,scroll_width = 0, duration = 0.2)
             anim.start(self)
+            anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
             self.main_pos = {"center_x": 2, "center_y": 2}
             self.status = 'closed'
         except:
             pass
+        
+    def on_anim_stop(self,*args):
+        pass
+
+    def on_anim_start(self,*args):
+        pass
