@@ -352,21 +352,24 @@ class XSidenav(StencilView):
     def on__anim_progress(self, *args):
         if self._anim_progress > 1:
             self._anim_progress = 1
+            self.dispatch("on_anim_stop")
         elif self._anim_progress < 0:
             self._anim_progress = 0
+            self.dispatch("on_anim_stop")
         if self._anim_progress >= 1:
             self.state = 'open'
+            self.dispatch("on_anim_stop")
         elif self._anim_progress <= 0:
             self.state = 'closed'
+            self.dispatch("on_anim_stop")
 
     def on_state(self, *args):
         Animation.cancel_all(self)
         if self.state == 'open':
             self._anim_progress = 1
-            self.dispatch("on_anim_stop")
         else:
             self._anim_progress = 0
-            self.dispatch("on_anim_stop")
+            
 
     def anim_to_state(self, state):
         '''If not already in state `state`, animates smoothly to it, taking

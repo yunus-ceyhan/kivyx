@@ -165,7 +165,7 @@ Builder.load_string("""
 
 class MainApp(ScreenManager,Theming):
     
-    def anim_stop(self):
+    def anim_stop(self,):
         print("hellllloooooo")
 
 class TestApp(App):
