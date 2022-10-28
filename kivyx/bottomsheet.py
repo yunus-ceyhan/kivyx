@@ -109,17 +109,19 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
             anim.start(self)
             anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
             self.status = 'opened'
-            
-            
+
     def close(self,*args):
         try:
             self.main_pos = {"center_x": .5, "center_y": -2}
             anim = Animation(scroll_height = 0,bg_color = [0,0,0,0] , duration = 0.2)
             anim.start(self)
             anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
-            self.status = 'closed'      
+            anim.bind(on_complete = self.set_status)      
         except:
             pass
+        
+    def sestatus(self,*args):
+        self.status = "closed"
         
     def on_anim_stop(self,*args):
         pass
