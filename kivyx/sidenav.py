@@ -227,7 +227,7 @@ class XSidenav(StencilView):
 
     def keyboard(self, window, key, *largs):
         if key == 27:
-            if self.status == "open":
+            if self.status == "opened":
                 self.toggle_state()
 
     def on_anim_type(self, *args):
