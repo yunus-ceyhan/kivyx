@@ -173,6 +173,7 @@ Builder.load_string("""
         on_release: root.dispatch('on_middle_icon_release', *args)
         disabled: False if self.icon else True
         opacity: 1 if self.icon else 0
+        width: self.width if self.icon else 0
 
     XIconButton:
         icon: root.right_icon
