@@ -148,8 +148,8 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
             anim = Animation(scroll_height = 0,bg_color = [0,0,0,0] ,opacity = 0,duration = 0.2)
             anim.start(self)
             anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
+            anim.bind(on_complete = self.set_status)
             self.main_pos = {"center_x": .5, "center_y": -2}
-            anim.bind(on_complete = self.set_status)      
         except:
             pass
         
