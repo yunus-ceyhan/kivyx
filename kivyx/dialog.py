@@ -153,7 +153,7 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
         except:
             pass
         
-    def sestatus(self,*args):
+    def set_status(self,*args):
         self.status = "closed"
 
     def on_anim_stop(self,*args):
