@@ -1,6 +1,6 @@
 from kivy.lang import Builder
 from kivyx.boxlayout import XBoxLayout
-from kivy.properties import ColorProperty, BooleanProperty, NumericProperty, StringProperty
+from kivy.properties import ColorProperty, BooleanProperty, NumericProperty, StringProperty, OptionProperty
 from kivyx.theming import Theming
 
 
@@ -155,15 +155,19 @@ Builder.load_string("""
         width: dp(48) if root.left_icon else dp(16)
         on_press: root.dispatch('on_left_icon_press', *args)
         on_release: root.dispatch('on_left_icon_release', *args)
+    Widget:
+        size_hint: None,None
+        height: dp(48)
+        width: dp(48) if root.halign == "center" else 0
+        disabled: True
 
     XLabel:
         text: root.title
         bold: False
         font_size: "20sp"
         opacity: .9
-        aligned: False if root.right_icon and root.left_icon else True 
-        halign: "left"
-        shorten: True
+        aligned: True 
+        halign: root.halign
         shorten_from: "right"
         font_name: root.font_name
         
@@ -173,7 +177,7 @@ Builder.load_string("""
         on_release: root.dispatch('on_middle_icon_release', *args)
         disabled: False if self.icon else True
         opacity: 1 if self.icon else 0
-        width: self.width if self.icon else 0
+        width: dp(48) if self.icon else 0
 
     XIconButton:
         icon: root.right_icon
@@ -203,6 +207,7 @@ class XAppToolbar(XToolbar):
     middle_icon = StringProperty()
     left_icon = StringProperty()
     font_name = StringProperty("Roboto")
+    halign = OptionProperty("center", options = ["left","right","center"])
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.register_event_type('on_left_icon_press')

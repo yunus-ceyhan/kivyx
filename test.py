@@ -92,6 +92,7 @@ Builder.load_string("""
                                 left_icon: "activity"
                                 middle_icon: "airplane"
                                 right_icon: "alarm"
+                                halign: "left"
                                 on_left_icon_release: sn.toggle_state()
                             Widget:
                     XBotnavItem:
