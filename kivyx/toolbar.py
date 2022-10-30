@@ -160,7 +160,7 @@ Builder.load_string("""
     Widget:
         size_hint: None,None
         height: dp(48)
-        width: dp(48) if root.halign == "center" else 0
+        width: dp(48) if root.halign == "center" and not root.middle_icon else 0
         disabled: True
 
     XLabel:

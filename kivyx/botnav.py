@@ -44,8 +44,6 @@ Builder.load_string("""
         distance: '2dp'
         line_color: (0,0,0,0.1)
 
-
-
 <BotnavIcon>:
     size_hint_y: None
     height: dp(80)
