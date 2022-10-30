@@ -30,8 +30,8 @@ Builder.load_string("""
                 #spacing: dp(10)
                 XAppSearchbar:
                     text: "Search for Themes"
-                    left_icon: "menu"
-                    right_icon: "dots-vertical"
+                    left_icon: "list-b"
+                    right_icon: "dots-three-vertical-b"
                     on_left_icon_release: sn.toggle_state()
                     on_right_icon_release:
                         menu.open()
