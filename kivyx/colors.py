@@ -7,23 +7,23 @@ x_colors = {
         'txt_bold': '#FFFFFF',
         'txt_medium': '#92979B',
         'txt_light': '#D3D7DB',
-        'accent': '#D2EFF4',
-        'primary' : '#EFF4F8',
+        'accent': '#D2E5F4',
+        'primary' : '#E7F0F5',
         'secondary' : '#13607C',
         'opposite': '#EEEEEE',
         'disabled': '#9B9B9B'
     },
 
     'Dark': {
-        'bg' :   '#0c0f12',
-        'card':  '#181c1f',
+        'bg' :   '#101416',
+        'card':  '#181C1F',
         'txt' :  '#C6C7CB',
         'txt_bold': '#000000',
         'txt_medium': '#797A7C',
         'txt_light': '#3F3F41',
         'accent': '#374955',
         'primary' : '#222B32',
-        'secondary' : '#78D1FD',
+        'secondary' : '#D2E5F4',
         'opposite': '#222831',
         'disabled': '#9B9B9B'
     },

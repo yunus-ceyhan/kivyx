@@ -40,6 +40,9 @@ Builder.load_string("""
         padding: [dp(8),0,dp(8),0]
         spacing: dp(8)
         bg_color: root.bar_color
+        elevation: 0
+        distance: '2dp'
+        line_color: (0,0,0,0.1)
 
 
 

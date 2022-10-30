@@ -2,6 +2,8 @@ from kivy.lang import Builder
 from kivyx.boxlayout import XBoxLayout
 from kivy.properties import ColorProperty, BooleanProperty, NumericProperty, StringProperty, OptionProperty
 from kivyx.theming import Theming
+from kivyx.label import XLabel
+from kivyx.behavior import RectangularBehavior
 
 
 Builder.load_string("""
@@ -77,31 +79,31 @@ Builder.load_string("""
             radius: root.radius
 
 <XAppSearchbar>:
-    padding: [dp(20),0,dp(20),0]
+    padding: [dp(24),0,dp(24),0]
     XBoxLayout:
         id: sbx
         bg_color: root.bar_color
-        radius: [dp(7),]
+        radius: [dp(7),] if root.style == 'm2' else [dp(24),]
         size_hint_y: None
         height: dp(48)
         pos_hint: {"center_y": .5}
+        padding: [0,] if root.style == 'm2' else [dp(4),0,0,0]
         XIconButton:
             icon: root.left_icon
             on_press: root.dispatch('on_left_icon_press', *args)
             on_release: root.dispatch('on_left_icon_release', *args)
 
-        XButton:
+        CLabel:
             text: root.text
             on_press: root.dispatch('on_bar_press', *args)
             on_release: root.dispatch('on_bar_release', *args)
-            size_hint: None, None
+            size_hint_y: None
             height: dp(48)
-            button_width: sbx.width - dp(144)
+            aligned: True
             halign: "left"
             font_size: "17sp"
             font_name: root.font_name
-            opacity: .5
-            style: "text"
+            opacity: .9
         XIconButton:
             icon: root.middle_icon
             on_press: root.dispatch('on_middle_icon_press', *args)
@@ -170,6 +172,7 @@ Builder.load_string("""
         halign: root.halign
         shorten_from: "right"
         font_name: root.font_name
+        text_color: root.title_color
         
     XIconButton:
         icon: root.middle_icon
@@ -183,7 +186,12 @@ Builder.load_string("""
         icon: root.right_icon
         on_press: root.dispatch('on_right_icon_press', *args)
         on_release: root.dispatch('on_right_icon_release', *args)
+        
+<CLabel>:
 """)
+
+class CLabel(XLabel,RectangularBehavior):
+    pass
 
 class XToolbar(Theming,XBoxLayout):
     bg_color = ColorProperty()
@@ -207,9 +215,12 @@ class XAppToolbar(XToolbar):
     middle_icon = StringProperty()
     left_icon = StringProperty()
     font_name = StringProperty("Roboto")
+    title_color = ColorProperty()
     halign = OptionProperty("center", options = ["left","right","center"])
+    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.title_color = self.txt_color
         self.register_event_type('on_left_icon_press')
         self.register_event_type('on_left_icon_release')
         self.register_event_type('on_right_icon_press')
@@ -243,6 +254,7 @@ class XAppSearchbar(XToolbar):
     left_icon = StringProperty()
     font_name = StringProperty("Roboto")
     bar_color = ColorProperty()
+    style = OptionProperty("m2", options = ["m2","m3"])
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.bar_color = self.bgr_color
