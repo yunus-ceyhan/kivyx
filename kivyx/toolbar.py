@@ -72,7 +72,7 @@ Builder.load_string("""
             
     canvas.after:
         Color:
-            rgba: root.trans_color if root.elevation > 0 else root.line_color
+            rgba: root.line_color
         RoundedRectangle:
             size: self.size[0], root.line_width
             pos: self.pos[0],self.pos[1] if not root.top else self.pos[1] + (self.height - root.line_width)
@@ -203,7 +203,7 @@ class XToolbar(Theming,XBoxLayout):
     def __init__(self, **kwargs):
         super(XToolbar, self).__init__(**kwargs)
         self.bg_color = self.card_color
-        self.line_color = self.txt_color
+        self.line_color = self.trans_color
         
     def percent(self, max, percent):
         return (max/100)*percent

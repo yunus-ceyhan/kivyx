@@ -43,7 +43,7 @@ class XSpinner(Theming,Widget):
 
 	def __init__(self, **kwargs):
 		super(XSpinner, self).__init__(**kwargs)
-		self.color = self.accent_color
+		self.color = self.primary_color
 		self._alpha_anim_in = Animation(_alpha=1, duration=.8, t='out_quad')
 		self._alpha_anim_out = Animation(_alpha=0, duration=.3, t='out_quad')
 		self._alpha_anim_out.bind(on_complete=self._reset)
