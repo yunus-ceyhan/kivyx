@@ -43,7 +43,7 @@ Builder.load_string("""
         elevation: 0
         distance: '3dp'
         line_color: (0,0,0,0.2)
-        line_width: "0.3dp
+        line_width: "0.3dp"
 
 <BotnavIcon>:
     size_hint_y: None
