@@ -52,7 +52,7 @@ Builder.load_string("""
         height: root.scroll_height
         width: dp(320) if Window.width < Window.height else dp(400)
         radius: [dp(24),]
-        padding: [dp(24),dp(16),dp(24),12]
+        padding: [dp(24),dp(16),dp(24),dp(16)]
         pos_hint: {"center_x": .5, "center_y": .5}
         spacing: dp(12)
         opacity: root.opacity
@@ -61,7 +61,6 @@ Builder.load_string("""
             text: root.title
             bold: False
             font_size: "20sp"
-            opacity: .9
             aligned: True
             halign: "left"
             size_hint_y: None
@@ -90,8 +89,6 @@ Builder.load_string("""
     height: self.minimum_height
 
 <XDialogButton>:
-    size_hint_y: None
-    height: dp(48)
     style: "text"
                 
 
