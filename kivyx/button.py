@@ -45,7 +45,7 @@ Builder.load_string("""
                                     if root.right_icon and not root.left_icon else [dp(8),0,dp(8),0]\
                                         if root.right_icon and root.left_icon else [0,]
 
-    radius: [dp(16),] if root.rounded else [dp(8),]
+    radius: [dp(20),] if root.rounded else [dp(8),]
     
     canvas.before:
         Clear:
