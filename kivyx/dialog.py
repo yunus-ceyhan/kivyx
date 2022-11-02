@@ -27,7 +27,7 @@
 
 from kivy.lang import Builder
 from kivyx.theming import Theming
-from kivy.properties import ListProperty, DictProperty, NumericProperty, BooleanProperty,StringProperty
+from kivy.properties import ColorProperty, ListProperty, DictProperty, NumericProperty, BooleanProperty,StringProperty
 from kivyx.button import XButton
 from kivyx.floatlayout import XFloatLayout
 from kivy.animation import Animation
@@ -46,15 +46,15 @@ Builder.load_string("""
     pos_hint: root.main_pos
     #on_press: root.close()
     XCard:
+        bg_color: root.color
         orientation: "vertical"
         id: scr
         size_hint: None,None
         height: root.scroll_height
         width: dp(320) if Window.width < Window.height else dp(400)
-        radius: [dp(24),]
-        padding: [dp(24),dp(16),dp(24),dp(16)]
+        radius: [dp(28),]
+        padding: [dp(24),]
         pos_hint: {"center_x": .5, "center_y": .5}
-        spacing: dp(12)
         opacity: root.opacity
         XLabel:
             id: title
@@ -63,11 +63,12 @@ Builder.load_string("""
             font_size: "20sp"
             aligned: True
             halign: "left"
+        Widget:
             size_hint_y: None
-            height: dp(48)
+            height: dp(16)
         ScrollView:
             id: sc
-            bar_width: dp(2)
+            bar_width: dp(1)
             #effect_cls: ScrollEffect
             size_hint_y: None
             height: bx.height if root.expandable else min(dp(150), bx.height)
@@ -77,6 +78,8 @@ Builder.load_string("""
                 size_hint_y: None
                 height: self.minimum_height
         Widget:
+            size_hint_y: None
+            height: dp(24)
         BoxLayout:
             id: bt
             size_hint_y: None
@@ -107,12 +110,14 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
     expandable = BooleanProperty(False)
     radius = ListProperty([dp(10),dp(10),0,0])
     opacity = NumericProperty(0)
+    color = ColorProperty()
     status = StringProperty('closed')
 
     def __init__(self, **kwargs):
         self.register_event_type('on_anim_stop')
         self.register_event_type('on_anim_start')
         super(XDialog, self).__init__(**kwargs)
+        self.color = self.primary_color
         Window.bind(on_keyboard=self.keyboard)
 
     def keyboard(self, window, key, *largs):
