@@ -210,7 +210,7 @@ class XSard(Theming, XBoxLayout):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.bg_color = self.card_color
+        self.bg_color = self.accent_color
 
     def percent(self, max, percent):
         return (max/100)*percent
