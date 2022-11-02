@@ -163,7 +163,7 @@ class XDotMenu(Theming,ButtonBehavior,XFloatLayout):
         self.register_event_type('on_anim_stop')
         self.register_event_type('on_anim_start')
         super(XDotMenu, self).__init__(**kwargs)
-        self.color = self.bgr_color
+        self.color = self.card_color
         Window.bind(on_keyboard=self.keyboard)
 
     def keyboard(self, window, key, *largs):
@@ -225,7 +225,7 @@ class XMenu(Theming,ButtonBehavior,XFloatLayout):
         self.register_event_type('on_anim_stop')
         self.register_event_type('on_anim_start')
         super(XMenu, self).__init__(**kwargs)
-        self.color = self.accent_color
+        self.color = self.card_color
         Window.bind(on_keyboard=self.keyboard)
 
     def keyboard(self, window, key, *largs):
