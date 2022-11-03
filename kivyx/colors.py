@@ -1,8 +1,8 @@
 
 x_colors = {
     'Light': {
-        'bg' :   '#F4F4F8',
-        'card':  '#FFFFFF',
+        'bg' :   '#FFFFFF',
+        'card':  '#F0F0F2',
         'txt' :  '#44484B',
         'txt_bold': '#FFFFFF',
         'txt_medium': '#92979B',
@@ -11,12 +11,13 @@ x_colors = {
         'primary' : '#E7F0F5',
         'secondary' : '#13607C',
         'opposite': '#EEEEEE',
-        'disabled': '#9B9B9B'
+        'disabled': '#9B9B9B',
+        'line': '#C2C7CB'
     },
 
     'Dark': {
-        'bg' :   '#101416',
-        'card':  '#181C1F',
+        'bg' :    '#181C1F',
+        'card': '#2D3134',
         'txt' :  '#C6C7CB',
         'txt_bold': '#000000',
         'txt_medium': '#797A7C',
@@ -25,7 +26,8 @@ x_colors = {
         'primary' : '#222B32',
         'secondary' : '#D2E5F4',
         'opposite': '#222831',
-        'disabled': '#9B9B9B'
+        'disabled': '#9B9B9B',
+        'line': '#333333'
     },
     'Colors': {'blue': ['0d47a1',
                         '1565c0',
