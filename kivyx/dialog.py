@@ -35,6 +35,7 @@ from kivy.metrics import dp
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
+from kivy.clock import Clock
 
 
 Builder.load_string("""
@@ -44,7 +45,6 @@ Builder.load_string("""
     id: bs
     size_hint: 1,1
     pos_hint: root.main_pos
-    #on_press: root.close()
     XCard:
         bg_color: root.color
         orientation: "vertical"
@@ -56,30 +56,28 @@ Builder.load_string("""
         padding: [dp(24),]
         pos_hint: {"center_x": .5, "center_y": .5}
         opacity: root.opacity
+        spacing: dp(24)
+        elevation: 0.07
+        distance: '9dp'
         XLabel:
             id: title
             text: root.title
-            bold: False
             font_size: "20sp"
             aligned: True
             halign: "left"
-        Widget:
-            size_hint_y: None
-            height: dp(16)
+
         ScrollView:
             id: sc
             bar_width: dp(1)
             #effect_cls: ScrollEffect
             size_hint_y: None
-            height: bx.height if root.expandable else min(dp(150), bx.height)
+            height: bx.height
             BoxLayout:
                 id: bx
                 orientation: "vertical"
                 size_hint_y: None
                 height: self.minimum_height
-        Widget:
-            size_hint_y: None
-            height: dp(24)
+
         BoxLayout:
             id: bt
             size_hint_y: None
@@ -93,6 +91,7 @@ Builder.load_string("""
 
 <XDialogButton>:
     style: "text"
+    text_color: root.secondary_color
                 
 
 """)
@@ -112,6 +111,7 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
     opacity = NumericProperty(0)
     color = ColorProperty()
     status = StringProperty('closed')
+    auto_dismiss = BooleanProperty(True)
 
     def __init__(self, **kwargs):
         self.register_event_type('on_anim_stop')
@@ -122,7 +122,7 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
 
     def keyboard(self, window, key, *largs):
         if key == 27:
-            if self.status == 'opened':
+            if self.status == 'opened' and self.auto_dismiss:
                 self.close()
 
     def add_widget(self,widget,*args):
@@ -135,15 +135,17 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
             super(XDialog, self).add_widget(widget)
 
     def open(self,*args):
-        if self.scroll_height < 1:
+        if self.status == 'closed' and self.ids.bx.height > 0:
             self.dispatch("on_anim_start")
             self.main_pos = {"center_x": .5, "center_y": .5}
-            box_height =  self.ids.bx.height + dp(110) + self.ids.bt.height\
-                if self.expandable else min(dp(300),self.ids.bx.height + dp(110) + self.ids.bt.height) 
-            anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.5],opacity = 1, duration = 0.2)
+            estimate = self.ids.title.font_size + self.ids.bx.height +(self.ids.scr.padding[1] *2) + (self.ids.scr.spacing*2) + self.ids.bt.height
+            box_height = estimate if self.expandable else min(dp(300),estimate) 
+            anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.3],opacity = 1, duration = 0.2)
             anim.start(self)
             anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
             self.status = "opened"
+        else:
+            Clock.schedule_once(self.open,0.1)
             
     def close(self,*args):
         try:
