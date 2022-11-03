@@ -1,6 +1,6 @@
 from kivy.lang import Builder
 from kivyx.boxlayout import XBoxLayout
-from kivy.properties import ColorProperty, BooleanProperty, NumericProperty, StringProperty, OptionProperty
+from kivy.properties import ColorProperty, BooleanProperty, NumericProperty, StringProperty, OptionProperty, ListProperty
 from kivyx.theming import Theming
 from kivyx.label import XLabel
 from kivyx.behavior import RectangularBehavior
@@ -200,9 +200,10 @@ class XToolbar(Theming,XBoxLayout):
     distance = NumericProperty("3dp")
     line_color = ColorProperty()
     line_width = NumericProperty("0.5dp")
+    radius = ListProperty([0,])
     def __init__(self, **kwargs):
         super(XToolbar, self).__init__(**kwargs)
-        self.bg_color = self.card_color
+        self.bg_color = self.bgr_color
         self.line_color = self.trans_color
         
     def percent(self, max, percent):
