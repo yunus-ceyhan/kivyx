@@ -53,6 +53,8 @@ Builder.load_string("""
             height: root.scroll_height
             radius: root.radius
             bg_color: root.back_color
+            top: True
+            elevation: 0.1
             ScrollView:
                 id: sc
                 bar_width: 0
@@ -78,7 +80,7 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
     scroll_height = NumericProperty(0)
     main_pos = DictProperty({"center_x": .5, "center_y": -2})
     expandable = BooleanProperty(False)
-    radius = ListProperty([dp(10),dp(10),0,0])
+    radius = ListProperty([0,])
     status = StringProperty('closed')
     back_color = ColorProperty()
 
@@ -86,7 +88,7 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
         self.register_event_type('on_anim_stop')
         self.register_event_type('on_anim_start')
         super(XBottomSheet, self).__init__(**kwargs)
-        self.back_color = self.card_color
+        self.back_color = self.primary_color
         Window.bind(on_keyboard=self.keyboard)
 
     def keyboard(self, window, key, *largs):
