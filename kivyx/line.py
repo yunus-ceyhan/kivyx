@@ -5,14 +5,14 @@ Builder.load_string("""
 <XLinex>:
     orientation: "vertical"
     size_hint_y: None
-    height: dp(0.5)
-    bg_color: root.disabled_color
+    height: dp(0.6)
+    bg_color: root.line_color
     
 <XLiney>:
     orientation: "horizontal"
     size_hint_x: None
     width: dp(1)
-    bg_color: root.disabled_color
+    bg_color: root.line_color
 
 """)
 
