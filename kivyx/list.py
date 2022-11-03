@@ -19,12 +19,12 @@ Builder.load_string("""
         font_size: root.font_size
         front_name: root.font_name
         text_color: root.text_color
+        
 <XIconListItem>:
     size_hint_y: None
     height: dp(56)
     padding: [dp(4),dp(4),dp(16),dp(4)]
     spacing: dp(4)
-    bg_color: root.card_color
     XIcon:
         id: li
         icon: root.icon
@@ -228,7 +228,7 @@ class XIconListItem(RectangularBehavior,XCard):
     font_name = StringProperty("Roboto")
     font_size = NumericProperty("16sp")
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super(XIconListItem,self).__init__(**kwargs)
         self.text_color = self.txt_color
         self.icon_color = self.txt_color
         
