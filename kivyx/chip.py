@@ -30,11 +30,11 @@ Builder.load_string("""
         if not root.left_icon else [dp(4),0,dp(4), 0]
     width: max(dp(24) + ic.width + icr.width + lb.texture_size[0], dp(32))
     #spacing: dp(8) if root.icon else 0
-    bg_color: self.bg_color if root.type == "filled" else [0,0,0,0]
+    bg_color: self.primary_color if root.type == "filled" else [0,0,0,0]
     radius: [dp(8),]
     canvas.after:
         Color:
-            rgba: root.txt_color if root.type != "filled" else root.trans_color
+            rgba: root.line_color if root.type != "filled" else root.trans_color
         Line:
             width: dp(0.4)
             rounded_rectangle: (self.x, self.y, self.width, self.height,dp(8)) 
