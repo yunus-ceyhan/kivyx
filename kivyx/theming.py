@@ -9,6 +9,7 @@ class Theming(EventDispatcher):
     colorx = DictProperty()
     bgr_color = ColorProperty()
     card_color = ColorProperty()
+    line_color = ColorProperty()
     primary_color = ColorProperty()
     accent_color = ColorProperty()
     secondary_color = ColorProperty()
@@ -31,6 +32,7 @@ class Theming(EventDispatcher):
             self.colorx = x_colors["Light"]
         self.bgr_color = self.colorx["bg"]
         self.card_color = self.colorx["card"]
+        self.line_color = self.colorx["line"]
         self.primary_color = self.colorx["primary"]
         self.secondary_color = self.colorx["secondary"]
         self.accent_color = self.colorx["accent"]
