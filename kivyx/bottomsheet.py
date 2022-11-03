@@ -34,6 +34,7 @@ from kivy.metrics import dp
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
+from kivy.clock import Clock
 
 
 Builder.load_string("""
@@ -103,7 +104,7 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
             super(XBottomSheet, self).add_widget(widget)
 
     def open(self,*args):
-        if self.scroll_height < 1:
+        if self.status == 'closed' and self.ids.bx.height > 0:
             self.dispatch("on_anim_start")
             self.main_pos = {"center_x": .5, "center_y": .5}
             box_height =  self.ids.bx.height + dp(10) if self.expandable else min(dp(112),self.ids.bx.height) 
@@ -111,6 +112,8 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
             anim.start(self)
             anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
             self.status = 'opened'
+        else:
+            Clock.schedule_once(self.open,0.1)
 
     def close(self,*args):
         try:

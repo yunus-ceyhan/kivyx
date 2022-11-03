@@ -203,7 +203,7 @@ class XToolbar(Theming,XBoxLayout):
     radius = ListProperty([0,])
     def __init__(self, **kwargs):
         super(XToolbar, self).__init__(**kwargs)
-        self.bg_color = self.bgr_color
+        self.bg_color = self.card_color
         self.line_color = self.trans_color
         
     def percent(self, max, percent):

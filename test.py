@@ -108,6 +108,9 @@ Builder.load_string("""
                         name: "saved"
                         text: "Saved"
                         icon: "bookmark"
+                        XButton:
+                            text: "hello"
+                            style: "outlined"
             
 
         XDotMenu:

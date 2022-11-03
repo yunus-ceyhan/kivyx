@@ -1,8 +1,8 @@
 
 x_colors = {
     'Light': {
-        'bg' :   '#FFFFFF',
-        'card':  '#F0F0F2',
+        'bg' :   '#F4F4F8',
+        'card':  '#FFFFFF',
         'txt' :  '#44484B',
         'txt_bold': '#FFFFFF',
         'txt_medium': '#92979B',
@@ -16,8 +16,8 @@ x_colors = {
     },
 
     'Dark': {
-        'bg' :    '#181C1F',
-        'card': '#2D3134',
+        'bg' :    '#15191C',
+        'card': '#22272B',
         'txt' :  '#C6C7CB',
         'txt_bold': '#000000',
         'txt_medium': '#797A7C',
