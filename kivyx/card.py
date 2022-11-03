@@ -89,6 +89,13 @@ Builder.load_string("""
             size: self.size[0],self.size[1]
             pos: (self.pos[0] , self.pos[1])
             radius: root.radius
+            
+        Color:
+            rgba: root.line_color
+        Line:
+            width: dp(0.6)
+            rounded_rectangle: (self.x- dp(0.5), self.y- dp(0.5), self.width+dp(1), self.height + dp(1),self.radius[0])
+
 
 """)
 
@@ -99,9 +106,11 @@ class XCard(Theming,XBoxLayout):
     elevation = NumericProperty(0.03)
     distance = NumericProperty(dp(6))
     soft = BooleanProperty(False)
+    line_color = ColorProperty()
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.bg_color = self.card_color
+        self.line_color = self.trans_color
 
 
     def percent(self, max, percent):
