@@ -181,7 +181,7 @@ class MainApp(ScreenManager,Theming):
 class TestApp(App):
     theme_style = StringProperty()
     def build(self):
-        self.theme_style = "Light"
+        self.theme_style = "Dark"
         self.colorx = Theming()
         Window.clearcolor = (1, 1, 1, 1)
         return MainApp()
