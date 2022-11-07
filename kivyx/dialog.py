@@ -36,6 +36,7 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.boxlayout import BoxLayout
 from kivy.core.window import Window
 from kivy.clock import Clock
+from kivy.metrics import dp
 
 
 Builder.load_string("""
@@ -135,11 +136,11 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
             super(XDialog, self).add_widget(widget)
 
     def open(self,*args):
-        if self.status == 'closed' and self.ids.bx.height > 0:
+        if self.status == 'closed' and self.ids.bx.height > 10:
             self.dispatch("on_anim_start")
             self.main_pos = {"center_x": .5, "center_y": .5}
             estimate = self.ids.title.font_size + self.ids.bx.height +(self.ids.scr.padding[1] *2) + (self.ids.scr.spacing*2) + self.ids.bt.height
-            box_height = estimate if max(dp(300),self.expandable) else min(dp(300),estimate) 
+            box_height = max(dp(300),estimate) if self.expandable else min(dp(300),estimate) 
             anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.3],opacity = 1, duration = 0.2)
             anim.start(self)
             anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
