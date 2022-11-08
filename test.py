@@ -152,12 +152,12 @@ Builder.load_string("""
         XDialog:
             id: dialog
             title: "Close App"
-            expandable: False
+            expandable: True
             on_anim_start: print(self.status)
             on_anim_stop: print(self.status)
             XDialogContent:
                 XLabel:
-                    text: "hello there what are you guys doing today"*10
+                    text: "hello there what are you guys doing today "*22
                     size_hint_y: None
                     aligned: True
                     #halign: "left"

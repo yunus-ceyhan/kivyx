@@ -72,7 +72,7 @@ Builder.load_string("""
             bar_width: dp(1)
             #effect_cls: ScrollEffect
             size_hint_y: None
-            height: bx.height
+            height: dp(120) if not root.expandable else bx.height
             BoxLayout:
                 id: bx
                 orientation: "vertical"
@@ -136,17 +136,24 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
             super(XDialog, self).add_widget(widget)
 
     def open(self,*args):
-        if self.status == 'closed' and self.ids.bt.height > dp(20):
+        if self.status == 'closed': 
             self.dispatch("on_anim_start")
             self.main_pos = {"center_x": .5, "center_y": .5}
-            estimate = self.ids.title.font_size + self.ids.bx.height +(self.ids.scr.padding[1] *2) + (self.ids.scr.spacing*2) + self.ids.bt.height
-            box_height = max(dp(180),estimate) if self.expandable else min(dp(300),estimate) 
+            estimate = self.ids.title.font_size + self.ids.bt.height +(self.ids.scr.padding[1] *2) + (self.ids.scr.spacing*2) 
+            box_height = max(estimate,estimate + self.ids.bx.height) if self.expandable else dp(300)
             anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.3],opacity = 1, duration = 0.1)
-            anim.start(self)
-            anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
-            self.status = "opened"
-        else:
-            Clock.schedule_once(self.open,0.1)
+            if self.expandable:
+                if box_height > estimate:
+                    anim.start(self)
+                    anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
+                    self.status = "opened"
+                else:
+                    Clock.schedule_once(self.open,0.1)
+            else:
+                anim.start(self)
+                anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
+                self.status = "opened"
+
             
     def close(self,*args):
         try:
