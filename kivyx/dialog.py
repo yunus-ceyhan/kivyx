@@ -136,12 +136,12 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
             super(XDialog, self).add_widget(widget)
 
     def open(self,*args):
-        if self.status == 'closed' and self.ids.bx.height > 10:
+        if self.status == 'closed' and self.ids.bx.height > dp(180):
             self.dispatch("on_anim_start")
             self.main_pos = {"center_x": .5, "center_y": .5}
             estimate = self.ids.title.font_size + self.ids.bx.height +(self.ids.scr.padding[1] *2) + (self.ids.scr.spacing*2) + self.ids.bt.height
-            box_height = max(dp(300),estimate) if self.expandable else min(dp(300),estimate) 
-            anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.3],opacity = 1, duration = 0.2)
+            box_height = max(dp(180),estimate) if self.expandable else min(dp(300),estimate) 
+            anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.3],opacity = 1, duration = 0.1)
             anim.start(self)
             anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
             self.status = "opened"

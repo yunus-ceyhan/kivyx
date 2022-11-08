@@ -38,7 +38,7 @@ Builder.load_string("""
 <XFabTextBase>:
     id: fab
     size_hint: None,None
-    size: self.padding[0]+self.padding[2] +ic.width+lb.texture_size[0]+self.spacing,dp(56)
+    size: dp(56),dp(56)
     padding: [dp(16),dp(16),dp(20),dp(16)] if root.text else [dp(16),]
     spacing: dp(14) if root.text else 0
     radius: [dp(16),]
@@ -239,8 +239,16 @@ class XFabTextBase(RectangularBehavior,SCard):
         super().__init__(**kwargs)
         self.ripple_radius = [dp(16),]
         self.icon_color = self.txt_color
+        Clock.schedule_once(self.set_width)
         
-
+    def set_width(self,*args):
+        if self.text and self.ids.lb.texture_size[0] > 0:
+            self.width = max(dp(56), self.padding[0]+self.padding[2] +self.ids.ic.width+self.ids.lb.texture_size[0]+self.spacing)
+        else:
+            Clock.schedule_once(self.set_width)
+            
+            
+        
 
 class XFab(Theming, XBoxLayout):
     icon =  StringProperty()
@@ -270,18 +278,26 @@ class XFab(Theming, XBoxLayout):
         if status == "shrink" and self.text:
             self.current_width = self.ids.fb.width
             self.current_text = self.text
+            anim = Animation(width = dp(56), duration = 0.1)
+            anim.start(self.ids.fb)
             self.remove_text()
-            self.status = "shrinked"
+            anim.bind(on_complete = self.set_status)
+            
+            
         elif status == "extend":
             Clock.schedule_once(self.add_text,0.2)
             anim = Animation(width = self.current_width, duration = 0.1)
             anim.start(self.ids.fb)
+            anim.bind(on_complete = self.set_status)
+            
+    def set_status(self,*args):
+        if self.status == "shrinked":
             self.status = "extended"
+        else:
+            self.status = "shrinked"
 
     def remove_text(self,*args):
         self.text = ""
-        anim = Animation(width = dp(56), duration = 0.1)
-        anim.start(self.ids.fb)
 
     def add_text(self,*args):
         self.text = self.current_text
