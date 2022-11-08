@@ -136,7 +136,7 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
             super(XDialog, self).add_widget(widget)
 
     def open(self,*args):
-        if self.status == 'closed' and self.height > dp(180):
+        if self.status == 'closed' and self.ids.bt.height > dp(20):
             self.dispatch("on_anim_start")
             self.main_pos = {"center_x": .5, "center_y": .5}
             estimate = self.ids.title.font_size + self.ids.bx.height +(self.ids.scr.padding[1] *2) + (self.ids.scr.spacing*2) + self.ids.bt.height
