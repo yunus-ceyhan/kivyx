@@ -102,6 +102,7 @@ Builder.load_string("""
         text_size: None,None
         pos_hint: {"center_x": .5, "center_y":.5}
         font_size: "10sp"
+        bold: True
         color: root.bubble_text_color
         canvas.before:
             Color:
@@ -118,10 +119,10 @@ Builder.load_string("""
         
 <XSegmentIconItem>:
     pos_hint: {"center_y":.5}
-    size_hint: None, None
+    size_hint_y: None
     height: dp(36)
-    width: root.button_width
-    padding: [(root.button_width/2) - (ic.width/2),0,0,0]
+    #width: root.button_width
+    padding: [(self.width/2) - (ic.width/2),0,0,0]
     XIcon:
         id: ic
         icon: root.icon
@@ -142,8 +143,13 @@ class XSegmentTextItem(RectangularBehavior,XBoxLayout):
     bubble_color = ColorProperty([0,0,0,0])
     bubble_line_color = ColorProperty([0,0,0,0])
     bubble_text_color = ColorProperty([0,0,0,0])
-    bubble_radius = ListProperty((dp(4),dp(4),dp(4),dp(4)))
-
+    bubble_radius = ListProperty((dp(10),))
+    def __init__(self, **kwargs):
+        super(XSegmentTextItem, self).__init__(**kwargs)
+        self.text_color = self.txt_color
+        self.bubble_color = self.accent_color
+        self.bubble_text_color = self.txt_color
+        self.bubble_line_color = self.card_color
 class XSegmentIconItem(RectangularBehavior,XBoxLayout):
     icon = StringProperty()
     text_color = ColorProperty()
@@ -166,6 +172,7 @@ class XSegmentControl(XFloatLayout, Theming):
         super(XSegmentControl, self).__init__(**kwargs)
         self.bar_color = self.bgr_color
         self.item_color = self.card_color
+        self.bar_color = self.accent_color
         self.ind = 0
         self.register_event_type('on_tab_press')
         self.register_event_type('on_tab_release')
@@ -186,13 +193,20 @@ class XSegmentControl(XFloatLayout, Theming):
                     i.button_width = self.item_width
                     i.halign = "center"
                     i.ripple_radius = self.radius
+                    if self.ids.s.children.index(i) == 4:
+                        i.opacity = 1
+                    else:
+                        if not isinstance(i, XLiney):
+                            i.opacity = .9
+                            button_width = i.width
                 self.ids.b.width = self.item_width
                 for x in self.ids.fake.children:
                     if not isinstance(x, XLiney):
                         x.size_hint_x = None
-                        x.width = self.item_width
+                        x.width = self.item_width/3
                     else:
-                        x.height = dp(24)  if self.style == 'm3' else dp(37)
+                        x.height = dp(20)  if self.style == 'm3' else dp(37)
+                        x.width = dp(2) if self.style == "m3" else dp(1)
             Clock.schedule_once(self.select_first)
 
     def select_first(self, *args):
@@ -215,8 +229,8 @@ class XSegmentControl(XFloatLayout, Theming):
                 'on_tab_release', button))
             self.ids.s.add_widget(button)
             self.ids.fake.add_widget(Widget())
-            self.ids.fake.add_widget(XLiney(size_hint_y=None, height=dp(24), pos_hint={"center_y": .5}, width=dp(1), opacity=.3))
-            self.ids.s.add_widget(XLiney(size_hint_y=None, height=dp(24), pos_hint={"center_y": .5}, width=dp(1), opacity=0))
+            self.ids.fake.add_widget(XLiney(size_hint_y=None, height=dp(20), pos_hint={"center_y": .5}, width=dp(2), opacity=.7))
+            self.ids.s.add_widget(XLiney(size_hint_y=None, height=dp(20), pos_hint={"center_y": .5}, width=dp(2), opacity=0))
         else:
             super(XSegmentControl, self).add_widget(button)
 
@@ -229,9 +243,19 @@ class XSegmentControl(XFloatLayout, Theming):
         else:
             self.ids.b.radius = [0,] if self.style == 'm2' else [self.radius[0],]
             
+        for x in self.ids.s.children:
+            if self.ids.s.children.index(x) == self.ids.s.children.index(button):
+                x.opacity = 1
+            else:
+                if not isinstance(x, XLiney):
+                    x.opacity = .9
+            
         for i in self.ids.fake.children:
-            i.opacity = .3
-            i.height = dp(24)  if self.style == 'm3' else dp(37)
+            if isinstance(i, XLiney):
+                i.opacity = 0.7
+                i.height = dp(20)  if self.style == 'm3' else dp(37)
+                i.width = dp(2) if self.style == "m3" else dp(1)
+                
         self.ids.b.width = button.width
         if self.style == 'm3':
             anim = Animation(pos=button.pos, duration= 0.1)
