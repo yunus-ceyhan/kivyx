@@ -50,7 +50,7 @@ Builder.load_string("""
         spacing: dp(120)
         padding: [dp(120),]
         orientation: "vertical"
-        bg_color: root.accent_color
+        #bg_color: root.accent_color
         XButton:
             bg_color: self.primary_color
             text: self.style.title()

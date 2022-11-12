@@ -45,6 +45,7 @@ Builder.load_string("""
         padding: [(Window.width - bx.width)/2,0,0,0]
         bg_color: root.tab_color
         elevation: root.elevation
+        line_color: root.line_color
         XSegmentControl:
             id: bx
             pos_hint: {"center_x": .5,"center_y": .5}
@@ -75,10 +76,6 @@ class XSegmentItem(Theming,XScreen):
         super(XSegmentItem,self).__init__(**kwargs)
         self.bg_color = self.bgr_color
 
-        
-        
-
-
 
 class XSegmentTab(Theming,XBoxLayout):
     item_width = NumericProperty()
@@ -95,15 +92,17 @@ class XSegmentTab(Theming,XBoxLayout):
     bubble_color = ColorProperty([0,0,0,0])
     bubble_line_color = ColorProperty([0,0,0,0])
     bubble_text_color = ColorProperty([0,0,0,0])
+    toolbar_line_color = ColorProperty([0,0,0,0])
     bubble_radius = ListProperty((dp(4),dp(4),dp(4),dp(4)))
 
     def __init__(self, **kwargs):
         super(XSegmentTab,self).__init__(**kwargs)
         self.tab_color =  self.card_color
-        self.bar_color = self.bgr_color
+        self.bar_color = self.accent_color
         self.item_color = self.card_color
         self.text_color = self.txt_color
-        self.bubble_color = self.bgr_color
+        self.toolbar_line_color = self.line_color
+        self.bubble_color = self.primary_color
         self.bubble_line_color = self.card_color
         self.bubble_text_color = self.txt_color
         self.bubble_radius = (dp(8),dp(8),dp(8),dp(8))
