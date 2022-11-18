@@ -43,8 +43,8 @@ class Theming(EventDispatcher):
         self.opposite_color = self.colorx["opposite"]
         self.disabled_color = self.colorx["disabled"]
         
-    def colors(self,name, hue = 6):
-        if name and str(name) in self.xcolors.keys() and hue in range(1,11):
+    def colors(self,name, hue = 5):
+        if name and str(name) in self.xcolors.keys() and hue in range(1,len(self.xcolors[str(name)])+1):
             return self.xcolors[str(name)][int(hue)-1]
         else:
             return self.trans_color

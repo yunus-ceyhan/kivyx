@@ -1,17 +1,21 @@
 """
 <MainApp>:
     bg_color: root.bgr_color
-    XSegmentControl:
-        pos_hint: {"center_x": .5, "center_y":.5}
-        item_width:  dp(120)
-        radius: [dp(16),]
-        style: "m3"
-        XSegmentTextItem:
-            text: "Global"
-        XSegmentTextItem:
-            text: "China"
-        XSegmentIconItem:
-            icon: "apple"
+    XScreen:
+        name: "main_screen"
+        bg_color: root.bgr_color
+        XSegmentControl:
+            pos_hint: {"center_x": .5, "center_y":.5}
+            item_width:  dp(320)
+            radius: [dp(8),]
+            style: "m3"
+            XSegmentTextItem:
+                text: "Global"
+                bubble_text: "12"
+            XSegmentTextItem:
+                text: "China"
+            XSegmentIconItem:
+                icon: "alarm-f"
 """
 
 from kivy.lang import Builder

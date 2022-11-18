@@ -39,6 +39,7 @@ Builder.load_string("""
                     #distance: dp(3)
                     #top: True
                     line_color: 0,0,0,.2
+                    bg_color: root.colors("red",13)
                 XSegmentTab:
                     #active_item_color: "#ff3434"
                     id: tab_panel
