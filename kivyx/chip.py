@@ -53,6 +53,7 @@ Builder.load_string("""
         pos_hint: {"center_y":.5}
         color: root.text_color
         font_size: "13sp"
+        font_name: root.font_name
     XIcon:
         id: icr
         icon: root.right_icon
@@ -70,6 +71,7 @@ class XChip(Theming, XBoxLayout):
     text = StringProperty()
     text_color = ColorProperty()
     icon_color = ColorProperty()
+    font_name = StringProperty("Roboto")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
