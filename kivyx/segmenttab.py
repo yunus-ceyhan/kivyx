@@ -147,7 +147,13 @@ class XSegmentTab(Theming,XBoxLayout):
                 
             else:
                 screens[l-i].icon = self.ids.sm.screens[i].icon
+        self.current_tab = self.ids.sm.current
                 
 
     def change_screen(self,widget,button,*args):
         self.ids.sm.current = widget.name
+        Clock.schedule_once(self.determine_current)
+        
+        
+    def determine_current(self,*args):
+        self.current_tab = self.ids.sm.current

@@ -65,6 +65,7 @@ Builder.load_string("""
                 XBotnav:
                     id: botnav
                     bg_color: self.bgr_color
+                    on_tab_release: print(self.current_tab)
                     XBotnavItem:
                         name: "news"
                         text: "Newest"

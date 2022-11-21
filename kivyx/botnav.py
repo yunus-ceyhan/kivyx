@@ -143,6 +143,7 @@ class XBotnav(Theming,XBoxLayout):
                 self.ids.bt.children[l-i].icon_color =  self.active_text_color
                 self.ids.bt.children[l-i].icon = self.ids.sm.screens[i].active_icon
                 #self.ids.bt.children[l-i].font_size = "14sp"
+        self.current_tab = self.ids.sm.current
 
 
     def change_screen(self,widget,button,*args):
