@@ -41,10 +41,7 @@ Builder.load_string("""
             exact_height: dp(90)
             on_scroll_move:
                 t.title = ''
-            
 
-
-            
 <Search>:
     on_release:
         app.main.ids.t.title = root.name

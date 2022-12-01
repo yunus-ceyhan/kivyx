@@ -20,7 +20,7 @@
 
 from kivy.lang import Builder
 from kivyx.theming import Theming
-from kivy.properties import ColorProperty, ListProperty, NumericProperty, StringProperty,OptionProperty
+from kivy.properties import ColorProperty, ListProperty, NumericProperty, StringProperty,OptionProperty, ObjectProperty
 from kivyx.floatlayout import XFloatLayout
 from kivyx.boxlayout import XBoxLayout
 from kivy.animation import Animation
@@ -30,6 +30,7 @@ from kivy.clock import Clock
 from kivyx.line import XLiney
 from kivy.uix.widget import Widget
 from kivyx.behavior import RectangularBehavior
+from kivy.core.window import Window
 
 
 Builder.load_string("""
@@ -67,7 +68,7 @@ Builder.load_string("""
         size_hint: None,None
         height: dp(36)
         width: s.children[0].width if len(s.children) > 0 else 0
-        pos: [self.pos[0], xsc.pos[1] + (xsc.height -self.height)/2 ]
+        #pos: [self.pos[0], xsc.pos[1] + (xsc.height -self.height)/2 ]
         bg_color: root.item_color
 
     XBoxLayout:
@@ -170,7 +171,7 @@ class XSegmentControl(XFloatLayout, Theming):
     bar_color = ColorProperty()
     style = OptionProperty('m2', options = ['m2','m3'])
     item_color = ColorProperty()
-    current_pos = NumericProperty(0)
+    current_button = ObjectProperty()
 
     def __init__(self, **kwargs):
         super(XSegmentControl, self).__init__(**kwargs)
@@ -180,7 +181,14 @@ class XSegmentControl(XFloatLayout, Theming):
         self.ind = 0
         self.register_event_type('on_tab_press')
         self.register_event_type('on_tab_release')
+        Window.bind(on_resize=self.on_window_resize, on_rotate = self.on_window_resize, on_maximize = self.on_window_resize, on_minimize = self.on_window_resize)
         Clock.schedule_once(self.adjust)
+
+    def on_window_resize(self, *a,**kv):
+        try:
+            self.ids.b.pos = self.current_button.pos
+        except Exception as e:
+            print(e)
 
     def on_tab_press(self, *args):
         pass
@@ -222,7 +230,7 @@ class XSegmentControl(XFloatLayout, Theming):
         self.ind = len(self.ids.fake.children) - 1
         if self.style == 'm3':
             self.fade_out()
-        self.current_pos = self.ids.s.children[-1].pos[0]
+        self.current_button = self.ids.s.children[-1]
 
     def add_widget(self, button, *args):
         if isinstance(button, XSegmentTextItem) or isinstance(button,  XSegmentIconItem):
@@ -239,7 +247,7 @@ class XSegmentControl(XFloatLayout, Theming):
             super(XSegmentControl, self).add_widget(button)
 
     def change_segment(self, button):
-        self.current_pos = button.pos[0]
+        self.current_button = button
         if button == self.ids.s.children[-1]:
             self.ids.b.radius = [self.radius[0],0,0,self.radius[0]] if self.style == 'm2' else [self.radius[0],]
         elif button == self.ids.s.children[0]:

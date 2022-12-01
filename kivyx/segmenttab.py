@@ -98,7 +98,7 @@ class XSegmentTab(Theming,XBoxLayout):
     def __init__(self, **kwargs):
         super(XSegmentTab,self).__init__(**kwargs)
         self.tab_color =  self.card_color
-        self.bar_color = self.accent_color
+        self.bar_color = self.bgr_color
         self.item_color = self.card_color
         self.text_color = self.txt_color
         self.toolbar_line_color = self.line_color
