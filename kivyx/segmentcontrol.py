@@ -70,6 +70,7 @@ Builder.load_string("""
         width: s.children[0].width if len(s.children) > 0 else 0
         #pos: [self.pos[0], xsc.pos[1] + (xsc.height -self.height)/2 ]
         bg_color: root.item_color
+        elevation: 0.01
 
     XBoxLayout:
         id: s
