@@ -68,7 +68,7 @@ Builder.load_string("""
         size_hint: None,None
         height: dp(36)
         width: s.children[0].width if len(s.children) > 0 else 0
-        #pos: [self.pos[0], xsc.pos[1] + (xsc.height -self.height)/2 ]
+        pos: root.current_button.pos if root.current_button != None else [self.pos[0], xsc.pos[1] + (xsc.height -self.height)/2 ]
         bg_color: root.item_color
         elevation: 0.01
 
@@ -182,7 +182,7 @@ class XSegmentControl(XFloatLayout, Theming):
         self.ind = 0
         self.register_event_type('on_tab_press')
         self.register_event_type('on_tab_release')
-        Window.bind(on_resize=self.on_window_resize, on_rotate = self.on_window_resize, on_maximize = self.on_window_resize, on_minimize = self.on_window_resize)
+        Window.bind(on_flip = self.on_window_resize)
         Clock.schedule_once(self.adjust)
 
     def on_window_resize(self, *a,**kv):
