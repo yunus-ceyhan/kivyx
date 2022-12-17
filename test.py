@@ -6,7 +6,6 @@ from kivy.lang import Builder
 from kivyx.theming import Theming
 from kivy.properties import StringProperty
 from kivy.core.window import Window
-Window.clearcolor = (1, 1, 1, 1)
 
 
 Builder.load_string("""
@@ -14,7 +13,7 @@ Builder.load_string("""
 
 <MainApp>:
     id: scr_mngr
-    Screen:
+    XScreen:
         name: "main_screen"
         XSidenav:
             id: sn
@@ -22,9 +21,173 @@ Builder.load_string("""
             separator_image_width: dp(1)
             on_anim_stop: root.anim_stop()
             XBoxLayout:
-                orientatiom: "vertical"
-                bg_color: app.colorx.card_color
+                orientation: "vertical"
+                padding: [dp(12),]
+                XLabel:
+                    text: "Activities"
+                    bold: True
+                    aligned: True
+                    halign: "left"
+                    color: root.txt_medium
+                    size_hint_y: None
+                    height: dp(48)
+                    padding_x: dp(16)
+                    
+                XCard:
+                    radius: [dp(12),]
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: [dp(16),dp(4),]
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(48)
+                        disabled: True if system_pr.active else False
+                        XLabel:
+                            text: "Show non-exported activities"
+                            font_size: "14sp"
+                            aligned: True
+                            halign: "left"
+                            pos_hint: { "center_y": .5}
+                        XSwitch:
+                            pos_hint: { "center_y": .5}
+                            active: True
+                            style: "m3"
+                            
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(48)
+                        XLabel:
+                            text: "Show user packages"
+                            font_size: "14sp"
+                            aligned: True
+                            halign: "left"
+                            pos_hint: { "center_y": .5}
+                        XSwitch:
+                            pos_hint: { "center_y": .5}
+                            active: False
+                            style: "m3"
 
+                XLabel:
+                    text: "Theme"
+                    bold: True
+                    aligned: True
+                    halign: "left"
+                    color: root.txt_medium
+                    size_hint_y: None
+                    height: dp(48)
+                    padding_x: dp(16)
+                    
+                XCard:
+                    radius: [dp(12),]
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: [dp(16),dp(4),]
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(48)
+                        XLabel:
+                            text: "Sytem provided"
+                            font_size: "14sp"
+                            aligned: True
+                            halign: "left"
+                            pos_hint: { "center_y": .5}
+                        XSwitch:
+                            id: system_pr
+                            pos_hint: { "center_y": .5}
+                            active: True
+                            style: "m3"
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(48)
+                        disabled: True if system_pr.active else False
+                        XLabel:
+                            text: "Dark theme"
+                            font_size: "14sp"
+                            aligned: True
+                            halign: "left"
+                            pos_hint: { "center_y": .5}
+                        XSwitch:
+                            pos_hint: { "center_y": .5}
+                            active: False
+                            style: "m3"
+                            disabled: True if system_pr.active else False
+                            
+                XLabel:
+                    text: "Contacts"
+                    bold: True
+                    aligned: True
+                    halign: "left"
+                    color: root.txt_medium
+                    size_hint_y: None
+                    height: dp(48)
+                    padding_x: dp(16)
+                    
+                XCard:
+                    radius: [dp(12),]
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    #padding: [dp(16),dp(4),]
+                    XTwoIconListItem:
+                        elevation: 0
+                        text: "yunus.ceyhn@gmail.com"
+                        left_icon: "envelope-simple-d"
+                        right_icon: "arrow-square-up-right"
+                        font_size: "14sp"
+                        bg_color: root.trans_color
+                    XTwoIconListItem:
+                        elevation: 0
+                        text: "yunus-ceyhan"
+                        left_icon: "github-logo"
+                        right_icon: "arrow-square-up-right"
+                        font_size: "14sp"
+                        bg_color: root.trans_color
+                    XTwoIconListItem:
+                        elevation: 0
+                        text: "yunus_ceyhan"
+                        left_icon: "twitter-logo-d"
+                        right_icon: "arrow-square-up-right"
+                        font_size: "14sp"
+                        bg_color: root.trans_color
+                        
+                XLabel:
+                    text: "About"
+                    bold: True
+                    aligned: True
+                    halign: "left"
+                    color: root.txt_medium
+                    size_hint_y: None
+                    height: dp(48)
+                    padding_x: dp(16)
+                    
+                XCard:
+                    radius: [dp(12),]
+                    orientation: "vertical"
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: [dp(16),dp(4),]
+                    BoxLayout:
+                        size_hint_y: None
+                        height: dp(48)
+                        disabled: True
+                        XLabel:
+                            text: "Version"
+                            font_size: "14sp"
+                            aligned: True
+                            halign: "left"
+                            pos_hint: { "center_y": .5}
+                        XLabel:
+                            text: "5.83"
+                            font_size: "14sp"
+                            aligned: True
+                            halign: "right"
+                            pos_hint: { "center_y": .5}
+                            
+                Widget:
+                        
+                    
             BoxLayout:
                 orientation: "vertical"
                 #spacing: dp(10)
@@ -39,7 +202,8 @@ Builder.load_string("""
                     #distance: dp(3)
                     #top: True
                     line_color: 0,0,0,.2
-                    bg_color: root.colors("white")
+                    bar_color: root.colors("bluegrey",2)
+                    
                 XSegmentTab:
                     #active_item_color: "#ff3434"
                     id: tab_panel
@@ -64,23 +228,24 @@ Builder.load_string("""
                         text: "revennue"
                 XBotnav:
                     id: botnav
-                    bg_color: self.bgr_color
                     on_tab_release: print(self.current_tab)
+                    active_item_color: root.colors("bluegrey",4)
                     XBotnavItem:
                         name: "news"
                         text: "Newest"
-                        icon: "newspaper"
+                        icon: "cards-b"
+                        active_icon: "cards-f"
                         BoxLayout:
                             orientation: "vertical"
                             XBoxLayout:
-                                bg_color: root.card_color
                                 
 
                         XFab:
                             icon: "apple"
                             text: "apple"
                             on_press: self.extend_button("extend") if self.status == "shrinked" else self.extend_button("shrink")
-                            on_release: bottom_sheet.open()
+                            on_release:
+                                bottom_sheet.open()
 
 
                     XBotnavItem:
@@ -176,16 +341,16 @@ Builder.load_string("""
 
 
 class MainApp(ScreenManager,Theming):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     
     def anim_stop(self,):
         print("hellllloooooo")
 
 class TestApp(App):
-    theme_style = StringProperty()
     def build(self):
         self.theme_style = "Light"
-        self.colorx = Theming()
-        Window.clearcolor = (1, 1, 1, 1)
         return MainApp()
 
 

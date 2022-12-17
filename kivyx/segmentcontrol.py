@@ -156,6 +156,7 @@ class XSegmentTextItem(RectangularBehavior,XBoxLayout):
         self.bubble_color = self.accent_color
         self.bubble_text_color = self.txt_color
         self.bubble_line_color = self.card_color
+        
 class XSegmentIconItem(RectangularBehavior,XBoxLayout):
     icon = StringProperty()
     text_color = ColorProperty()
@@ -189,7 +190,7 @@ class XSegmentControl(XFloatLayout, Theming):
         try:
             self.ids.b.pos = self.current_button.pos
         except Exception as e:
-            print(e)
+            pass
 
     def on_tab_press(self, *args):
         pass

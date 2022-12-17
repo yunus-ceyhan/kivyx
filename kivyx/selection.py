@@ -25,6 +25,7 @@ Builder.load_string("""
     bg_color: root.back_color
     on_press: root.change_status()
     padding: [0,0,0,0] if root.style == "m2" else [dp(1),0,0,0]
+    opacity: .5 if self.parent.disabled else 1
     XWidget:
         id: ic
         size_hint: None,None
@@ -44,10 +45,18 @@ class XSwitch(CircularBehavior,XBoxLayout):
         super().__init__(**kwargs)
         self.toggle_color = self.card_color
         self.back_color = self.disabled_color
-        Clock.schedule_once(self.change_status)
-
-    def change_status(self,*args):
+        Clock.schedule_once(self.set_status)
+        
+    def set_status(self,*args):
         if self.active:
+            self.padding = [dp(16),0,0,0] if self.style == "m2" else [dp(15),0,0,0]
+            self.back_color = self.primary_color
+        else:
+            self.padding =[0,0,0,0] if self.style == "m2" else [dp(1),0,0,0]
+            self.back_color = self.disabled_color
+
+    def change_status(self,ststus = False,*args):
+        if not self.active:
             anim = Animation(padding = [dp(16),0,0,0] if self.style == "m2" else [dp(15),0,0,0], duration = 0.2)
             anim.start(self)
             anim.bind(on_complete = self.change_color)
@@ -57,9 +66,9 @@ class XSwitch(CircularBehavior,XBoxLayout):
             anim.bind(on_complete = self.change_color)
 
     def change_color(self,*args):
-        if not self.active:
+        if self.active:
             self.back_color = self.disabled_color
-            self.active = True
+            self.active = False
         else:
             self.back_color = self.primary_color
-            self.active = False
+            self.active = True

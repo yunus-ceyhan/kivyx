@@ -25,8 +25,13 @@ class Theming(EventDispatcher):
 
     def __init__(self, **kwargs):
         super(Theming, self).__init__(**kwargs)
-        self.theme = App.get_running_app().theme_style
-        if self.theme == "Dark":
+        if hasattr(App.get_running_app(), "theme_style"):
+            self.set_theme(App.get_running_app().theme_style)
+        else:
+            self.set_theme(self.theme)
+        
+    def set_theme(self,theme,*args):
+        if theme == "Dark":
             self.colorx = x_colors["Dark"]           
         else:
             self.colorx = x_colors["Light"]
@@ -42,6 +47,8 @@ class Theming(EventDispatcher):
         self.txt_light = self.colorx["txt_light"]
         self.opposite_color = self.colorx["opposite"]
         self.disabled_color = self.colorx["disabled"]
+        
+        
         
     def colors(self,name, hue = 5):
         if name and str(name) in self.xcolors.keys() and hue in range(1,len(self.xcolors[str(name)])+1):

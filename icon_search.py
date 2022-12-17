@@ -85,7 +85,6 @@ class MainApp(Theming,XScreen):
         
 
 class TestApp(App):
-    theme_style = StringProperty()
     def build(self):
         self.theme_style = "Dark"
         self.colorx = Theming()

@@ -242,7 +242,6 @@ class XFabTextBase(RectangularBehavior,SCard):
         Clock.schedule_once(self.set_width)
         
     def set_width(self,*args):
-        print(self.ids.lb.texture_size[0])
         if self.text and self.ids.lb.texture_size[0] > 0:
             self.width = max(dp(56), self.padding[0]+self.padding[2] +self.ids.ic.width+self.ids.lb.texture_size[0]+self.spacing)
         else:
@@ -273,11 +272,9 @@ class XFab(Theming, XBoxLayout):
         self.status = "extended" if self.text else "shrinked"
         self.current_width = self.ids.fb.width
         self.current_text = self.text
-        print(self.status)
 
 
     def extend_button(self,status,*args):
-        print(status)
         if status == "shrink" and self.status == "extended":
             self.current_width = self.ids.fb.width
             self.current_text = self.text
