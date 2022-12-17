@@ -37,20 +37,22 @@ Builder.load_string("""
 """)
 
 class XSwitch(CircularBehavior,XBoxLayout):
-    toogle_color = ColorProperty()
+    toggle_color = ColorProperty()
     back_color = ColorProperty()
+    active_color = ColorProperty()
     active = BooleanProperty(False)
     style = OptionProperty("m2", options = ["m2","m3"])
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.toggle_color = self.card_color
         self.back_color = self.disabled_color
+        self.active_color = self.accent_color
         Clock.schedule_once(self.set_status)
         
     def set_status(self,*args):
         if self.active:
             self.padding = [dp(16),0,0,0] if self.style == "m2" else [dp(15),0,0,0]
-            self.back_color = self.primary_color
+            self.back_color = self.active_color
         else:
             self.padding =[0,0,0,0] if self.style == "m2" else [dp(1),0,0,0]
             self.back_color = self.disabled_color
@@ -70,5 +72,5 @@ class XSwitch(CircularBehavior,XBoxLayout):
             self.back_color = self.disabled_color
             self.active = False
         else:
-            self.back_color = self.primary_color
+            self.back_color = self.active_color
             self.active = True
