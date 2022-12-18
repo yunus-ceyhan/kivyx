@@ -45,6 +45,8 @@ register("XSegmentItem", module="kivyx.segmenttab")
 register("ETabPanel", module="kivyx.editor.etab")
 register("ETabItem", module="kivyx.editor.etab")
 
+register("XItem", module="kivyx.item")
+
 register("XListItem", module="kivyx.list")
 register("XIconListItem", module="kivyx.list")
 register("XImageListItem", module="kivyx.list")

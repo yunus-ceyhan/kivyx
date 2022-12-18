@@ -3,7 +3,7 @@
 from kivy.app import App 
 from kivy.lang import Builder
 from kivyx.theming import Theming
-from kivy.properties import ColorProperty, ListProperty, DictProperty, NumericProperty, BooleanProperty, OptionProperty,StringProperty
+from kivy.properties import ColorProperty, ListProperty, DictProperty, NumericProperty, BooleanProperty, OptionProperty,StringProperty, ObjectProperty
 #from kivyx.button import XFlatRIconButton, XIconButton
 from kivyx.floatlayout import XFloatLayout
 from kivy.animation import Animation
@@ -28,6 +28,10 @@ from kivyx.card import XCard
 from kivyx.label import XLabel
 from kivyx.line import XLiney
 from kivy.uix.widget import Widget
+from kivyx.button import XButton, XIconButton
+from kivyx.icon import XIcon
+
+from kivy.uix.image import Image
 
 from kivyx.boxlayout import XBoxLayout
 from kivy.properties import ListProperty, NumericProperty, ColorProperty,OptionProperty
@@ -50,26 +54,32 @@ Builder.load_string("""
         spacing: dp(120)
         padding: [dp(120),]
         orientation: "vertical"
-        #bg_color: root.accent_color
+        bg_color: root.bgr_color
+        XItem:
+            id: cl
+            radius: [dp(12),]
+            text: root.text
+            second_text: "test secondry text"
+            #left_icon: "envelope-simple-d"
+            #right_icon: "envelope-simple-d"
+            image: "./kivyx/data/icon.png"
+            right_text: "100%"
+            button_text: "extend"
+            button_right_icon: "envelope-simple"
+            button_style: "text"
+            badge_icon: "envelope-simple"
+            on_press: self.badge_icon = ""
         XButton:
-            bg_color: self.primary_color
-            text: self.style.title()
-            style: "elevated" 
-            #button_width: dp(380)
-            #right_icon: "plus"
-            left_icon: "plus"
-            rounded: True
-            text_color: root.colors("green",1)
-            icon_color: self.text_color
+            text: "change"
+            on_release:
+                root.text = "change text"
+        
             
 
-
 """)
-
         
-
-
 class MainApp(Theming,XScreen):
+    text = StringProperty("test title")
     def __init__(self, **kw):
         super().__init__(**kw)
         print(self.colors("blue"))
