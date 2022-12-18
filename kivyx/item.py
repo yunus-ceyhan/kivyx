@@ -68,6 +68,7 @@ class XItem(XCard):
     text_color = ColorProperty()
     font_name = StringProperty("Roboto")
     font_size = NumericProperty("15sp")
+    bold = BooleanProperty(False)
     
     second_text = StringProperty()
     second_text_color = ColorProperty()
@@ -136,7 +137,7 @@ class XItem(XCard):
         self.clear_widgets()
         
         main = Rectangular(
-            padding = [dp(16) if self.left_icon else dp(8) ,dp(8),dp(12),dp(8)],
+            padding = [dp(8) if self.image else dp(16) ,dp(8),dp(12),dp(8)],
             spacing = dp(16),
         )
         main.bind(on_press = lambda x:self.dispatch('on_press', main))
@@ -161,7 +162,7 @@ class XItem(XCard):
             text_color = self.txt_color,
             font_name = self.font_name,
             font_size = self.font_size,
-            bold = True,
+            bold = self.bold,
             aligned = True,
             halign = "left",
             valign = "middle",
@@ -266,6 +267,12 @@ class XItem(XCard):
     def on_text(self, instance,value):
         try:
             self.main_label.text = value
+        except:
+            pass
+        
+    def on_bold(self, instance,value):
+        try:
+            self.main_label.bold = value
         except:
             pass
         
