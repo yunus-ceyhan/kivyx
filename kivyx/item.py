@@ -89,6 +89,7 @@ class XItem(XCard):
     selection_toggle_color = ColorProperty()
     selection_active_color = ColorProperty()
     selection_opacity = NumericProperty(1)
+    ripple_effect = BooleanProperty(False)
     
     
     def __init__(self, **kwargs):
@@ -139,6 +140,8 @@ class XItem(XCard):
         main = Rectangular(
             padding = [dp(8) if self.image else dp(16) ,dp(8),dp(12),dp(8)],
             spacing = dp(16),
+            ripple_radius = self.radius,
+            ripple_alpha = .1 if self.ripple_effect else 0
         )
         main.bind(on_press = lambda x:self.dispatch('on_press', main))
         main.bind(on_release = lambda x:self.dispatch('on_right_icon_release', main))
