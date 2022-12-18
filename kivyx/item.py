@@ -22,7 +22,7 @@
 """
 
 from kivy.lang import Builder
-from kivy.properties import ColorProperty, NumericProperty, StringProperty
+from kivy.properties import ColorProperty, NumericProperty, StringProperty, BooleanProperty
 from kivy.metrics import dp
 from kivyx.behavior import RectangularBehavior
 from kivy.uix.boxlayout import BoxLayout
@@ -30,6 +30,7 @@ from kivyx.card import XCard
 from kivyx.label import XLabel
 from kivyx.button import XButton, XIconButton
 from kivyx.icon import XIcon
+from kivyx.selection import XSwitch
 from kivy.uix.image import Image
 from kivy.clock import Clock
 
@@ -39,7 +40,7 @@ Builder.load_string("""
     size_hint_y: None
     height: dp(56)
     spacing: dp(12)
-    padding: [0,0,dp(8),0]
+    padding: [0,0,dp(16) if root.add_selection else dp(8),0]
 
 """)
 
@@ -81,6 +82,13 @@ class XItem(XCard):
     badge_icon = StringProperty()
     badge_icon_color = ColorProperty()
     
+    add_selection = BooleanProperty(False)
+    selection_active = BooleanProperty(False)
+    selection_style = StringProperty("m3")
+    selection_toggle_color = ColorProperty()
+    selection_active_color = ColorProperty()
+    selection_opacity = NumericProperty(1)
+    
     
     def __init__(self, **kwargs):
         super(XItem, self).__init__(**kwargs)
@@ -92,12 +100,15 @@ class XItem(XCard):
         self.button_color = self.accent_color
         self.button_icon_color = self.txt_color
         self.badge_icon_color = self.txt_color
+        self.selection_toggle_color = self.card_color
+        self.selection_active_color = self.accent_color
         self.register_event_type('on_press')
         self.register_event_type('on_release')
         self.register_event_type('on_button_press')
         self.register_event_type('on_button_release')
         self.register_event_type('on_right_icon_press')
         self.register_event_type('on_right_icon_release')
+        self.register_event_type('on_selection')
         Clock.schedule_once(self.set_widget)
         
     def on_press(self, *args):
@@ -116,6 +127,9 @@ class XItem(XCard):
         pass
 
     def on_right_icon_release(self, *args):
+        pass
+    
+    def on_selection(self, *args):
         pass
     
     def set_widget(self,*args):
@@ -215,6 +229,17 @@ class XItem(XCard):
         self.button.bind(on_press = lambda x:self.dispatch('on_button_press', self.button))
         self.button.bind(on_release = lambda x:self.dispatch('on_button_release', self.button))
         
+        self.switch = XSwitch(
+            active = self.selection_active,
+            style = self.selection_style,
+            toggle_color = self.selection_toggle_color,
+            active_color = self.selection_active_color,
+            opacity = self.selection_opacity,
+            pos_hint = {"center_y": .5}
+        )
+        
+        self.switch.bind(on_release = lambda x:self.dispatch('on_selection', self.switch))
+        
         body.add_widget(title)
         main.add_widget(body)
         self.add_widget(main)
@@ -235,6 +260,8 @@ class XItem(XCard):
             main.add_widget(self.right_label)
         if self.button_text:
             self.add_widget(self.button)
+        if self.add_selection:
+            self.add_widget(self.switch)
             
     def on_text(self, instance,value):
         try:
@@ -335,5 +362,11 @@ class XItem(XCard):
     def on_badge_icon_color(self, instance,value):
         try:
             self.badge.icon_color = value
+        except:
+            pass
+        
+    def on_selection_opacity(self, instance,value):
+        try:
+            self.switch.opacity = value
         except:
             pass

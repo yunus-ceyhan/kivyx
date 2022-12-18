@@ -25,7 +25,7 @@ Builder.load_string("""
     bg_color: root.back_color
     on_press: root.change_status()
     padding: [0,0,0,0] if root.style == "m2" else [dp(1),0,0,0]
-    opacity: .5 if self.parent.disabled else 1
+    opacity: (.5 if self.parent.disabled else 1) if self.parent else 1
     XWidget:
         id: ic
         size_hint: None,None

@@ -69,6 +69,7 @@ Builder.load_string("""
             button_style: "text"
             badge_icon: "envelope-simple"
             on_press: self.badge_icon = ""
+            add_selection: True
         XButton:
             text: "change"
             on_release:
