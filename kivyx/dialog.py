@@ -58,8 +58,9 @@ Builder.load_string("""
         pos_hint: {"center_x": .5, "center_y": .5}
         opacity: root.opacity
         spacing: dp(24)
-        elevation: 0.07
-        distance: '9dp'
+        elevation: 0.3
+        shadow_distance:  - dp(2)
+        shadow_blur: dp(20)
         XLabel:
             id: title
             text: root.title
@@ -141,7 +142,7 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
             self.main_pos = {"center_x": .5, "center_y": .5}
             estimate = self.ids.title.font_size + self.ids.bt.height +(self.ids.scr.padding[1] *2) + (self.ids.scr.spacing*2) 
             box_height = max(estimate,estimate + self.ids.bx.height) if self.expandable else dp(300)
-            anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.3],opacity = 1, duration = 0.1)
+            anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.5],opacity = 1, duration = 0.1)
             if self.expandable:
                 if box_height > estimate:
                     anim.start(self)

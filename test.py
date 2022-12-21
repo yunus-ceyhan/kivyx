@@ -1,11 +1,13 @@
 
-
 from kivy.app import App 
 from kivy.uix.screenmanager import ScreenManager, Screen 
 from kivy.lang import Builder
 from kivyx.theming import Theming
 from kivy.properties import StringProperty
 from kivy.core.window import Window
+from kivy.metrics import dp
+from kivy.clock import Clock
+
 
 
 Builder.load_string("""
@@ -23,6 +25,7 @@ Builder.load_string("""
             XBoxLayout:
                 orientation: "vertical"
                 padding: [dp(12),]
+                bg_color: root.bgr_color
                 XLabel:
                     text: "Activities"
                     bold: True
@@ -33,12 +36,16 @@ Builder.load_string("""
                     height: dp(48)
                     padding_x: dp(16)
                     
+                    
                 XCard:
                     radius: [dp(12),]
                     orientation: "vertical"
                     size_hint_y: None
                     height: self.minimum_height
                     padding: [dp(16),dp(4),]
+                    #elevation: 0.5
+                    #shadow_y: - dp(1)
+                    #line_color: root.line_color
                     BoxLayout:
                         size_hint_y: None
                         height: dp(48)
@@ -188,9 +195,10 @@ Builder.load_string("""
                 Widget:
                         
                     
-            BoxLayout:
+            XBoxLayout:
                 orientation: "vertical"
                 #spacing: dp(10)
+                bg_color: root.bgr_color
                 XAppSearchbar:
                     text: "Search for Themes"
                     left_icon: "list-b"
@@ -202,66 +210,92 @@ Builder.load_string("""
                     #distance: dp(3)
                     #top: True
                     line_color: 0,0,0,.2
-                    bar_color: root.colors("bluegrey",2)
+                    bar_color: root.primary_color
+                    style: 'm3'
                     
-                XSegmentTab:
-                    #active_item_color: "#ff3434"
-                    id: tab_panel
-                    size_hint_y: None
-                    height: dp(64)
-                    item_width: dp(400)
-                    tab_style: "m3"
-                    tab_radius: dp(16)
-                    XSegmentItem:
-                        name: "tab1"
-                        text: "Themes"
-                        item_type: "left"
-                    XSegmentItem:
-                        name: "tab2"
-                        text: "Walpapers"
-                        item_type: "center"
 
-                    XSegmentItem:
-                        name: "tab3"
-                        text: "Icon pascks"
-                        item_type: "right"
-                        text: "revennue"
                 XBotnav:
                     id: botnav
                     on_tab_release: print(self.current_tab)
-                    active_item_color: root.colors("bluegrey",4)
+                    active_item_color: root.accent_color
+                    bar_color: root.primary_color
                     XBotnavItem:
                         name: "news"
                         text: "Newest"
                         icon: "cards-b"
                         active_icon: "cards-f"
+
+                        XBoxLayout:
+                            orientation: "vertical"
+                            padding: [dp(50),dp(56),0,0]
+                            spacing: dp(30)
+                            
+                            XToolbar:
+                                top: False
+                            XButton:
+                                text: "hello"
+                                bg_color: root.accent_color
+                                #style: "outlined"
+                                rounded: True
+                             
+                            XCard:
+                                radius: [dp(16),]
+                                orientation: "vertical"
+                                size_hint: None, None
+                                size: dp(100), dp(56)
+                                padding: [dp(16),dp(4),]
+                                elevation: .2
+                                shadow_y:  -  dp(5)
+                                shadow_blur: dp(17)
+                                shadow_distance: - dp(4)
+                                bg_color: root.accent_color
+                            Widget:
+
+                        
+
+
+
+                    XBotnavItem:
+                        id: podcast
+                        name: "podcast"
+                        text: "Podcast"
+                        icon: "podcast"
+
                         BoxLayout:
                             orientation: "vertical"
-                            XBoxLayout:
-                                
+                            size_hint_y: None
+                            height: podcast.height - tbb.height
 
+                            XRcGridList:
+                                id: rc
+                                cols: 1
+                                viewclass: "XItem"
+                                #bar_color: root.primary_color
+                                #bar_width: dp(5)
+                                #padding: [dp(10),]
+                                spacing: dp(10)
+                                exact_height: dp(56)
+                                
+                        XAppToolbar:
+                            id: tbb
+                            title: "Demo App"
+                            left_icon: "activity"
+                            middle_icon: "airplane"
+                            right_icon: "alarm"
+                            halign: "left"
+                            pos: self.pos[0], podcast.height - self.height
+                            on_left_icon_release: sn.toggle_state()
+                            
                         XFab:
-                            icon: "apple"
+                            id: fab
+                            icon: "folder"
                             text: "apple"
+                            button_bg_color: root.accent_color
+                            
                             on_press: self.extend_button("extend") if self.status == "shrinked" else self.extend_button("shrink")
                             on_release:
                                 bottom_sheet.open()
 
-
-                    XBotnavItem:
-                        name: "podcast"
-                        text: "Podcast"
-                        icon: "podcast"
-                        BoxLayout:
-                            orientation: "vertical"
-                            XAppToolbar:
-                                title: "Demo App"
-                                left_icon: "activity"
-                                middle_icon: "airplane"
-                                right_icon: "alarm"
-                                halign: "left"
-                                on_left_icon_release: sn.toggle_state()
-                            Widget:
                     XBotnavItem:
                         name: "practise"
                         text: "Practise"
@@ -269,6 +303,18 @@ Builder.load_string("""
                         BoxLayout:
                             orientation: "vertical"
                             XSearchbar:
+                            XSegmentControl:
+                                pos_hint: {"center_x": .5, "center_y":.5}
+                                item_width:  dp(320)
+                                radius: [dp(8),]
+                                style: "m3"
+                                XSegmentTextItem:
+                                    text: "Global"
+                                    bubble_text: "12"
+                                XSegmentTextItem:
+                                    text: "China"
+                                XSegmentIconItem:
+                                    icon: "alarm-f"
                             Widget:
 
                     XBotnavItem:
@@ -302,11 +348,12 @@ Builder.load_string("""
             id: bottom_sheet
             on_anim_start: print(self.status)
             on_anim_stop: print(self.status)
+            #expandable: True
             XBottomSheetContent:
                 orientation: "vertical"
-                XIconListItem:
-                    icon: "android"
+                XItem:
                     text: "android"
+                    elevation: 0
                 XIconListItem:
                     icon: "android"
                     text: "android"
@@ -324,7 +371,7 @@ Builder.load_string("""
             on_anim_stop: print(self.status)
             XDialogContent:
                 XLabel:
-                    text: "hello there what are you guys doing today "*22
+                    text: "hello there what are you guys doing today "*5
                     size_hint_y: None
                     aligned: True
                     #halign: "left"
@@ -333,6 +380,8 @@ Builder.load_string("""
             XDialogButton:
                 text: "CANCEL"
                 on_release: dialog.close()
+                style: 'elevated'
+                bg_color: root.accent_color
             XDialogButton:
                 text: "OK"
 
@@ -343,6 +392,12 @@ Builder.load_string("""
 class MainApp(ScreenManager,Theming):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        l = []
+        for i in range(100):
+            l.append({'text': str(i), 'radius': [dp(8),], 'left_icon': 'folder', 'right_text': 'open'})
+        self.ids.rc.data = l
+
+        
 
     
     def anim_stop(self,):

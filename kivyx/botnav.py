@@ -40,11 +40,7 @@ Builder.load_string("""
         padding: [dp(8),0,dp(8),0]
         spacing: dp(8)
         bg_color: root.bar_color
-        elevation: 0.06
-        distance: '3dp'
-        line_color: (0,0,0,0.2)
-        line_width: "0.2dp"
-
+        
 <BotnavIcon>:
     size_hint_y: None
     height: dp(80)

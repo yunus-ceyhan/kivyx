@@ -41,7 +41,10 @@ Builder.load_string("""
     height: dp(56)
     spacing: dp(12)
     padding: [0,0,dp(16) if root.add_selection else dp(8),0]
-
+    elevation: 0.16
+    shadow_distance: - dp(5)
+    shadow_blur: dp(10)
+    shadow_y:  - dp(2)
 """)
 
 class Rectangular(RectangularBehavior,BoxLayout):
@@ -132,7 +135,10 @@ class XItem(XCard):
         pass
     
     def on_selection(self, *args):
-        pass
+        Clock.schedule_once(self.set_selection,0.3)
+        
+    def set_selection(self,*args):
+        self.selection_active = self.switch.active
     
     def set_widget(self,*args):
         self.clear_widgets()
@@ -378,5 +384,11 @@ class XItem(XCard):
     def on_selection_opacity(self, instance,value):
         try:
             self.switch.opacity = value
+        except:
+            pass
+        
+    def on_selection_active(self, instance,value):
+        try:
+            self.switch.active = value
         except:
             pass

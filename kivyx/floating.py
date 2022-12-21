@@ -69,7 +69,6 @@ Builder.load_string("""
         on_release: root.dispatch('on_release',*args)
         bg_color: root.button_bg_color
         elevation: root.elevation
-        distance: root.distance
 
 <XFabBase>:
     size_hint: None,None
@@ -130,107 +129,10 @@ Builder.load_string("""
             on_press: root.dispatch('on_press',*args)
             on_release: root.dispatch('on_release',*args)
 
-<SCard>:
-    canvas.before:
-                      
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,100)       
-        RoundedRectangle:
-            size: self.size[0] + dp(2) , self.size[1] + dp(1.5)
-            pos: self.pos[0] - dp(1), self.pos[1] - dp(0.5)
-            radius: root.radius
-
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,175)       
-        RoundedRectangle:
-            size: self.size[0] - dp(8), self.size[1] + dp(root.percent(root.distance,10))
-            pos: self.pos[0] + dp(4), self.pos[1]-dp(root.percent(root.distance,20))
-            radius: [root.radius[0]+(root.percent(root.distance,2)/10),] if root.soft else root.radius
-
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,150)       
-        RoundedRectangle:
-            size: self.size[0] - dp(6), self.size[1] + dp(root.percent(root.distance,18))
-            pos: self.pos[0] + dp(3), self.pos[1] - dp(root.percent(root.distance,36))
-            radius: [root.radius[0]+(root.percent(root.distance,6)/10),] if root.soft else root.radius
-
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,125)       
-        RoundedRectangle:
-            size: self.size[0] - dp(5), self.size[1] + dp(root.percent(root.distance,26))
-            pos: self.pos[0] + dp(2.5), self.pos[1] - dp(root.percent(root.distance,52))
-            radius: [root.radius[0]+(root.percent(root.distance,9)/10),] if root.soft else root.radius
-
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation, 100)       
-        RoundedRectangle:
-            size: self.size[0] - dp(4), self.size[1] + dp(root.percent(root.distance,34))
-            pos: self.pos[0] + dp(2), self.pos[1] - dp(root.percent(root.distance,68))
-            radius: [root.radius[0]+(root.percent(root.distance,9)/10),] if root.soft else root.radius
-
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,75)       
-        RoundedRectangle:
-            size: self.size[0] - dp(3), self.size[1] + dp(root.percent(root.distance,42))
-            pos: self.pos[0] + dp(1.5), self.pos[1] - dp(root.percent(root.distance,84))
-            radius: [root.radius[0]+(root.percent(root.distance,12)/10),] if root.soft else root.radius
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,52)       
-        RoundedRectangle:
-            size: self.size[0] - dp(2), self.size[1] + dp(root.percent(root.distance,50))
-            pos: self.pos[0] + dp(1), self.pos[1] - dp(root.percent(root.distance,100))
-            radius: [root.radius[0]+(root.percent(root.distance,14)/10),] if root.soft else root.radius
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,35)       
-        RoundedRectangle:
-            size: self.size[0] + dp(2), self.size[1] + dp(root.percent(root.distance,58))
-            pos: self.pos[0] - dp(1), self.pos[1] - dp(root.percent(root.distance,116))
-            radius: [root.radius[0]+(root.percent(root.distance,16)/10),] if root.soft else root.radius
-                
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,20)       
-        RoundedRectangle:
-            size: self.size[0] +dp(4) , self.size[1] + dp(root.percent(root.distance,66))
-            pos: self.pos[0] - dp(2), self.pos[1] - dp(root.percent(root.distance,132))
-            radius: [root.radius[0]+(root.percent(root.distance,17)/10),] if root.soft else root.radius
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,10)       
-        RoundedRectangle:
-            size: self.size[0] +dp(6), self.size[1] + dp(root.percent(root.distance,74))
-            pos: self.pos[0] - dp(3), self.pos[1] - dp(root.percent(root.distance,148))
-            radius: [root.radius[0]+(root.percent(root.distance,18)/10),] if root.soft else root.radius
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,5)       
-        RoundedRectangle:
-            size: self.size[0] + dp(8) , self.size[1]  + dp(root.percent(root.distance,82))
-            pos: self.pos[0] -dp(4) , self.pos[1] - dp(root.percent(root.distance,164))
-            radius: [root.radius[0]+(root.percent(root.distance,18.5)/10),] if root.soft else root.radius
-                        
-        Color:
-            rgba: root.bg_color
-        RoundedRectangle:
-            size: self.size[0],self.size[1]
-            pos: (self.pos[0] , self.pos[1])
-            radius: root.radius
 
 """)
 
-class SCard(Theming,XBoxLayout):
-    bg_color = ColorProperty()
-    radius = ListProperty([0,])
-    type = OptionProperty('card', options = ['card','button'])
-    elevation = NumericProperty(0.028)
-    distance = NumericProperty(dp(4))
-    soft = BooleanProperty(False)
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.bg_color = self.card_color
-
-
-    def percent(self, max, percent):
-        return (max/100)*percent
-
-class XFabTextBase(RectangularBehavior,SCard):
+class XFabTextBase(RectangularBehavior,XCard):
     icon =  StringProperty()
     text =  StringProperty()
     icon_color = ColorProperty()
@@ -239,6 +141,10 @@ class XFabTextBase(RectangularBehavior,SCard):
         super().__init__(**kwargs)
         self.ripple_radius = [dp(16),]
         self.icon_color = self.txt_color
+        self.shadow_y = - dp(5)
+        self.shadow_distance = - dp(4)
+        self.shadow_blur = dp(17)
+        
         Clock.schedule_once(self.set_width)
         
     def set_width(self,*args):
@@ -255,8 +161,7 @@ class XFab(Theming, XBoxLayout):
     text =  StringProperty()
     icon_color = ColorProperty()
     button_bg_color = ColorProperty()
-    elevation = NumericProperty(0.028)
-    distance = NumericProperty(dp(4))
+    elevation = NumericProperty(0.2)
     status = StringProperty()
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

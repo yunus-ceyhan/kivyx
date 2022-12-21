@@ -23,7 +23,7 @@ from kivy.lang import Builder
 from kivyx.behavior import RectangularBehavior,CircularBehavior
 from kivyx.boxlayout import XBoxLayout
 from kivy.properties import StringProperty, ListProperty, BooleanProperty, ColorProperty, NumericProperty, OptionProperty
-from kivyx.theming import Theming
+from kivyx.card import XCard
 from kivy.metrics import dp, sp
 from kivy.clock import Clock
 
@@ -46,14 +46,7 @@ Builder.load_string("""
                                         if root.right_icon and root.left_icon else [0,]
 
     radius: [dp(20),] if root.rounded else [dp(8),]
-    
-    canvas.before:
-        Clear:
-        Color:
-            rgba: root.line_color if root.style == "outlined" else root.trans_color
-        Line:
-            width: dp(0.6)
-            rounded_rectangle: (self.x- dp(0.5), self.y- dp(0.5), self.width+dp(1), self.height + dp(1),self.radius[0])
+
 
     XIcon:
         id: icl
@@ -97,126 +90,13 @@ Builder.load_string("""
         font_size: root.font_size
         color: root.icon_color
 
-        
-<XSard>:
-    canvas.before:
-
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,25)       
-        RoundedRectangle:
-            size: self.size[0] + dp(2) , self.size[1] + dp(1)
-            pos: self.pos[0] - dp(1), self.pos[1] +dp(1)
-            radius: root.radius                      
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,75)       
-        RoundedRectangle:
-            size: self.size[0] + dp(1.0) , self.size[1] + dp(0.5)
-            pos: self.pos[0] - dp(0.5), self.pos[1] +dp(0.5)
-            radius: root.radius
-            
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,125)       
-        RoundedRectangle:
-            size: self.size[0] + dp(0.5) , self.size[1] + dp(0.25)
-            pos: self.pos[0] - dp(0.25), self.pos[1] +dp(0.25)
-            radius: root.radius
-            
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,175)       
-        RoundedRectangle:
-            size: self.size[0] - dp(2), self.size[1] + dp(root.percent(root.distance,10))
-            pos: self.pos[0] + dp(1), self.pos[1]-dp(root.percent(root.distance,20))
-            radius: [root.radius[0]+(root.percent(root.distance,2)/10),] if root.soft else root.radius
-            
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,150)       
-        RoundedRectangle:
-            size: self.size[0] - dp(1.5), self.size[1] + dp(root.percent(root.distance,18))
-            pos: self.pos[0] + dp(0.75), self.pos[1] - dp(root.percent(root.distance,36))
-            radius: [root.radius[0]+(root.percent(root.distance,6)/10),] if root.soft else root.radius
-            
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,125)       
-        RoundedRectangle:
-            size: self.size[0] - dp(1), self.size[1] + dp(root.percent(root.distance,26))
-            pos: self.pos[0] + dp(0.5), self.pos[1] - dp(root.percent(root.distance,52))
-            radius: [root.radius[0]+(root.percent(root.distance,9)/10),] if root.soft else root.radius
-            
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation, 100)       
-        RoundedRectangle:
-            size: self.size[0] , self.size[1] + dp(root.percent(root.distance,34))
-            pos: self.pos[0] , self.pos[1] - dp(root.percent(root.distance,68))
-            radius: [root.radius[0]+(root.percent(root.distance,9)/10),] if root.soft else root.radius
-            
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,75)       
-        RoundedRectangle:
-            size: self.size[0] + dp(1), self.size[1] + dp(root.percent(root.distance,42))
-            pos: self.pos[0] - dp(0.5), self.pos[1] - dp(root.percent(root.distance,84))
-            radius: [root.radius[0]+(root.percent(root.distance,12)/10),] if root.soft else root.radius
-            
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,52)       
-        RoundedRectangle:
-            size: self.size[0] + dp(1.5), self.size[1] + dp(root.percent(root.distance,50))
-            pos: self.pos[0] - dp(0.5), self.pos[1] - dp(root.percent(root.distance,100))
-            radius: [root.radius[0]+(root.percent(root.distance,14)/10),] if root.soft else root.radius
-            
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,35)       
-        RoundedRectangle:
-            size: self.size[0] + dp(2), self.size[1] + dp(root.percent(root.distance,58))
-            pos: self.pos[0] - dp(1), self.pos[1] - dp(root.percent(root.distance,116))
-            radius: [root.radius[0]+(root.percent(root.distance,16)/10),] if root.soft else root.radius
-            
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,20)       
-        RoundedRectangle:
-            size: self.size[0] +dp(3) , self.size[1] + dp(root.percent(root.distance,66))
-            pos: self.pos[0] - dp(1.5), self.pos[1] - dp(root.percent(root.distance,132))
-            radius: [root.radius[0]+(root.percent(root.distance,17)/10),] if root.soft else root.radius
-            
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,10)       
-        RoundedRectangle:
-            size: self.size[0] +dp(4), self.size[1] + dp(root.percent(root.distance,74))
-            pos: self.pos[0] - dp(2), self.pos[1] - dp(root.percent(root.distance,148))
-            radius: [root.radius[0]+(root.percent(root.distance,18)/10),] if root.soft else root.radius
-            
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,5)       
-        RoundedRectangle:
-            size: self.size[0] + dp(5) , self.size[1]  + dp(root.percent(root.distance,82))
-            pos: self.pos[0] -dp(2.5) , self.pos[1] - dp(root.percent(root.distance,164))
-            radius: [root.radius[0]+(root.percent(root.distance,18.5)/10),] if root.soft else root.radius
-                        
-        Color:
-            rgba: root.bg_color
-        RoundedRectangle:
-            size: self.size[0],self.size[1]
-            pos: (self.pos[0] , self.pos[1])
-            radius: root.radius
 
 """)
 
 
-class XSard(Theming, XBoxLayout):
-    bg_color = ColorProperty()
-    radius = ListProperty([0, ])
-    elevation = NumericProperty(0.035)
-    distance = NumericProperty(dp(1.2))
-    soft = BooleanProperty(False)
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.bg_color = self.accent_color
-
-    def percent(self, max, percent):
-        return (max/100)*percent
 
 
-class XButton(RectangularBehavior, XSard):
+class XButton(RectangularBehavior, XCard):
     text = StringProperty()
     right_icon = StringProperty()
     left_icon = StringProperty()
@@ -227,19 +107,27 @@ class XButton(RectangularBehavior, XSard):
     button_width = NumericProperty(0)
     style = OptionProperty("elevated", options=["filled", "outlined","text","elevated"])
     rounded = BooleanProperty(True)
+    outline_color = ColorProperty()
 
     def __init__(self, **kwargs):
         super(XButton, self).__init__(**kwargs)
         self.text_color = self.txt_color
         self.icon_color = self.txt_color
-        self.line_color = self.txt_color
+        self.shadow_y  = - dp(2)
+        self.shadow_distance = - dp(1)
+        self.shadow_blur = dp(5)
+        self.outline_color = self.line_color
         Clock.schedule_once(self.set_radius)
 
     def set_radius(self, *args):
         self.ripple_radius = self.radius
-        self.elevation = 0 if self.style != "elevated" else 0.035
+        self.shadow_radius = self.radius if len(self.radius) == 4 else \
+            [self.radius[0],self.radius[0],self.radius[0],self.radius[0]]
+        self.elevation = 0 if self.style != "elevated" else 0.2
         if self.style == "text" or self.style == "outlined":
             self.bg_color = self.trans_color
+        self.outline = True if self.style == "outlined" else False
+
             
 class XIconButton(CircularBehavior, XBoxLayout):
     icon = StringProperty()

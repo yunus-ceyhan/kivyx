@@ -8,7 +8,7 @@
             pos_hint: {"center_x":.5,"center_y":.5}
             value: 50
         
-        XCProgress:
+        XRoundProgress:
             pos_hint: {"center_x":.5,"center_y": .5}
             value: 67
             animation: True
@@ -61,7 +61,7 @@ Builder.load_string("""
             radius: root.radius
 
 
-<XCProgress>:
+<XRoundProgress>:
     size_hint: None,None
     canvas.before:
         Color:
@@ -162,7 +162,7 @@ class XProgress(Theming,ProgressBar):
         anim = Animation(value = self.temporary, duration = self.animation_speed)
         anim.start(self)
         
-class XCProgress(Theming,Widget):
+class XRoundProgress(Theming,Widget):
     text = StringProperty()
     cap = StringProperty("round")
     percent_text = StringProperty()

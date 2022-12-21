@@ -1,83 +1,21 @@
 from kivy.lang import Builder
-from kivyx.boxlayout import XBoxLayout
+from kivyx.card import XCard
 from kivy.properties import ColorProperty, BooleanProperty, NumericProperty, StringProperty, OptionProperty, ListProperty
 from kivyx.theming import Theming
 from kivyx.label import XLabel
 from kivyx.behavior import RectangularBehavior
+from kivy.metrics import dp
 
 
 Builder.load_string("""
 <XToolbar>:
-    bg_color: root.bg_color
     size_hint_y: None
     height: sp(64)
-    canvas.before:
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,5)
-        RoundedRectangle:
-            size: self.size[0], dp(root.percent(root.distance,100))
-            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,100))\
-                                            if not root.top else self.pos[1] + self.height
-            radius: root.radius   
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,12)
-        RoundedRectangle:
-            size: self.size[0], dp(root.percent(root.distance,70))
-            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,70))\
-                                            if not root.top else self.pos[1] + self.height
-            radius: root.radius
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,15)
-        RoundedRectangle:
-            size: self.size[0], dp(root.percent(root.distance,50))
-            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,50))\
-                                            if not root.top else self.pos[1] + self.height
-            radius: root.radius
-            
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,19)
-        RoundedRectangle:
-            size: self.size[0], dp(root.percent(root.distance,35))
-            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,35))\
-                                            if not root.top else self.pos[1] + self.height
-            radius: root.radius
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,24)
-        RoundedRectangle:
-            size: self.size[0], dp(root.percent(root.distance,20))
-            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,20))\
-                                            if not root.top else self.pos[1] + self.height
-            radius: root.radius
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,30)
-        RoundedRectangle:
-            size: self.size[0], dp(root.percent(root.distance,10))
-            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,10))\
-                                            if not root.top else self.pos[1] + self.height
-            radius: root.radius
-        Color:
-            rgba: 0,0,0, root.percent(root.elevation,37)
-        RoundedRectangle:
-            size: self.size[0], dp(root.percent(root.distance,5))
-            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,5))\
-                                            if not root.top else self.pos[1] + self.height
-            radius: root.radius
-        Color:
-            rgba: 0,0,0,root.percent(root.elevation,45)
-        RoundedRectangle:
-            size: self.size[0], dp(root.percent(root.distance,3))
-            pos: self.pos[0],self.pos[1] - dp(root.percent(root.distance,3))\
-                                            if not root.top else self.pos[1] + self.height
-            radius: root.radius
-            
-    canvas.after:
-        Color:
-            rgba: root.line_color
-        RoundedRectangle:
-            size: self.size[0], root.line_width
-            pos: self.pos[0],self.pos[1] if not root.top else self.pos[1] + (self.height - root.line_width)
-            radius: root.radius
-
+    elevation: 0.16
+    shadow_y: dp(1) if root.top else 0
+    shadow_distance: -dp(2)
+    shadow_blur: dp(9)
+    
 <XAppSearchbar>:
     padding: [dp(24),0,dp(24),0]
     XBoxLayout:
@@ -126,7 +64,7 @@ Builder.load_string("""
 
     XTextInput:
         id: input
-        font_size: "20sp"
+        font_size: "18sp"
         font_name: root.font_name
         size_hint_y: None
         height: dp(48)
@@ -193,21 +131,12 @@ Builder.load_string("""
 class CLabel(XLabel,RectangularBehavior):
     pass
 
-class XToolbar(Theming,XBoxLayout):
-    bg_color = ColorProperty()
+class XToolbar(XCard):
     top = BooleanProperty(False)
-    elevation = NumericProperty(0.08)
-    distance = NumericProperty("3dp")
-    line_color = ColorProperty()
     line_width = NumericProperty("0.5dp")
-    radius = ListProperty([0,])
     def __init__(self, **kwargs):
         super(XToolbar, self).__init__(**kwargs)
-        self.bg_color = self.card_color
-        self.line_color = self.trans_color
-        
-    def percent(self, max, percent):
-        return (max/100)*percent
+
 
 class XAppToolbar(XToolbar):
     title = StringProperty()

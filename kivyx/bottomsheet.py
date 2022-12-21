@@ -52,10 +52,11 @@ Builder.load_string("""
             id: scr
             size_hint_y: None
             height: root.scroll_height
-            radius: root.radius
+            radius: [dp(16), dp(16),0,0]
             bg_color: root.back_color
             top: True
-            elevation: 0.1
+            elevation: 0.3
+            padding: [0,dp(16),0,dp(16)]
             ScrollView:
                 id: sc
                 bar_width: 0
@@ -64,7 +65,7 @@ Builder.load_string("""
                     id: bx
                     orientation: "vertical"
                     size_hint_y: None
-                    height: max(self.minimum_height,scr.height)
+                    height: max(self.minimum_height,scr.height - dp(32))
 
 <XBottomSheetContent>:
     size_hint_y: None
@@ -81,7 +82,6 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
     scroll_height = NumericProperty(0)
     main_pos = DictProperty({"center_x": .5, "center_y": -2})
     expandable = BooleanProperty(False)
-    radius = ListProperty([0,])
     status = StringProperty('closed')
     back_color = ColorProperty()
 
@@ -89,7 +89,7 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
         self.register_event_type('on_anim_stop')
         self.register_event_type('on_anim_start')
         super(XBottomSheet, self).__init__(**kwargs)
-        self.back_color = self.primary_color
+        self.back_color = self.card_color
         Window.bind(on_keyboard=self.keyboard)
 
     def keyboard(self, window, key, *largs):
@@ -107,8 +107,8 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
         if self.status == 'closed' and self.ids.bx.height > 0:
             self.dispatch("on_anim_start")
             self.main_pos = {"center_x": .5, "center_y": .5}
-            box_height =  self.ids.bx.height + dp(10) if self.expandable else min(dp(112),self.ids.bx.height) 
-            anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.3], duration = 0.1)
+            box_height =  self.ids.bx.height + dp(32) if self.expandable else min(dp(134),self.ids.bx.height + dp(32)) 
+            anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.5], duration = 0.1)
             anim.start(self)
             anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
             self.status = 'opened'

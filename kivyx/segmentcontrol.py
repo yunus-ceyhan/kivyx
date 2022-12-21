@@ -70,7 +70,10 @@ Builder.load_string("""
         width: s.children[0].width if len(s.children) > 0 else 0
         pos: root.current_button.pos if root.current_button != None else [self.pos[0], xsc.pos[1] + (xsc.height -self.height)/2 ]
         bg_color: root.item_color
-        elevation: 0.01
+        elevation: 0.2
+        shadow_distance: - dp(1)
+        shadow_y: 0
+        shadow_blur: dp(4)
 
     XBoxLayout:
         id: s
@@ -179,7 +182,6 @@ class XSegmentControl(XFloatLayout, Theming):
         super(XSegmentControl, self).__init__(**kwargs)
         self.bar_color = self.bgr_color
         self.item_color = self.card_color
-        self.bar_color = self.accent_color
         self.ind = 0
         self.register_event_type('on_tab_press')
         self.register_event_type('on_tab_release')
@@ -193,7 +195,8 @@ class XSegmentControl(XFloatLayout, Theming):
             pass
 
     def on_tab_press(self, *args):
-        pass
+        for i in self.ids.fake.children:
+            i.opacity = 0
 
     def on_tab_release(self, *args):
         pass
@@ -243,8 +246,8 @@ class XSegmentControl(XFloatLayout, Theming):
                 'on_tab_release', button))
             self.ids.s.add_widget(button)
             self.ids.fake.add_widget(Widget())
-            self.ids.fake.add_widget(XLiney(size_hint_y=None, height=dp(20), pos_hint={"center_y": .5}, width=dp(2), opacity=.7))
-            self.ids.s.add_widget(XLiney(size_hint_y=None, height=dp(20), pos_hint={"center_y": .5}, width=dp(2), opacity=0))
+            self.ids.fake.add_widget(XLiney(size_hint_y=None, height=dp(20), pos_hint={"center_y": .5}, width=dp(1.5), opacity=.5))
+            self.ids.s.add_widget(XLiney(size_hint_y=None, height=dp(20), pos_hint={"center_y": .5}, width=dp(1.5), opacity=0))
         else:
             super(XSegmentControl, self).add_widget(button)
 
@@ -266,9 +269,9 @@ class XSegmentControl(XFloatLayout, Theming):
             
         for i in self.ids.fake.children:
             if isinstance(i, XLiney):
-                i.opacity = 0.7
+                i.opacity = 0.5
                 i.height = dp(20)  if self.style == 'm3' else dp(37)
-                i.width = dp(2) if self.style == "m3" else dp(1)
+                i.width = dp(1.5) if self.style == "m3" else dp(1)
                 
         self.ids.b.width = button.width
         if self.style == 'm3':
