@@ -8,7 +8,7 @@ Builder.load_string("""
         Color:
             rgba: root.bg_color
         Rectangle:
-            size: self.size
+            size: self.size[0]*2, self.size[1]*2
             pos: self.pos
 
 """)

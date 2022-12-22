@@ -27,7 +27,7 @@
 
 from kivy.lang import Builder
 from kivyx.theming import Theming
-from kivy.properties import  ColorProperty, ListProperty, DictProperty, NumericProperty, BooleanProperty, StringProperty
+from kivy.properties import  ColorProperty, DictProperty, NumericProperty, BooleanProperty, StringProperty
 from kivyx.floatlayout import XFloatLayout
 from kivy.animation import Animation
 from kivy.metrics import dp
@@ -89,7 +89,7 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
         self.register_event_type('on_anim_stop')
         self.register_event_type('on_anim_start')
         super(XBottomSheet, self).__init__(**kwargs)
-        self.back_color = self.card_color
+        self.back_color = self.primary_color
         Window.bind(on_keyboard=self.keyboard)
 
     def keyboard(self, window, key, *largs):

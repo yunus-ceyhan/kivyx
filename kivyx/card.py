@@ -1,5 +1,5 @@
-from kivyx.boxlayout import XBoxLayout
-from kivy.properties import ListProperty, NumericProperty, ColorProperty,OptionProperty, BooleanProperty
+from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import ListProperty, NumericProperty, ColorProperty, BooleanProperty
 from kivy.lang import Builder
 from kivyx.theming import Theming
 from kivy.metrics import dp
@@ -23,7 +23,6 @@ Builder.load_string("""
             size: self.size
             pos: self.pos
             radius: root.radius
-    canvas.after:
         Color:
             rgba: root.line_color if root.outline else root.trans_color
         Line:
@@ -32,7 +31,7 @@ Builder.load_string("""
 
 """)
 
-class XCard(Theming,XBoxLayout):
+class XCard(Theming,BoxLayout):
     bg_color = ColorProperty()
     radius = ListProperty([0,0,0,0])
     shadow_radius = ListProperty([0,0,0,0])

@@ -40,7 +40,7 @@ Builder.load_string("""
     size_hint_y: None
     height: dp(56)
     spacing: dp(12)
-    padding: [0,0,dp(16) if root.add_selection else dp(8),0]
+    padding: [0,0,dp(16) if root.add_selection else 0 if root.right_icon else dp(8),0]
     elevation: 0.16
     shadow_distance: - dp(5)
     shadow_blur: dp(10)
@@ -104,7 +104,6 @@ class XItem(XCard):
         self.left_icon_color = self.txt_color
         self.button_color = self.accent_color
         self.button_icon_color = self.txt_color
-        self.badge_icon_color = self.txt_color
         self.selection_toggle_color = self.card_color
         self.selection_active_color = self.accent_color
         self.register_event_type('on_press')
@@ -143,19 +142,19 @@ class XItem(XCard):
     def set_widget(self,*args):
         self.clear_widgets()
         
-        main = Rectangular(
+        self.main = Rectangular(
             padding = [dp(8) if self.image else dp(16) ,dp(8),dp(12),dp(8)],
             spacing = dp(16),
             ripple_radius = self.radius,
             ripple_alpha = .1 if self.ripple_effect else 0
         )
-        main.bind(on_press = lambda x:self.dispatch('on_press', main))
-        main.bind(on_release = lambda x:self.dispatch('on_right_icon_release', main))
-        body = BoxLayout(
+        self.main.bind(on_press = lambda x:self.dispatch('on_press', self.main))
+        self.main.bind(on_release = lambda x:self.dispatch('on_release', self.main))
+        self.body = BoxLayout(
             orientation = "vertical"
         )
 
-        title = BoxLayout(
+        self.title = BoxLayout(
             spacing = dp(8)
         )
 
@@ -188,7 +187,6 @@ class XItem(XCard):
             halign = "left",
             valign = "middle",
             shorten = True,
-            shorten_from = "right",
             pos_hint = {"center_y": .5}
         )
         
@@ -250,28 +248,31 @@ class XItem(XCard):
         
         self.switch.bind(on_release = lambda x:self.dispatch('on_selection', self.switch))
         
-        body.add_widget(title)
-        main.add_widget(body)
-        self.add_widget(main)
+        self.body.add_widget(self.title)
+        self.main.add_widget(self.body)
+        self.add_widget(self.main)
         
         if self.badge_icon:
-            title.add_widget(self.badge)
+            self.title.add_widget(self.badge)
         if self.text:
-            title.add_widget(self.main_label)
+            self.title.add_widget(self.main_label)
         if self.second_text:
-            body.add_widget(self.second_label)
+            self.body.add_widget(self.second_label)
         if self.left_icon:
-            main.add_widget(self.left_ic, 1)
+            self.main.add_widget(self.left_ic, 1)
         if self.right_icon:
             self.add_widget(self.right_ic)
         if self.image:
-            main.add_widget(self.img, 1)
+            self.main.add_widget(self.img, 1)
         if self.right_text:
-            main.add_widget(self.right_label)
+            self.main.add_widget(self.right_label)
         if self.button_text:
             self.add_widget(self.button)
         if self.add_selection:
             self.add_widget(self.switch)
+
+            
+
             
     def on_text(self, instance,value):
         try:
@@ -376,10 +377,7 @@ class XItem(XCard):
             pass
         
     def on_badge_icon_color(self, instance,value):
-        try:
-            self.badge.icon_color = value
-        except:
-            pass
+        Clock.schedule_once(lambda x: self.set_badge_color(value))
         
     def on_selection_opacity(self, instance,value):
         try:
@@ -390,5 +388,11 @@ class XItem(XCard):
     def on_selection_active(self, instance,value):
         try:
             self.switch.active = value
+        except:
+            pass
+        
+    def set_badge_color(self,color):
+        try:
+            self.badge.color = color
         except:
             pass

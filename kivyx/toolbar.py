@@ -25,7 +25,7 @@ Builder.load_string("""
         size_hint_y: None
         height: dp(48)
         pos_hint: {"center_y": .5}
-        padding: [0,] if root.style == 'm2' else [dp(4),0,0,0]
+        padding: [0,] if root.style == 'm2' else [dp(4),0,dp(4),0]
         XIconButton:
             icon: root.left_icon
             on_press: root.dispatch('on_left_icon_press', *args)
