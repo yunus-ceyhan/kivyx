@@ -125,43 +125,12 @@ class XTextInput(TextInput):
     state = NumericProperty(1)
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        #Window.bind(on_flip = self.detect_keyboard)
 
-    def detect_keyboard(self,*args):
-        if not self.focus and self.state == 0:
-            if platform == "android":
-                self.fix_back_button()
-            self.state = 1
-
-        elif self.focus and self.state == 1:
-            self.state = 0
-
-    @run_on_ui_thread            
-    def fix_back_button(self,*args):
-        activity.onWindowFocusChanged(False)
-        activity.onWindowFocusChanged(True)
 
 class XCodeInput(CodeInput):
     state = NumericProperty(1)
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        #Window.bind(on_flip = self.detect_keyboard)
-
-    def detect_keyboard(self,*args):
-        if not self.focus and self.state == 0:
-            if platform == "android":
-                self.fix_back_button()
-            self.state = 1
-
-        elif self.focus and self.state == 1:
-            self.state = 0
-
-    @run_on_ui_thread            
-    def fix_back_button(self,*args):
-        activity.onWindowFocusChanged(False)
-        activity.onWindowFocusChanged(True)
-
-
 
 class XInput(Theming,XFloatLayout):
     back_color = ColorProperty()

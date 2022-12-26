@@ -229,6 +229,9 @@ class XSidenav(StencilView):
         if key == 27:
             if self.status == "opened":
                 self.toggle_state()
+            return True
+        else:
+            return False
 
     def on_anim_type(self, *args):
         anim_type = self.anim_type

@@ -126,6 +126,9 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
         if key == 27:
             if self.status == 'opened' and self.auto_dismiss:
                 self.close()
+            return True
+        else:
+            return False
 
     def add_widget(self,widget,*args):
         if isinstance(widget, XDialogContent):

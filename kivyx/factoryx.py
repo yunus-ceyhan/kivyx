@@ -35,6 +35,8 @@ register("XActionFab", module="kivyx.floating")
 
 register("XSwitch", module="kivyx.selection")
 
+register("XShadow", module="kivyx.shadow")
+
 register("XTabPanel", module="kivyx.tab")
 register("XTabItem", module="kivyx.tab")
 
