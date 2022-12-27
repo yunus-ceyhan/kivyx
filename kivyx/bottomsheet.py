@@ -96,9 +96,6 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
         if key == 27:
             if self.status == 'opened':
                 self.close()
-            return True
-        else:
-            return False
 
     def add_widget(self,widget,*args):
         if isinstance(widget, XBottomSheetContent):
