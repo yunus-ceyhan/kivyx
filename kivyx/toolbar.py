@@ -11,7 +11,7 @@ Builder.load_string("""
 <XToolbar>:
     size_hint_y: None
     height: sp(64)
-    elevation: 0.2
+    elevation: 0.15
     shadow_y: dp(1) if root.top else -dp(1)
     shadow_distance: -dp(4)
     shadow_blur: dp(10)
