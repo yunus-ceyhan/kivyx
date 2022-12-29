@@ -19,6 +19,6 @@ Builder.load_string("""
 """)
 
 class XShadow(BoxLayout):
-    elevation = NumericProperty(0.3)
+    elevation = NumericProperty(0.15)
     
 
