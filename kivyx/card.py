@@ -27,7 +27,7 @@ Builder.load_string("""
             rgba: root.line_color if root.outline else root.trans_color
         Line:
             width: root.outline_width
-            rounded_rectangle: (self.x- dp(0.5), self.y- dp(0.5), self.width+dp(1), self.height + dp(1),self.radius[0])
+            rounded_rectangle: (self.x- dp(0.5), self.y- dp(0.5), self.width+dp(1), self.height + dp(1),root.radius[0])
 
 """)
 
@@ -51,3 +51,4 @@ class XCard(Theming,BoxLayout):
     def set_radius(self,*args):
         self.shadow_radius = self.radius if len(self.radius) == 4 else \
             [self.radius[0],self.radius[0],self.radius[0],self.radius[0]]
+            
