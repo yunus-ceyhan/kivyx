@@ -3,52 +3,40 @@ from kivy.properties import ListProperty, NumericProperty, ColorProperty, Boolea
 from kivy.lang import Builder
 from kivyx.theming import Theming
 from kivy.metrics import dp
-from kivy.clock import Clock
-
-Builder.load_string("""
-<XCard>:
-    canvas.before:
-        Color:
-            rgba: 0, 0, 0, root.elevation
-        BoxShadow:
-            pos: self.pos
-            size: self.size
-            offset: root.shadow_x, root.shadow_y
-            spread_radius: root.shadow_distance
-            border_radius: root.shadow_radius
-            blur_radius: root.shadow_blur
-        Color:
-            rgba: root.bg_color
-        RoundedRectangle:
-            size: self.size
-            pos: self.pos
-            radius: root.radius
-        Color:
-            rgba: root.line_color if root.outline else root.trans_color
-        Line:
-            width: root.outline_width
-            rounded_rectangle: (self.x- dp(0.5), self.y- dp(0.5), self.width+dp(1), self.height + dp(1),root.radius[0])
-
-""")
+from kivy.graphics import Color, RoundedRectangle, Line
 
 class XCard(Theming,BoxLayout):
-    bg_color = ColorProperty()
-    radius = ListProperty([0,0,0,0])
-    shadow_radius = ListProperty([0,0,0,0])
-    elevation = NumericProperty(0.16)
-    shadow_distance = NumericProperty( - dp(5))
-    shadow_blur = NumericProperty(dp(10))
+    radius = ListProperty((0, 0, 0, 0))
+    shadow_color = ListProperty((0, 0, 0, 0.0))
+    shadow_blur = NumericProperty(10)
     shadow_x = NumericProperty(0)
-    shadow_y = NumericProperty( - dp(2))
+    shadow_y = NumericProperty(-2)
+    bg_color = ListProperty((0, 0, 0, 0))
+    elevation = NumericProperty(0.16)
+    shadow_distance = NumericProperty(-5)
     outline = BooleanProperty(False)
     outline_width = NumericProperty(0.6)
 
     def __init__(self, **kwargs):
-        super(XCard, self).__init__(**kwargs)
-        self.bg_color = self.card_color
-        Clock.schedule_once(self.set_radius)
-    
-    def set_radius(self,*args):
-        self.shadow_radius = self.radius if len(self.radius) == 4 else \
-            [self.radius[0],self.radius[0],self.radius[0],self.radius[0]]
+        super().__init__(**kwargs)
+        self.shadow_color = (0,0,0,self.elevation/14)
+        self.bg_color = self.bgr_color
+        self.bind(pos=self.update_shadow, size=self.update_shadow, radius=self.update_shadow, shadow_color=self.update_shadow, shadow_blur=self.update_shadow, shadow_x=self.update_shadow, shadow_y=self.update_shadow, bg_color=self.update_shadow)
+        self.update_shadow()
+
+    def update_shadow(self, *args):
+        self.canvas.before.clear()
+        with self.canvas.before:
+            Color(*self.shadow_color)
+            x = self.shadow_distance 
+            y = self.shadow_distance 
+            
+            for i in range(1, int(self.shadow_blur)+1):
+                alpha = self.shadow_color[3] * (self.shadow_blur-i)/self.shadow_blur
+                RoundedRectangle(pos=(self.x-(x/2)-(i/2)+self.shadow_x, self.y-(y/2)-(i/2)+self.shadow_y), size=(self.width+x+i, self.height+y+i), radius=tuple(r+i for r in self.radius), segments=30, group='shadow')
+                Color(rgba=(self.shadow_color[0], self.shadow_color[1], self.shadow_color[2], alpha))
+            Color(rgba=(self.bg_color))
+            RoundedRectangle(pos=self.pos, size=self.size, radius=self.radius, segments=30)
+            Color(rgba=(self.line_color if self.outline else self.trans_color))
+            Line(rounded_rectangle=(self.x, self.y, self.width, self.height, self.radius[0]),width=self.outline_width)
             
