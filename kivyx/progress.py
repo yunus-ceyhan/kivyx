@@ -36,6 +36,7 @@ from kivy.uix.progressbar import ProgressBar
 from kivy.metrics import dp
 from kivy.uix.widget import Widget
 from kivy.animation import Animation
+from kivyx.card import XCard
 from kivy.clock import Clock
 
 
@@ -47,7 +48,7 @@ Builder.load_string("""
             rgba:  root.back_color
         RoundedRectangle:
             size:    (self.width , root.thickness) if self.orientation == 'horizontal' else (root.thickness,self.height)
-            pos:   (self.x, self.center_y - root.thickness) if self.orientation == 'horizontal' \
+            pos:   (self.x, self.center_y - root.thickness/2) if self.orientation == 'horizontal' \
                 else (self.center_x - root.thickness,self.y+root.thickness)
             radius: root.radius
         Color:
@@ -55,7 +56,7 @@ Builder.load_string("""
         RoundedRectangle:
             size:     (self.width*self.value_normalized, root.thickness) if self.orientation == 'horizontal' else (root.thickness, \
                 self.height*self.value_normalized)
-            pos:    (self.width*(1-self.value_normalized)+self.x if self.reversed else self.x, self.center_y - root.thickness) \
+            pos:    (self.width*(1-self.value_normalized)+self.x if self.reversed else self.x, self.center_y - root.thickness/2) \
                 if self.orientation == 'horizontal' else \
                 (self.center_x - root.thickness,self.height*(1-self.value_normalized)+self.y if self.reversed else self.y + root.thickness)
             radius: root.radius
@@ -128,6 +129,36 @@ Builder.load_string("""
                 else (root.pos[0] + (root.max_width/2)- self.width/2, (root.pos[1] - root.height/1.5)+self.font_size/2)
         opacity: root.text_opacity/1.2
         color: root.text_color
+        
+<XPercentProgress>:
+    bg_color: root.bg_color
+    size_hint_y: None
+    padding: [root.thickness,]
+    spacing: dp(10)
+    height: root.thickness + self.padding[1]*2
+    radius: root.radius
+    XProgress:
+        value: root.value
+        thickness: root.thickness
+        reversed: root.reversed
+        back_color: root.back_color
+        track_color: root.track_color
+        radius: root.bar_radius
+        animation: root.animation
+        animation_speed: root.animation_speed
+    XLabel:
+        text: f"{root.value}%"
+        shorten: False
+        shorten_from: 'right'
+        markup: True
+        pos_hint:{"center_x":.5, "center_y": .55}
+        font_size: root.height - root.padding[0]*2
+        aligned: True
+        halign: "center"
+        valign: "middle"
+        size_hint_x: None
+        width: self.font_size + dp(10)
+        text_color: root.text_color
 
 """)
 
@@ -204,3 +235,20 @@ class XRoundProgress(Theming,Widget):
     def update2(self,*args):
         anim = Animation(value = self.temporary, duration = self.animation_speed)
         anim.start(self)
+        
+        
+class XPercentProgress(XCard):
+    value = NumericProperty(0)
+    thickness = NumericProperty(dp(8))
+    reversed = BooleanProperty(False)
+    back_color = ColorProperty()
+    track_color = ColorProperty()
+    bar_radius = ListProperty([0,])
+    animation = BooleanProperty(False)
+    animation_speed = NumericProperty(0.5)
+    text_color = ColorProperty()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.back_color =  self.bgr_color
+        self.track_color = self.colors("blue")
+        self.text_color = self.txt_color

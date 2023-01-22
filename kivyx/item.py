@@ -82,6 +82,7 @@ class XItem(XCard):
     right_text_color = ColorProperty()
     right_font_name = StringProperty("Roboto")
     right_font_size = NumericProperty("12sp")
+    right_text_bold = BooleanProperty(False)
     
     badge_icon = StringProperty()
     badge_icon_color = ColorProperty()
@@ -195,6 +196,7 @@ class XItem(XCard):
             text_color = self.right_text_color,
             font_name = self.right_font_name,
             font_size = self.right_font_size,
+            bold = self.right_text_bold,
             aligned = True,
             halign = "right",
             valign = "middle",

@@ -237,7 +237,7 @@ class XMenu(Theming,ButtonBehavior,XFloatLayout):
 
     def add_widget(self,widget,*args):
         if isinstance(widget, XButton):
-            self.ids.bx.add_widget(widget(style= "text"))
+            self.ids.bx.add_widget(widget)
         else:
             super(XMenu, self).add_widget(widget)
 
