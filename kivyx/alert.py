@@ -1,6 +1,6 @@
 from kivyx.bottomsheet import XBottomSheet, XBottomSheetContent
 from kivyx.label import XLabel
-from kivy.properties import ColorProperty, NumericProperty, BooleanProperty,StringProperty
+from kivy.properties import ColorProperty, NumericProperty, BooleanProperty,StringProperty, ObjectProperty
 from kivy.clock import Clock
 from kivy.metrics import dp
 
@@ -11,6 +11,7 @@ class xalert(XBottomSheet):
     bold = BooleanProperty(False)
     time = NumericProperty(0.1)
     color = ColorProperty()
+    callback = ObjectProperty()
     def __init__(self, **kwargs):
         super(xalert,self).__init__(**kwargs)
         self.expandable = True
@@ -37,10 +38,8 @@ class xalert(XBottomSheet):
         self.add_widget(content)
         from kivy.app import App
         from kivy.uix.screenmanager import ScreenManager,Screen
-        if isinstance(App.get_running_app().main, Screen):
-            App.get_running_app().main.add_widget(self)
-        elif isinstance(App.get_running_app().main, ScreenManager):
-            App.get_running_app().main.screens[-1].add_widget(self)
+        if self.callback:
+            self.callback.add_widget(self)
         else:
             print(self.text)
             
