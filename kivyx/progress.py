@@ -147,7 +147,7 @@ Builder.load_string("""
         animation: root.animation
         animation_speed: root.animation_speed
     XLabel:
-        text: f"{root.value}%"
+        text: f"{round(root.value)}%"
         shorten: False
         shorten_from: 'right'
         markup: True
@@ -157,7 +157,7 @@ Builder.load_string("""
         halign: "center"
         valign: "middle"
         size_hint_x: None
-        width: self.font_size + dp(10)
+        width: self.font_size + dp(15)
         text_color: root.text_color
 
 """)
@@ -218,7 +218,11 @@ class XRoundProgress(Theming,Widget):
         self.line_back_color = self.bgr_color
         self.text_color = self.txt_color
         self.back_color = self.trans_color
+        self.register_event_type("on_anim_complete")
         Clock.schedule_once(self.check)
+        
+    def on_anim_complete(self,*args):
+        pass
         
     def check(self,*args):
         self.size = (self.max_width, self.max_width/2) if self.style == "m4" else (self.max_width,self.max_width)
@@ -234,7 +238,9 @@ class XRoundProgress(Theming,Widget):
         
     def update2(self,*args):
         anim = Animation(value = self.temporary, duration = self.animation_speed)
+        anim.bind(on_complete = lambda *args: self.dispatch("on_anim_complete"))
         anim.start(self)
+        
         
         
 class XPercentProgress(XCard):

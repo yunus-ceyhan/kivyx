@@ -108,6 +108,7 @@ Builder.load_string("""
         opacity: .9
         aligned: True 
         halign: root.halign
+        shorten: True
         shorten_from: "right"
         font_name: root.font_name
         text_color: root.title_color

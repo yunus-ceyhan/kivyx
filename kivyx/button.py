@@ -67,6 +67,8 @@ Builder.load_string("""
         bold: root.bold
         color: root.text_color 
         text_size: None, None
+        font_name: root.font_name
+        font_size: root.font_size
     XIcon:
         id: icr
         font_size: "18sp"
@@ -108,6 +110,8 @@ class XButton(RectangularBehavior, XCard):
     style = OptionProperty("elevated", options=["filled", "outlined","text","elevated"])
     rounded = BooleanProperty(True)
     outline_color = ColorProperty()
+    font_name = StringProperty("Roboto")
+    font_size = NumericProperty(sp(14))
 
     def __init__(self, **kwargs):
         super(XButton, self).__init__(**kwargs)

@@ -7,7 +7,7 @@ from kivy.properties import ColorProperty, ListProperty, DictProperty, NumericPr
 #from kivyx.button import XFlatRIconButton, XIconButton
 from kivyx.floatlayout import XFloatLayout
 from kivy.animation import Animation
-from kivy.metrics import dp
+from kivy.metrics import dp, sp
 from kivy.uix.behaviors import ButtonBehavior
 from kivyx.behavior import RectangularBehavior
 from kivy.uix.boxlayout import BoxLayout
@@ -41,6 +41,8 @@ from kivy.clock import Clock
 from kivy.uix.textinput import TextInput
 from kivy.uix.floatlayout import FloatLayout
 from kivy.core.window import Window
+from kivyx.alert import xalert
+
 #TextInput.
 
 Builder.load_string("""
@@ -55,18 +57,15 @@ Builder.load_string("""
         padding: [dp(20),dp(100),dp(20),dp(20)]
         orientation: "vertical"
         bg_color: root.bgr_color
-        XPercentProgress:
-            value: 25
-            radius: [dp(6),]
-            bar_radius: [dp(3),]
-            thickness: dp(8)
+        XCard:
+            Image:
+                source: root.image
+                size
+                    
 
-
-
-
-            
 
 """)
+
 
 
         
@@ -78,6 +77,9 @@ class MainApp(Theming,XScreen):
     blur_radius = NumericProperty(0)
     def __init__(self, **kw):
         super().__init__(**kw)
+        
+        xalert(text= "merhaba")
+
 
 class TestApp(App):
     theme_style = StringProperty()

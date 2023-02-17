@@ -27,21 +27,21 @@ Builder.load_string("""
             rgba: root.back_color
         RoundedRectangle:
             size: self.size[0] - dp(30), dp(4)
-            pos: self.pos[0] + dp(15) ,self.pos[1] + dp(13)
+            pos: self.pos[0] + dp(15) ,self.pos[1] + (self.height/2) - dp(4)
             radius: [dp(3),]
 
         Color:
             rgba: root.track_color
         RoundedRectangle:
-            size: self.value_pos[0] - self.cursor_width, dp(6)
-            pos: self.pos[0] + dp(15)  ,self.pos[1] + dp(12)
+            size: self.value_pos[0] - dp(80), dp(6)
+            pos: self.pos[0] + dp(15)  ,self.pos[1] + (self.height/2) - dp(6)
             radius: [dp(3.5),]
 
         Color:
             rgba: root.cursor_color
         RoundedRectangle:
             size: dp(20),dp(20)
-            pos: self.value_pos[0] - self.cursor_width/2,self.value_pos[1] + self.cursor_height /4
+            pos: self.value_pos[0] - self.cursor_width/2,self.pos[1] + (self.height/2) - dp(12.5)
             radius: [dp(90),]
 
 """)

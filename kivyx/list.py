@@ -67,7 +67,7 @@ Builder.load_string("""
         valign: "middle"
         font_size: root.font_size
         front_name: root.font_name
-        text_color: root.text_color,
+        text_color: root.text_color
         
 <XImageTwoLineListItem>:
     size_hint_y: None
@@ -232,7 +232,7 @@ class XIconListItem(RectangularBehavior,XCard):
         self.text_color = self.txt_color
         self.icon_color = self.txt_color
         
-class XImageListItem(RectangularBehavior,BoxLayout):
+class XImageListItem(RectangularBehavior,XCard):
     source = StringProperty()
     text = StringProperty()
     icon_color = ColorProperty()

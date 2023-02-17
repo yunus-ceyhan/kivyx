@@ -7,7 +7,7 @@ Builder.load_string("""
 <XLabel>:
     halign: "center"
     valign: 'middle'
-    text_size: (self.width,None) if root.aligned else (None,None)
+    text_size: (self.width,self.height) if root.aligned else (None,None)
     color: root.text_color
 """)
 
@@ -17,3 +17,4 @@ class XLabel(Theming,Label):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text_color = self.txt_color
+        

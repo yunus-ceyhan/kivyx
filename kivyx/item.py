@@ -94,8 +94,7 @@ class XItem(XCard):
     selection_active_color = ColorProperty()
     selection_opacity = NumericProperty(1)
     ripple_effect = BooleanProperty(False)
-    
-    
+
     def __init__(self, **kwargs):
         super(XItem, self).__init__(**kwargs)
         self.text_color = self.txt_color
