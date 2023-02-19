@@ -1,8 +1,8 @@
 from kivy.lang import Builder
 from kivy.uix.label import Label
-from kivy.properties import BooleanProperty, ColorProperty
+from kivy.properties import BooleanProperty, ColorProperty, StringProperty
 from kivyx.theming import Theming
-from kivyx.font import system_font
+from kivyx.fonts import system_font
 
 Builder.load_string("""
 <XLabel>:
@@ -17,7 +17,7 @@ class XLabel(Theming,Label):
     aligned = BooleanProperty(True)
     text_color = ColorProperty([0,0,0,1])
     language = StringProperty()
-    system_font: BooleanProperty(False)
+    system_font = BooleanProperty(False)
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text_color = self.txt_color
