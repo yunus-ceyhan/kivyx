@@ -59,6 +59,8 @@ def device_lang():
 def system_font(language=None):
     if not language:
         language = device_lang()
+    else:
+        language = language.split("-")[0]
     if language.lower() in iso_codes.keys():
         if iso_codes[language.lower()] in FONT_DICT.keys():
             return FONT_DICT[iso_codes[language.lower()]]
