@@ -22,7 +22,8 @@ class XLabel(Theming,Label):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text_color = self.txt_color
-        Clock.schedule_once(self.update)
+        self.bind(language=self.update)
+        
         
     def update(self,*args):
         if self.system_font:
