@@ -26,23 +26,24 @@ Builder.load_string("""
         Color:
             rgba: root.back_color
         RoundedRectangle:
-            size: self.size[0] - dp(30), dp(4)
-            pos: self.pos[0] + dp(15) ,self.pos[1] + (self.height/2) - dp(4)
+            size: self.size[0] - dp(30) , dp(4)
+            pos: self.pos[0]  + dp(15) ,self.pos[1] + (self.height/2) - dp(2)
             radius: [dp(3),]
 
         Color:
             rgba: root.track_color
         RoundedRectangle:
-            size: self.value_pos[0] - dp(80), dp(6)
-            pos: self.pos[0] + dp(15)  ,self.pos[1] + (self.height/2) - dp(6)
+            size: self.value_pos[0] - dp(60) , dp(6)
+            pos: self.pos[0] + dp(10) ,self.pos[1] + (self.height/2) - dp(3)
             radius: [dp(3.5),]
 
         Color:
             rgba: root.cursor_color
         RoundedRectangle:
             size: dp(20),dp(20)
-            pos: self.value_pos[0] - self.cursor_width/2,self.pos[1] + (self.height/2) - dp(12.5)
+            pos: self.value_pos[0] - dp(10) ,self.pos[1] + (self.height/2) - dp(10)
             radius: [dp(90),]
+
 
 """)
 
@@ -55,4 +56,4 @@ class XSlider(Theming,Slider):
         super().__init__(**kwargs)
         self.back_color = self.disabled_color
         self.track_color = self.primary_color
-        self.cursor_color = self.primary_color
+        self.cursor_color = self.primary_color                                                                                                                                                                                     
