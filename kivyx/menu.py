@@ -71,7 +71,8 @@ Builder.load_string("""
         radius: [dp(5),]
         pos: root.caller_pos
         opacity: 1 if root.scroll_width > 0 else 0
-        shadow_distance: - dp(3)
+        shadow_distance_x: - dp(3)
+        shadow_distance_y: - dp(3)
         ScrollView:
             bar_width: 0
             effect_cls: effect
@@ -101,7 +102,8 @@ Builder.load_string("""
         opacity: 1 if root.scroll_width > 0 else 0
         padding: [dp(4),dp(8),dp(4),dp(8)]
         bg_color: root.color
-        shadow_distance: - dp(3)
+        shadow_distance_x: - dp(3)
+        shadow_distance_y: - dp(3)
         ScrollView:
             bar_width: 0
             effect_cls: effect

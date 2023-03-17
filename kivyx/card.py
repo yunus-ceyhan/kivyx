@@ -14,7 +14,7 @@ Builder.load_string("""
             pos: self.pos
             size: self.size
             offset: root.shadow_x, root.shadow_y
-            spread_radius: root.shadow_distance
+            spread_radius: root.shadow_distance_x, root.shadow_distance_y
             border_radius: root.shadow_radius
             blur_radius: root.shadow_blur
         Color:
@@ -36,7 +36,8 @@ class XCard(Theming,BoxLayout):
     radius = ListProperty([0,0,0,0])
     shadow_radius = ListProperty([0,0,0,0])
     elevation = NumericProperty(0.16)
-    shadow_distance = NumericProperty( - dp(5))
+    shadow_distance_x = NumericProperty( - dp(5))
+    shadow_distance_y = NumericProperty( - dp(5))
     shadow_blur = NumericProperty(dp(10))
     shadow_x = NumericProperty(0)
     shadow_y = NumericProperty( - dp(2))

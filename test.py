@@ -58,10 +58,6 @@ Builder.load_string("""
         orientation: "vertical"
         bg_color: root.bgr_color
         XCard:
-            Image:
-                source: root.image
-                size
-                    
 
 
 """)

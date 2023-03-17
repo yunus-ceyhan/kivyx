@@ -59,7 +59,8 @@ Builder.load_string("""
         opacity: root.opacity
         spacing: dp(24)
         elevation: 0.3
-        shadow_distance:  - dp(2)
+        shadow_distance_x:  - dp(2)
+        shadow_distance_y:  - dp(2)
         shadow_blur: dp(20)
         XLabel:
             id: title

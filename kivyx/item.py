@@ -42,7 +42,8 @@ Builder.load_string("""
     spacing: dp(12)
     padding: [0,0,dp(16) if root.add_selection else 0 if root.right_icon else dp(8),0]
     elevation: 0.16
-    shadow_distance: - dp(5)
+    shadow_distance_x: - dp(5)
+    shadow_distance_y: - dp(5)
     shadow_blur: dp(10)
     shadow_y:  - dp(2)
 """)

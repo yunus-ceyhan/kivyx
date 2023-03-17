@@ -13,7 +13,8 @@ Builder.load_string("""
     height: sp(64)
     elevation: 0.16
     shadow_y: dp(2) if root.top else - dp(1)
-    shadow_distance: - dp(4)
+    shadow_distance_x: - dp(4)
+    shadow_distance_y: - dp(4)
     shadow_blur: dp(10)
     
 <XAppSearchbar>:

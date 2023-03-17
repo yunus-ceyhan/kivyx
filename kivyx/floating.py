@@ -142,7 +142,8 @@ class XFabTextBase(RectangularBehavior,XCard):
         self.ripple_radius = [dp(16),]
         self.icon_color = self.txt_color
         self.shadow_y = - dp(5)
-        self.shadow_distance = - dp(4)
+        self.shadow_distance_x = - dp(4)
+        self.shadow_distance_y = - dp(4)
         self.shadow_blur = dp(17)
         
         Clock.schedule_once(self.set_width)

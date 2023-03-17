@@ -71,7 +71,8 @@ Builder.load_string("""
         pos: root.current_button.pos if root.current_button != None else [self.pos[0], xsc.pos[1] + (xsc.height -self.height)/2 ]
         bg_color: root.item_color
         elevation: 0.3
-        shadow_distance: - dp(1)
+        shadow_distance_x: - dp(1)
+        shadow_distance_y: - dp(1)
         shadow_y: 0
         shadow_blur: dp(4)
 
