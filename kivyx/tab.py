@@ -45,6 +45,7 @@ Builder.load_string("""
         text: root.text
         aligned: True
         halign: "center"
+        font_name: root.font_name
         canvas.before:
             Color:
                 rgba: root.item_color
@@ -78,14 +79,15 @@ Builder.load_string("""
 class XTabButton(RectangularBehavior,XBoxLayout):
     item_color = ColorProperty([0,0,0,0])
     text = StringProperty()
+    font_name = StringProperty("Roboto")
 
 class XTabItem(XScreen):
     text = StringProperty()
 
 class XTabPanel(Theming,XBoxLayout):
     active_item_color = ColorProperty([0,0,0,0])
+    font_name = StringProperty("Roboto")
     def __init__(self, **kwargs):
-        super(XTabPanel,self).__init__(**kwargs)
         super(XTabPanel, self).__init__(**kwargs)
         self.register_event_type('on_tab_press')
         self.register_event_type('on_tab_release')
@@ -104,6 +106,7 @@ class XTabPanel(Theming,XBoxLayout):
             button.bind(on_press = lambda x:self.dispatch('on_tab_press', button))
             button.bind(on_release = lambda x:self.dispatch('on_tab_release', button))
             self.ids.bt.add_widget(button)
+            button.font_name = self.font_name
             self.ids.sm.add_widget(widget)
         else:
             super(XTabPanel, self).add_widget(widget)

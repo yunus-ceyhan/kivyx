@@ -138,6 +138,7 @@ Builder.load_string("""
         halign: "left"
         valign: "middle"
         font_size: "17sp"
+        font_name: root.font_name
         text_color: root.text_color
 
 """)
@@ -147,6 +148,7 @@ class XDotItem(RectangularBehavior,BoxLayout):
     text = StringProperty()
     icon_color = ColorProperty()
     text_color = ColorProperty()
+    font_name = StringProperty("Roboto")
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text_color = self.txt_color
@@ -162,6 +164,7 @@ class XDotMenu(Theming,ButtonBehavior,XFloatLayout):
     expandable = BooleanProperty(False)
     box_width = NumericProperty(dp(200))
     status = StringProperty('closed')
+    font_name = StringProperty("Roboto")
 
     def __init__(self, **kwargs):
         self.register_event_type('on_anim_stop')
@@ -179,6 +182,7 @@ class XDotMenu(Theming,ButtonBehavior,XFloatLayout):
     def add_widget(self,widget,*args):
         if isinstance(widget, XDotItem):
             self.ids.bx.add_widget(widget)
+            widget.font_name = self.font_name
         else:
             super(XDotMenu, self).add_widget(widget)
 

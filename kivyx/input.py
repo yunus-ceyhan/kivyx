@@ -73,6 +73,7 @@ Builder.load_string("""
                 use_handles: False
                 hint_text: root.title if not self.focus else ""
                 font_size: root.font_size
+                font_name: root.font_name
             XIconButton:
                 icon: root.icon
                 height: box.height
@@ -93,6 +94,7 @@ Builder.load_string("""
                 valign: "bottom"
                 font_size: root.helper_font_size
                 color: root.helper_color
+                font_name: root.font_name
         
     XLabel:
         text: root.title
@@ -102,6 +104,7 @@ Builder.load_string("""
         aligned: True
         halign: "left"
         font_size: "12sp"
+        font_name: root.font_name
         opacity: 1 if input.focus else 0 if not input.text else 1
         color: root.title_color if not input.focus else root._line_color
         pos: [input.pos[0] + dp(16),((input.pos[1] + box.height) - (self.font_size/1.5))\
@@ -149,6 +152,7 @@ class XInput(Theming,XFloatLayout):
     title = StringProperty("Label")
     focus = BooleanProperty()
     state = NumericProperty(1)
+    font_name = StringProperty("Roboto")
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

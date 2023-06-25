@@ -65,6 +65,7 @@ Builder.load_string("""
         pos_hint: {"center_x": .5 , "center_y": .5}
         text_color: root.text_color
         font_size: root.font_size
+        font_name: root.font_name
 
 
 """)
@@ -76,6 +77,7 @@ class BotnavIcon(Theming,ButtonBehavior, BoxLayout):
     text_color = ColorProperty([0,0,0,1])
     icon_color = ColorProperty()
     font_size = NumericProperty("13sp")
+    font_name = StringProperty("Roboto")
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text_color = self.txt_color
@@ -96,6 +98,7 @@ class XBotnav(Theming,XBoxLayout):
     active_text_color = ColorProperty([0,0,0,0])
     bar_color = ColorProperty([0,0,0,0])
     current_tab = StringProperty()
+    font_name = StringProperty("Roboto")
     def __init__(self, **kwargs):
         super(XBotnav, self).__init__(**kwargs)
         self.bar_color = self.card_color
@@ -117,6 +120,7 @@ class XBotnav(Theming,XBoxLayout):
             button.bind(on_press = lambda x:self.dispatch('on_tab_press'))
             button.bind(on_release = lambda x:self.dispatch('on_tab_release'))
             self.ids.bt.add_widget(button)
+            button.font_name = self.font_name
             self.ids.sm.add_widget(widget)
             self.lenght = len(self.ids.sm.screens)
         else:
