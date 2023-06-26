@@ -8,23 +8,6 @@ from kivy.clock import Clock
 Builder.load_string("""
 <XCard>:
     canvas.before:
-        Color:
-            rgba: 0, 0, 0, root.elevation
-        BoxShadow:
-            pos: self.pos
-            size: self.size
-            offset: root.shadow_x, root.shadow_y
-            spread_radius: root.shadow_distance_x, root.shadow_distance_y
-            border_radius: root.shadow_radius
-            blur_radius: root.shadow_blur
-        Color:
-            rgba: root.bg_color
-        RoundedRectangle:
-            size: self.size
-            pos: self.pos
-            radius: root.radius
-        Color:
-            rgba: root.line_color if root.outline else root.trans_color
         Line:
             width: root.outline_width
             rounded_rectangle: (self.x- dp(0.5), self.y- dp(0.5), self.width+dp(1), self.height + dp(1),root.radius[0])
