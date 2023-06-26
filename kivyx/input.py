@@ -51,7 +51,7 @@ Builder.load_string("""
             bg_color: root.back_color
             canvas.before:
                 Color:
-                    rgba: root.line_color
+                    rgba: root._line_color
                 Line:
                     width: dp(0.6)
                     rounded_rectangle: (self.x, self.y, self.width, self.height,dp(4))
@@ -73,6 +73,7 @@ Builder.load_string("""
                 use_handles: False
                 hint_text: root.title if not self.focus else ""
                 font_size: root.font_size
+                font_name: root.font_name
             XIconButton:
                 icon: root.icon
                 height: box.height
@@ -93,6 +94,7 @@ Builder.load_string("""
                 valign: "bottom"
                 font_size: root.helper_font_size
                 color: root.helper_color
+                font_name: root.font_name
         
     XLabel:
         text: root.title
@@ -102,8 +104,9 @@ Builder.load_string("""
         aligned: True
         halign: "left"
         font_size: "12sp"
+        font_name: root.font_name
         opacity: 1 if input.focus else 0 if not input.text else 1
-        color: root.title_color if not input.focus else root.line_color
+        color: root.title_color if not input.focus else root._line_color
         pos: [input.pos[0] + dp(16),((input.pos[1] + box.height) - (self.font_size/1.5))\
             if input.focus else ((input.pos[1] + box.height/2) - (self.height/2))\
                     if not input.text else ((input.pos[1] + box.height) - (self.font_size/1.5))]\
@@ -134,7 +137,9 @@ class XCodeInput(CodeInput):
 
 class XInput(Theming,XFloatLayout):
     back_color = ColorProperty()
-    line_color = ColorProperty()
+    _line_color = ColorProperty()
+    line_color = ColorProperty((.5,.5,.5,1))
+    focus_line_color = ColorProperty()
     title_color = ColorProperty()
     text_color = ColorProperty()
     icon_color = ColorProperty()
@@ -147,16 +152,19 @@ class XInput(Theming,XFloatLayout):
     title = StringProperty("Label")
     focus = BooleanProperty()
     state = NumericProperty(1)
+    font_name = StringProperty("Roboto")
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.back_color = self.bgr_color
         self.icon_color = self.txt_medium
         self.helper_color = self.txt_medium
-        self.line_color = self.txt_light
+        self._line_color = self.line_color
         self.title_color = self.txt_medium
         self.text_color = self.txt_color
+        self.focus_line_color = self.colors("blue")
         Window.bind(on_flip=self.color_line)
+        
         self.register_event_type('on_text_validate')
         self.register_event_type('on_text')
         self.register_event_type('on_icon_press')
@@ -164,12 +172,12 @@ class XInput(Theming,XFloatLayout):
 
     def color_line(self,*args):
         if self.ids.input.focus == False and self.state == 0:
-            self.line_color = self.txt_light
+            self._line_color = self.line_color
             self.state = 1
 
 
         elif self.ids.input.focus == True and self.state == 1:
-            self.line_color = self.colors("blue")
+            self._line_color = self.focus_line_color
             self.state = 0
 
 

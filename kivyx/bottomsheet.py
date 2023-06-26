@@ -44,7 +44,7 @@ Builder.load_string("""
     id: bs
     size_hint: 1,1
     pos_hint: root.main_pos
-    on_press: root.close()
+    on_press: root.close() if not root.permanent else None
     BoxLayout:
         orientation: "vertical"
         pos_hint: bs.pos_hint
@@ -52,11 +52,11 @@ Builder.load_string("""
             id: scr
             size_hint_y: None
             height: root.scroll_height
-            radius: [dp(16), dp(16),0,0]
+            radius: [root.top_radius, root.top_radius,0,0]
             bg_color: root.back_color
             top: True
             elevation: 0.3
-            padding: [0,dp(16),0,dp(16)]
+            padding: [0,root.vertical_padding,0,root.vertical_padding]
             ScrollView:
                 id: sc
                 bar_width: 0
@@ -84,6 +84,10 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
     expandable = BooleanProperty(False)
     status = StringProperty('closed')
     back_color = ColorProperty()
+    permanent = BooleanProperty(False)
+    back_opacity = ColorProperty((0,0,0,0.5))
+    top_radius = NumericProperty(dp(16))
+    vertical_padding = NumericProperty(dp(16))
 
     def __init__(self, **kwargs):
         self.register_event_type('on_anim_stop')
@@ -98,6 +102,7 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
                 self.close()
 
     def add_widget(self,widget,*args):
+        print(widget)
         if isinstance(widget, XBottomSheetContent):
             self.ids.bx.add_widget(widget)
         else:
@@ -108,7 +113,7 @@ class XBottomSheet(Theming,ButtonBehavior,XFloatLayout):
             self.dispatch("on_anim_start")
             self.main_pos = {"center_x": .5, "center_y": .5}
             box_height =  self.ids.bx.height + dp(32) if self.expandable else min(dp(134),self.ids.bx.height + dp(32)) 
-            anim = Animation(scroll_height = box_height,bg_color = [0,0,0,.5], duration = 0.1)
+            anim = Animation(scroll_height = box_height,bg_color = self.back_opacity, duration = 0.1)
             anim.start(self)
             anim.bind(on_complete = lambda *args: self.dispatch("on_anim_stop"))
             self.status = 'opened'

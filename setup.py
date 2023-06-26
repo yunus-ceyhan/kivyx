@@ -21,7 +21,7 @@ setup(
         ]
     },
     include_package_data=True,
-    version='0.0.2',
+    version='0.0.4',
     description='An UI library for personal projects',
     long_description=long_description,
     long_description_content_type='text/markdown',

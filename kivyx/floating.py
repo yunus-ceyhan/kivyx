@@ -53,6 +53,7 @@ Builder.load_string("""
         aligned: False 
         text: root.text
         color: root.icon_color
+        font_name: root.font_name
 
 <XFab>:
     size_hint: None, None
@@ -69,6 +70,7 @@ Builder.load_string("""
         on_release: root.dispatch('on_release',*args)
         bg_color: root.button_bg_color
         elevation: root.elevation
+        font_name: root.font_name
 
 <XFabBase>:
     size_hint: None,None
@@ -136,13 +138,15 @@ class XFabTextBase(RectangularBehavior,XCard):
     icon =  StringProperty()
     text =  StringProperty()
     icon_color = ColorProperty()
+    font_name = StringProperty("Roboto")
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.ripple_radius = [dp(16),]
         self.icon_color = self.txt_color
         self.shadow_y = - dp(5)
-        self.shadow_distance = - dp(4)
+        self.shadow_distance_x = - dp(4)
+        self.shadow_distance_y = - dp(4)
         self.shadow_blur = dp(17)
         
         Clock.schedule_once(self.set_width)
@@ -163,6 +167,7 @@ class XFab(Theming, XBoxLayout):
     button_bg_color = ColorProperty()
     elevation = NumericProperty(0.2)
     status = StringProperty()
+    font_name = StringProperty("Roboto")
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.icon_color = self.txt_color

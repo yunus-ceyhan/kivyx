@@ -59,7 +59,8 @@ Builder.load_string("""
         opacity: root.opacity
         spacing: dp(24)
         elevation: 0.3
-        shadow_distance:  - dp(2)
+        shadow_distance_x:  - dp(2)
+        shadow_distance_y:  - dp(2)
         shadow_blur: dp(20)
         XLabel:
             id: title
@@ -67,6 +68,7 @@ Builder.load_string("""
             font_size: "20sp"
             aligned: True
             halign: "left"
+            font_name: root.font_name
 
         ScrollView:
             id: sc
@@ -114,6 +116,7 @@ class XDialog(Theming,ButtonBehavior,XFloatLayout):
     color = ColorProperty()
     status = StringProperty('closed')
     auto_dismiss = BooleanProperty(True)
+    font_name = StringProperty("Roboto")
 
     def __init__(self, **kwargs):
         self.register_event_type('on_anim_stop')

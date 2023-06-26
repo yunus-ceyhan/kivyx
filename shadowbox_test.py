@@ -16,8 +16,6 @@ Builder.load_string("""
         padding: [dp(20),dp(20),dp(20),dp(20)]
         orientation: "vertical"
         bg_color: root.bgr_color
-        XToolbar:
-            elevation: .5
         FloatLayout:
             id: parent
             size_hint: None, None

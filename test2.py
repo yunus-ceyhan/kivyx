@@ -125,7 +125,8 @@ Builder.load_string("""
                 pos_hint: {"center_x": .5}
                 offs_x: dp(int(float(offset_x.text))) if offset_x.text and offset_x.text != "-" else 0
                 offs_y: dp(int(float(offset_y.text))) if offset_y.text and offset_y.text != "-" else 0
-                sp_rd: dp(int(float(spread_radius.text))) if spread_radius.text and spread_radius.text != "-" else 0
+                sp_rd_x: dp(int(float(spread_radius_x.text))) if spread_radius_x.text and spread_radius_x.text != "-" else 0
+                sp_rd_y: dp(int(float(spread_radius_y.text))) if spread_radius_y.text and spread_radius_y.text != "-" else 0
                 bl_rd: dp(int(float(blur_radius.text))) if blur_radius.text and blur_radius.text != "-" else 0
                 alp:alpha.value
                 clr: "#"+color.text
@@ -139,7 +140,7 @@ Builder.load_string("""
                         pos: self.pos
                         size: self.size
                         offset: self.offs_x, self.offs_y
-                        spread_radius: self.sp_rd
+                        spread_radius: self.sp_rd_x, self.sp_rd_y
                         border_radius: [self.shw_rad,self.shw_rad,self.shw_rad,self.shw_rad] if self.shw_rad else [0,0,0,0]
                         blur_radius: self.bl_rd
                 canvas.after:
@@ -194,20 +195,41 @@ Builder.load_string("""
                 
         BoxLayout:
             Label:
-                text: "spread_radius"
+                text: "spread_radius_x"
                 color: 0,0,0,1
                 size_hint: None,None
                 size: dp(100), dp(30)
             Slider:
-                id: spread
+                id: spread_x
                 max: 100
                 min: - 100
                 value: 0
                 size_hint_y: None
                 height: dp(30)
             TextInput:
-                id: spread_radius
-                text: str(spread.value)[:3]
+                id: spread_radius_x
+                text: str(spread_x.value)[:3]
+                color: 0,0,0,1
+                size_hint: None, None
+                size: dp(50), dp(30)
+                multiline: False
+                
+        BoxLayout:
+            Label:
+                text: "spread_radius_y"
+                color: 0,0,0,1
+                size_hint: None,None
+                size: dp(100), dp(30)
+            Slider:
+                id: spread_y
+                max: 100
+                min: - 100
+                value: 0
+                size_hint_y: None
+                height: dp(30)
+            TextInput:
+                id: spread_radius_y
+                text: str(spread_y.value)[:3]
                 color: 0,0,0,1
                 size_hint: None, None
                 size: dp(50), dp(30)
@@ -264,7 +286,8 @@ class MainApp(Theming,XScreen):
     text = StringProperty("test title")
     offset_x = NumericProperty(0)
     offset_y = NumericProperty(0)
-    spread_radius = NumericProperty(0)
+    spread_radius_x = NumericProperty(0)
+    spread_radius_y = NumericProperty(0)
     blur_radius = NumericProperty(0)
     def __init__(self, **kw):
         super().__init__(**kw)

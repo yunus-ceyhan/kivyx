@@ -3,12 +3,20 @@ from kivy.properties import ListProperty, NumericProperty, ColorProperty, Boolea
 from kivy.lang import Builder
 from kivyx.theming import Theming
 from kivy.metrics import dp
+from kivy.clock import Clock
 from kivy.graphics import Color, RoundedRectangle, Line
 
 class XCard(Theming,BoxLayout):
     radius = ListProperty((0, 0, 0, 0))
     shadow_color = ListProperty((0, 0, 0, 0.0))
     shadow_blur = NumericProperty(10)
+    bg_color = ColorProperty()
+    radius = ListProperty([0,0,0,0])
+    shadow_radius = ListProperty([0,0,0,0])
+    elevation = NumericProperty(0.16)
+    shadow_distance_x = NumericProperty( - dp(5))
+    shadow_distance_y = NumericProperty( - dp(5))
+    shadow_blur = NumericProperty(dp(10))
     shadow_x = NumericProperty(0)
     shadow_y = NumericProperty(-2)
     bg_color = ListProperty((0, 0, 0, 0))

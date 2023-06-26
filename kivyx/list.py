@@ -17,7 +17,7 @@ Builder.load_string("""
         halign: "left"
         valign: "middle"
         font_size: root.font_size
-        front_name: root.font_name
+        font_name: root.font_name
         text_color: root.text_color
         
 <XIconListItem>:
@@ -41,7 +41,7 @@ Builder.load_string("""
         halign: "left"
         valign: "middle"
         font_size: root.font_size
-        front_name: root.font_name
+        font_name: root.font_name
         text_color: root.text_color
         size_hint_y: None
         height: dp(48)
@@ -66,8 +66,8 @@ Builder.load_string("""
         halign: "left"
         valign: "middle"
         font_size: root.font_size
-        front_name: root.font_name
-        text_color: root.text_color,
+        font_name: root.font_name
+        text_color: root.text_color
         
 <XImageTwoLineListItem>:
     size_hint_y: None
@@ -114,7 +114,7 @@ Builder.load_string("""
         on_press: root.dispatch('on_press', *args)
         on_release: root.dispatch('on_release', *args)
         font_size: root.font_size
-        front_name: root.font_name
+        font_name: root.font_name
         bg_color: [0,0,0,0]
         elevation: 0
     XIconButton:
@@ -232,7 +232,7 @@ class XIconListItem(RectangularBehavior,XCard):
         self.text_color = self.txt_color
         self.icon_color = self.txt_color
         
-class XImageListItem(RectangularBehavior,BoxLayout):
+class XImageListItem(RectangularBehavior,XCard):
     source = StringProperty()
     text = StringProperty()
     icon_color = ColorProperty()

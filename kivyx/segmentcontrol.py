@@ -71,7 +71,8 @@ Builder.load_string("""
         pos: root.current_button.pos if root.current_button != None else [self.pos[0], xsc.pos[1] + (xsc.height -self.height)/2 ]
         bg_color: root.item_color
         elevation: 0.3
-        shadow_distance: - dp(1)
+        shadow_distance_x: - dp(1)
+        shadow_distance_y: - dp(1)
         shadow_y: 0
         shadow_blur: dp(4)
 
@@ -100,6 +101,7 @@ Builder.load_string("""
         pos_hint: {"center_x": .5, "center_y":.5}
         color: root.text_color
         font_size: root.font_size
+        font_name: root.font_name
     XLabel:
         id: l2
         size_hint: None, None
@@ -111,6 +113,7 @@ Builder.load_string("""
         text_size: None,None
         pos_hint: {"center_x": .5, "center_y":.5}
         font_size: "10sp"
+        font_name: root.font_name
         bold: True
         color: root.bubble_text_color
         canvas.before:
@@ -148,11 +151,13 @@ class XSegmentTextItem(RectangularBehavior,XBoxLayout):
     text = StringProperty()
     text_color = ColorProperty()
     font_size = NumericProperty("16sp")
+    font_name = StringProperty("Roboto")
     bubble_text = StringProperty()
     bubble_color = ColorProperty([0,0,0,0])
     bubble_line_color = ColorProperty([0,0,0,0])
     bubble_text_color = ColorProperty([0,0,0,0])
     bubble_radius = ListProperty((dp(10),))
+    
     def __init__(self, **kwargs):
         super(XSegmentTextItem, self).__init__(**kwargs)
         self.text_color = self.txt_color
@@ -177,6 +182,7 @@ class XSegmentControl(XFloatLayout, Theming):
     style = OptionProperty('m2', options = ['m2','m3'])
     item_color = ColorProperty()
     current_button = ObjectProperty()
+    font_name = StringProperty("Roboto")
 
     def __init__(self, **kwargs):
         super(XSegmentControl, self).__init__(**kwargs)
@@ -245,6 +251,7 @@ class XSegmentControl(XFloatLayout, Theming):
             button.bind(on_release=lambda x: self.dispatch(
                 'on_tab_release', button))
             self.ids.s.add_widget(button)
+            button.font_name = self.font_name if isinstance(button, XSegmentTextItem) else "Roboto"
             self.ids.fake.add_widget(Widget())
             self.ids.fake.add_widget(XLiney(size_hint_y=None, height=dp(20), pos_hint={"center_y": .5}, width=dp(1.5), opacity=.5))
             self.ids.s.add_widget(XLiney(size_hint_y=None, height=dp(20), pos_hint={"center_y": .5}, width=dp(1.5), opacity=0))

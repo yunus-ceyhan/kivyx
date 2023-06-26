@@ -81,7 +81,7 @@ class XSegmentTab(Theming,XBoxLayout):
     item_width = NumericProperty()
     tab_style = StringProperty('m2')
     tab_radius = NumericProperty(0)
-    tab_color = ColorProperty()
+    tab_color = ColorProperty([0,0,0,0])
     bar_color = ColorProperty()
     item_mode = StringProperty("text")
     elevation = NumericProperty(0.05)
@@ -97,7 +97,6 @@ class XSegmentTab(Theming,XBoxLayout):
 
     def __init__(self, **kwargs):
         super(XSegmentTab,self).__init__(**kwargs)
-        self.tab_color =  self.card_color
         self.bar_color = self.bgr_color
         self.item_color = self.card_color
         self.text_color = self.txt_color

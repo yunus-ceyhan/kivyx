@@ -22,6 +22,8 @@ register("XSearchbar", module="kivyx.toolbar")
 register("XAppToolbar", module="kivyx.toolbar")
 register("XAppSearchbar", module="kivyx.toolbar")
 
+register("xalert", module="kivyx.alert")
+
 register("XWidget", module="kivyx.widget")
 register("XBotnavItem", module="kivyx.botnav")
 register("XBotnav", module="kivyx.botnav")
@@ -34,6 +36,8 @@ register("XFab", module="kivyx.floating")
 register("XActionFab", module="kivyx.floating")
 
 register("XSwitch", module="kivyx.selection")
+register("XSelection", module="kivyx.selection")
+register("XSelectionItem", module="kivyx.selection")
 
 register("XShadow", module="kivyx.shadow")
 
@@ -65,6 +69,7 @@ register("XDialogButton", module="kivyx.dialog")
 register("XSlider", module="kivyx.slider")
 register("XProgress", module="kivyx.progress")
 register("XRoundProgress", module="kivyx.progress")
+register("XPercentProgress", module="kivyx.progress")
 
 register("XRcBoxList", module="kivyx.rclist")
 register("XRcGridList", module="kivyx.rclist")

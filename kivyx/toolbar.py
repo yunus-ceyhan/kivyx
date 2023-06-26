@@ -11,9 +11,10 @@ Builder.load_string("""
 <XToolbar>:
     size_hint_y: None
     height: sp(64)
-    elevation: 0.15
-    shadow_y: dp(1) if root.top else -dp(1)
-    shadow_distance: -dp(4)
+    elevation: 0.16
+    shadow_y: dp(2) if root.top else - dp(1)
+    shadow_distance_x: - dp(4)
+    shadow_distance_y: - dp(4)
     shadow_blur: dp(10)
     
 <XAppSearchbar>:
@@ -30,6 +31,7 @@ Builder.load_string("""
             icon: root.left_icon
             on_press: root.dispatch('on_left_icon_press', *args)
             on_release: root.dispatch('on_left_icon_release', *args)
+            icon_color: root.icon_color
 
         CLabel:
             text: root.text
@@ -48,8 +50,10 @@ Builder.load_string("""
             on_release: root.dispatch('on_middle_icon_release', *args)
             disabled: False if self.icon else True
             opacity: 1 if self.icon else 0
+            icon_color: root.icon_color
         XIconButton:
             icon: root.right_icon
+            icon_color: root.icon_color
             on_press: root.dispatch('on_right_icon_press', *args)
             on_release: root.dispatch('on_right_icon_release', *args)
 
@@ -59,6 +63,7 @@ Builder.load_string("""
     text: input.text
     XIconButton:
         icon: root.left_icon
+        icon_color: root.icon_color
         on_press: root.dispatch('on_left_icon_press', *args)
         on_release: root.dispatch('on_left_icon_release', *args)
 
@@ -85,6 +90,7 @@ Builder.load_string("""
 
     XIconButton:
         icon: root.right_icon
+        icon_color: root.icon_color
         on_press: root.dispatch('on_right_icon_press', *args)
         on_release: root.dispatch('on_right_icon_release', *args)
 
@@ -93,6 +99,7 @@ Builder.load_string("""
     XIconButton:
         icon: root.left_icon
         width: dp(48) if root.left_icon else dp(16)
+        icon_color: root.icon_color
         on_press: root.dispatch('on_left_icon_press', *args)
         on_release: root.dispatch('on_left_icon_release', *args)
     Widget:
@@ -108,6 +115,7 @@ Builder.load_string("""
         opacity: .9
         aligned: True 
         halign: root.halign
+        shorten: True
         shorten_from: "right"
         font_name: root.font_name
         text_color: root.title_color
@@ -119,9 +127,11 @@ Builder.load_string("""
         disabled: False if self.icon else True
         opacity: 1 if self.icon else 0
         width: dp(48) if self.icon else 0
+        icon_color: root.icon_color
 
     XIconButton:
         icon: root.right_icon
+        icon_color: root.icon_color
         on_press: root.dispatch('on_right_icon_press', *args)
         on_release: root.dispatch('on_right_icon_release', *args)
         
@@ -146,11 +156,13 @@ class XAppToolbar(XToolbar):
     left_icon = StringProperty()
     font_name = StringProperty("Roboto")
     title_color = ColorProperty()
+    icon_color = ColorProperty()
     halign = OptionProperty("center", options = ["left","right","center"])
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title_color = self.txt_color
+        self.icon_color = self.txt_color
         self.register_event_type('on_left_icon_press')
         self.register_event_type('on_left_icon_release')
         self.register_event_type('on_right_icon_press')
@@ -184,10 +196,12 @@ class XAppSearchbar(XToolbar):
     left_icon = StringProperty()
     font_name = StringProperty("Roboto")
     bar_color = ColorProperty()
+    icon_color = ColorProperty()
     style = OptionProperty("m2", options = ["m2","m3"])
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.bar_color = self.bgr_color
+        self.icon_color = self.txt_color
         self.register_event_type('on_bar_press')
         self.register_event_type('on_bar_release')
         self.register_event_type('on_left_icon_press')
@@ -227,9 +241,11 @@ class XSearchbar(XToolbar):
     focus = BooleanProperty(False)
     right_icon = StringProperty("")
     left_icon = StringProperty("chevron-left")
+    icon_color = ColorProperty()
     state = NumericProperty(1)
     def __init__(self, **kwargs):
         super(XSearchbar, self).__init__(**kwargs)
+        self.icon_color = self.txt_color
         self.register_event_type('on_text_validate')
         self.register_event_type('on_text')
         self.register_event_type('on_left_icon_press')

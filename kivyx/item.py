@@ -42,7 +42,8 @@ Builder.load_string("""
     spacing: dp(12)
     padding: [0,0,dp(16) if root.add_selection else 0 if root.right_icon else dp(8),0]
     elevation: 0.16
-    shadow_distance: - dp(5)
+    shadow_distance_x: - dp(5)
+    shadow_distance_y: - dp(5)
     shadow_blur: dp(10)
     shadow_y:  - dp(2)
 """)
@@ -82,6 +83,7 @@ class XItem(XCard):
     right_text_color = ColorProperty()
     right_font_name = StringProperty("Roboto")
     right_font_size = NumericProperty("12sp")
+    right_text_bold = BooleanProperty(False)
     
     badge_icon = StringProperty()
     badge_icon_color = ColorProperty()
@@ -93,8 +95,7 @@ class XItem(XCard):
     selection_active_color = ColorProperty()
     selection_opacity = NumericProperty(1)
     ripple_effect = BooleanProperty(False)
-    
-    
+
     def __init__(self, **kwargs):
         super(XItem, self).__init__(**kwargs)
         self.text_color = self.txt_color
@@ -195,6 +196,7 @@ class XItem(XCard):
             text_color = self.right_text_color,
             font_name = self.right_font_name,
             font_size = self.right_font_size,
+            bold = self.right_text_bold,
             aligned = True,
             halign = "right",
             valign = "middle",

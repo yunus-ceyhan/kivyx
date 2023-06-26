@@ -13,7 +13,7 @@ Builder.load_string("""
             pos: self.pos
             size: self.size
             offset: 0, - dp(1)
-            spread_radius: - dp(4)
+            spread_radius: - dp(4), - dp(4)
             border_radius: [0,0,0,0]
             blur_radius: dp(10)
 """)
